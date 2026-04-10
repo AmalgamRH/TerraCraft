@@ -51,19 +51,6 @@
       "Outputs": [
         { "ItemId": "GravediggerShovel", "Amount": 1 }
       ]
-    },
-    {
-      "Id": "candle",
-      "Shaped": false,
-      "RequiredTiles": [ "WorkBenches" ],
-      "Ingredients": [
-        {"ItemId": "Gel", "Amount": 1 },
-        {"ItemId": "Wood", "Amount": 1 }
-      ],
-      "Outputs": [
-        { "ItemId": "Candle", "Amount": 1 }
-      ],
-      "Replacements": []
     }
   ]
 }

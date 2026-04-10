@@ -314,6 +314,7 @@ namespace TerraCraft.Core.Systems.GridCrafting
                 }
             }
 
+            if (usedSlots.Count != available.Count) return null;
 
             var replacements = new List<ReplacementAction>();
             foreach (var rep in recipe.Replacements)

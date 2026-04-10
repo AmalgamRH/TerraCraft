@@ -10,26 +10,35 @@ namespace TerraCraft.Core.Systems.GridCrafting
     {
         private GridCraftingUIRegister UIRegister => ModContent.GetInstance<GridCraftingUIRegister>();
 
-        private readonly List<int> EnableGridCraftingTiles = [TileID.WorkBenches, TileID.Anvils, TileID.HeavyWorkBench, TileID.MythrilAnvil];
-        private readonly List<int> EnableGridCraftingItems = [ItemID.WorkBench, ItemID.IronAnvil, ItemID.HeavyWorkBench, ItemID.MythrilAnvil];
+        // 使用元组列表，Tile 与 Item 成对出现，易于维护
+        private static readonly List<(int TileType, int ItemType)> GridCraftingPairs = new()
+        {
+            (TileID.WorkBenches, ItemID.WorkBench),
+            (TileID.Anvils, ItemID.IronAnvil),
+            (TileID.HeavyWorkBench, ItemID.HeavyWorkBench),
+            (TileID.MythrilAnvil, ItemID.MythrilAnvil)
+        };
+
         public override void MouseOver(int i, int j, int type)
         {
-            int index = EnableGridCraftingTiles.IndexOf(type);
-            if (index != -1)
+            var pair = GridCraftingPairs.Find(p => p.TileType == type);
+            if (pair != default)
             {
                 Player player = Main.LocalPlayer;
                 player.cursorItemIconEnabled = true;
-                player.cursorItemIconID = index < EnableGridCraftingItems.Count ? EnableGridCraftingItems[index] : ItemID.WorkBench;
+                player.cursorItemIconID = pair.ItemType;
                 player.mouseInterface = true;
             }
         }
 
         public override void RightClick(int i, int j, int type)
         {
-            if (EnableGridCraftingTiles.Contains(type))
+            var pair = GridCraftingPairs.Find(p => p.TileType == type);
+            if (pair != default)
             {
                 Main.playerInventory = true;
-                UIRegister.OpenGridCraftingUI(type);
+                // 传入 Tile ID 和对应的物品 ID（用于 UI 图标显示等）
+                UIRegister.OpenGridCraftingUI(pair.TileType, pair.ItemType);
             }
         }
     }

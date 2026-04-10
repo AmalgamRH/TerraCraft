@@ -111,6 +111,28 @@
             }
         },
         {
+            "Id": "hammer_template_group",
+            "MaterialSource": "all_normal_bars",
+            "Template": {
+                "Id": "{Material}_hammer",
+                "Shaped": true,
+                "RequiredTiles": ["Anvils"],
+                "Pattern": [
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","TerraCraft:WoodenStick","{Bar}"],
+                    ["","TerraCraft:WoodenStick",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{HammerId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "HammerId": "HammerId"
+            }
+        },
+        {
             "Id": "helmet_template_group",
             "MaterialSource": "all_normal_bars",
             "Template": {
@@ -188,7 +210,8 @@
                     "Name": "Copper",
                     "ChestplateId": "CopperChainmail",
                     "SwordId": "CopperBroadsword",
-                    "HelmetId": "CopperHelmet"
+                    "HelmetId": "CopperHelmet",
+                    "HammerId": "CopperHammer"
                 },
                 {
                     "AxeId": "TinAxe",
@@ -200,7 +223,8 @@
                     "Name": "Tin",
                     "ChestplateId": "TinChainmail",
                     "SwordId": "TinBroadsword",
-                    "HelmetId": "TinHelmet"
+                    "HelmetId": "TinHelmet",
+                    "HammerId": "TinHammer"
                 },
                 {
                     "AxeId": "IronAxe",
@@ -212,7 +236,8 @@
                     "Name": "Iron",
                     "ChestplateId": "IronChainmail",
                     "SwordId": "IronBroadsword",
-                    "HelmetId": "IronHelmet"
+                    "HelmetId": "IronHelmet",
+                    "HammerId": "IronHammer"
                 },
                 {
                     "AxeId": "LeadAxe",
@@ -224,7 +249,8 @@
                     "Name": "Lead",
                     "ChestplateId": "LeadChainmail",
                     "SwordId": "LeadBroadsword",
-                    "HelmetId": "LeadHelmet"
+                    "HelmetId": "LeadHelmet",
+                    "HammerId": "LeadHammer"
                 },
                 {
                     "AxeId": "SilverAxe",
@@ -236,7 +262,8 @@
                     "Name": "Silver",
                     "ChestplateId": "SilverChainmail",
                     "SwordId": "SilverBroadsword",
-                    "HelmetId": "SilverHelmet"
+                    "HelmetId": "SilverHelmet",
+                    "HammerId": "SilverHammer"
                 },
                 {
                     "AxeId": "TungstenAxe",
@@ -248,7 +275,8 @@
                     "Name": "Tungsten",
                     "ChestplateId": "TungstenChainmail",
                     "SwordId": "TungstenBroadsword",
-                    "HelmetId": "TungstenHelmet"
+                    "HelmetId": "TungstenHelmet",
+                    "HammerId": "TungstenHammer"
                 },
                 {
                     "AxeId": "GoldAxe",
@@ -260,7 +288,8 @@
                     "Name": "Gold",
                     "ChestplateId": "GoldChainmail",
                     "SwordId": "GoldBroadsword",
-                    "HelmetId": "GoldHelmet"
+                    "HelmetId": "GoldHelmet",
+                    "HammerId": "GoldHammer"
                 },
                 {
                     "AxeId": "PlatinumAxe",
@@ -272,7 +301,8 @@
                     "Name": "Platinum",
                     "ChestplateId": "PlatinumChainmail",
                     "SwordId": "PlatinumBroadsword",
-                    "HelmetId": "PlatinumHelmet"
+                    "HelmetId": "PlatinumHelmet",
+                    "HammerId": "PlatinumHammer"
                 },
                 {
                     "AxeId": "WarAxeoftheNight",
@@ -284,7 +314,8 @@
                     "Name": "Demonite",
                     "ChestplateId": "",
                     "SwordId": "LightsBane",
-                    "HelmetId": ""
+                    "HelmetId": "",
+                    "HammerId": ""
                 },
                 {
                     "AxeId": "BloodLustCluster",
@@ -296,10 +327,11 @@
                     "Name": "Crimtane",
                     "ChestplateId": "",
                     "SwordId": "BloodButcherer",
-                    "HelmetId": ""
+                    "HelmetId": "",
+                    "HammerId": ""
                 },
                 {
-                    "AxeId": "MoltenHamaxe",
+                    "AxeId": "",
                     "BowId": "MoltenFury",
                     "ShortswordId": "",
                     "PickaxeId": "MoltenPickaxe",
@@ -308,7 +340,8 @@
                     "Name": "Hellstone",
                     "ChestplateId": "MoltenBreastplate",
                     "SwordId": "FieryGreatsword",
-                    "HelmetId": "MoltenHelmet"
+                    "HelmetId": "MoltenHelmet",
+                    "HammerId": "MoltenHamaxe"
                 }
             ],
             "Description": "all_normal_bars",

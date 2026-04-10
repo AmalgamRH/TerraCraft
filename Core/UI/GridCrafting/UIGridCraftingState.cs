@@ -11,17 +11,18 @@ namespace TerraCraft.Core.UI.GridCrafting
     internal class UIGridCraftingState : UIState
     {
         private UIGridCraftingPanel panel;
-        public UIGridCraftingState(int tileId)
+        public UIGridCraftingState(int tileId, int itemiconid)
         {
             TileId = tileId;
+            ItemIconId = itemiconid;
         }
         public int TileId { get; private set; }
-
+        public int ItemIconId { get; private set; }
         public override void OnInitialize()
         {
             panel = new UIGridCraftingPanel();
             panel.SetPos(150f, 270f);
-            panel.InitializeGrid(TileId);
+            panel.InitializeGrid(TileId, ItemIconId);
             Append(panel);
         }
 

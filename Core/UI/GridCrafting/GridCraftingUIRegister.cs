@@ -13,12 +13,12 @@ namespace TerraCraft.Core.UI.GridCrafting
     {
         internal UserInterface GridCraftingUI;
 
-        public void OpenGridCraftingUI(int tileId)
+        public void OpenGridCraftingUI(int tileId, int itemiconid = 0)
         {
             if (GridCraftingUI == null) return;
             if (GridCraftingUI.CurrentState == null)
             {
-                GridCraftingUI.SetState(new UIGridCraftingState(tileId));
+                GridCraftingUI.SetState(new UIGridCraftingState(tileId, itemiconid));
                 SoundEngine.PlaySound(SoundID.MenuOpen);
             }
         }

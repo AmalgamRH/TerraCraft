@@ -14,6 +14,7 @@ namespace TerraCraft
     {
         public static Mod Instance;
         public NetworkPacketHandler networkHandler;
+
         public override void Load()
         {
             Instance = this;
