@@ -1,0 +1,28 @@
+{
+  "Recipes": [
+    {
+      "Id": "string",
+      "Shaped": false,
+      "RequiredTiles": [],
+      "Ingredients": [
+        { "ItemId": "Cobweb", "Amount": 4 }
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:SpiderSilk", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "wooden_stick",
+      "Shaped": true,
+      "RequiredTiles": [],
+      "Ingredients": [
+        { "X": 0, "Y": 0, "RecipeGroup": "Wood", "Amount": 1 },
+        { "X": 0, "Y": 1, "RecipeGroup": "Wood", "Amount": 1 }
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:WoodenStick", "Amount": 1 }
+      ],
+      "Replacements": []
+    }
+  ]
+}

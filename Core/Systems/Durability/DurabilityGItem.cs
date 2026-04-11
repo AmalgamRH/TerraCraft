@@ -58,29 +58,34 @@ namespace TerraCraft.Core.Systems.Durability
             if (shouldUse)
             {
                 spriteBatch.End();
-                spriteBatch.Begin(0, spriteBatch.GraphicsDevice.BlendState, spriteBatch.GraphicsDevice.SamplerStates[0], spriteBatch.GraphicsDevice.DepthStencilState, spriteBatch.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+                spriteBatch.Begin(0, spriteBatch.GraphicsDevice.BlendState, spriteBatch.GraphicsDevice.SamplerStates[0], 
+                    spriteBatch.GraphicsDevice.DepthStencilState, spriteBatch.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
             }
 
             if (item.durability()._useDurability)
             {
-                Texture2D front = TerraCraft.GetTexture("TerraCraft/Assets/Durability/HealthBar1");
-                Texture2D middle = TerraCraft.GetTexture("TerraCraft/Assets/Durability/HealthBar3");
-                Texture2D back = TerraCraft.GetTexture("TerraCraft/Assets/Durability/HealthBar2");
-                position.Y += 14;
-                float value = Math.Clamp(_durability / (float)_maxDurability, 0f, 1f);
-                Vector2 Scale = new Vector2(0.92f, 1f) * 0.65f;
-                Vector2 Origin = new Vector2(back.Width, back.Height) / 2f;
-                Color color = ColorHelper.ConvertHSLToRGB(value / 3.0, 1.0, 0.5) * 1f;
-
-                spriteBatch.Draw(back, position, new Rectangle(0, 0, front.Width, front.Height), color
-                    , 0f, Origin, Scale, SpriteEffects.None, 0f);
-                bool should = front.Width - (int)(front.Width * value) > 2;
-                int width = Math.Max((int)(front.Width * value), 2);
-                spriteBatch.Draw(middle, position, new Rectangle(0, 0, width + (should ? 2 : 0), front.Height), color
-                   , 0f, Origin, Scale, SpriteEffects.None, 0f);
-                spriteBatch.Draw(front, position, new Rectangle(0, 0, width, front.Height), color
-                    , 0f, Origin, Scale, SpriteEffects.None, 0f);
+                DrawDurabilityBar(spriteBatch, position, origin, scale);
             }
+        }
+        internal void DrawDurabilityBar(SpriteBatch spriteBatch, Vector2 position, Vector2 origin, float scale)
+        {
+            Texture2D front = TerraCraft.GetTexture("TerraCraft/Assets/UI/Durability/DurabilityBar1");
+            Texture2D middle = TerraCraft.GetTexture("TerraCraft/Assets/UI/Durability/DurabilityBar3");
+            Texture2D back = TerraCraft.GetTexture("TerraCraft/Assets/UI/Durability/DurabilityBar2");
+            position.Y += 14;
+            float value = Math.Clamp(_durability / (float)_maxDurability, 0f, 1f);
+            Vector2 Scale = new Vector2(0.92f, 1f) * 0.65f;
+            Vector2 Origin = new Vector2(back.Width, back.Height) / 2f;
+            Color color = ColorHelper.ConvertHSLToRGB(value / 3.0, 1.0, 0.5) * 1f;
+
+            spriteBatch.Draw(back, position, new Rectangle(0, 0, front.Width, front.Height), color
+                , 0f, Origin, Scale, SpriteEffects.None, 0f);
+            bool should = front.Width - (int)(front.Width * value) > 2;
+            int width = Math.Max((int)(front.Width * value), 2);
+            spriteBatch.Draw(middle, position, new Rectangle(0, 0, width + (should ? 2 : 0), front.Height), color
+               , 0f, Origin, Scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(front, position, new Rectangle(0, 0, width, front.Height), color
+                , 0f, Origin, Scale, SpriteEffects.None, 0f);
         }
         public override void UpdateInventory(Item Item, Player player)
         {

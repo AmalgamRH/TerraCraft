@@ -1,0 +1,222 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "woodsword_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_broadsword",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}"],
+                    ["{Bar}"],
+                    ["TerraCraft:WoodenStick"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{SwordId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "SwordId": "SwordId"
+            }
+        },
+        {
+            "Id": "woodbow_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_bow",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["TerraCraft:SpiderSilk","{Bar}",""],
+                    ["TerraCraft:SpiderSilk","","{Bar}"],
+                    ["TerraCraft:SpiderSilk","{Bar}",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BowId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "BowId": "BowId"
+            }
+        },
+        {
+            "Id": "woodhammer_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_hammer",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","TerraCraft:WoodenStick","{Bar}"],
+                    ["","TerraCraft:WoodenStick",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{HammerId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "HammerId": "HammerId"
+            }
+        },
+        {
+            "Id": "woodhelmet_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_helmet",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","","{Bar}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{HelmetId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "HelmetId": "HelmetId"
+            }
+        },
+        {
+            "Id": "woodchestplate_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_chestplate",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}","","{Bar}"],
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","{Bar}","{Bar}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ChestplateId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "ChestplateId": "ChestplateId"
+            }
+        },
+        {
+            "Id": "woodleggings_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_leggings",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}","","{Bar}"],
+                    ["{Bar}","","{Bar}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{LeggingsId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "LeggingsId": "LeggingsId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Materials": [
+                {
+                    "Name": "Wood_Combat",
+                    "Bar": "Wood",
+                    "SwordId": "WoodenSword",
+                    "BowId": "WoodenBow",
+                    "HammerId": "WoodenHammer",
+                    "HelmetId": "WoodHelmet",
+                    "ChestplateId": "WoodBreastplate",
+                    "LeggingsId": "WoodGreaves"
+                },
+                {
+                    "Name": "RichMahogany_Combat",
+                    "Bar": "RichMahogany",
+                    "SwordId": "RichMahoganySword",
+                    "BowId": "RichMahoganyBow",
+                    "HammerId": "RichMahoganyHammer",
+                    "HelmetId": "RichMahoganyHelmet",
+                    "ChestplateId": "RichMahoganyBreastplate",
+                    "LeggingsId": "RichMahoganyGreaves"
+                },
+                {
+                    "Name": "Ebonwood_Combat",
+                    "Bar": "Ebonwood",
+                    "SwordId": "EbonwoodSword",
+                    "BowId": "EbonwoodBow",
+                    "HammerId": "EbonwoodHammer",
+                    "HelmetId": "EbonwoodHelmet",
+                    "ChestplateId": "EbonwoodBreastplate",
+                    "LeggingsId": "EbonwoodGreaves"
+                },
+                {
+                    "Name": "Shadewood_Combat",
+                    "Bar": "Shadewood",
+                    "SwordId": "ShadewoodSword",
+                    "BowId": "ShadewoodBow",
+                    "HammerId": "ShadewoodHammer",
+                    "HelmetId": "ShadewoodHelmet",
+                    "ChestplateId": "ShadewoodBreastplate",
+                    "LeggingsId": "ShadewoodGreaves"
+                },
+                {
+                    "Name": "Pearlwood_Combat",
+                    "Bar": "Pearlwood",
+                    "SwordId": "PearlwoodSword",
+                    "BowId": "PearlwoodBow",
+                    "HammerId": "PearlwoodHammer",
+                    "HelmetId": "PearlwoodHelmet",
+                    "ChestplateId": "PearlwoodBreastplate",
+                    "LeggingsId": "PearlwoodGreaves"
+                },
+                {
+                    "Name": "BorealWood_Combat",
+                    "Bar": "BorealWood",
+                    "SwordId": "BorealWoodSword",
+                    "BowId": "BorealWoodBow",
+                    "HammerId": "BorealWoodHammer",
+                    "HelmetId": "BorealWoodHelmet",
+                    "ChestplateId": "BorealWoodBreastplate",
+                    "LeggingsId": "BorealWoodGreaves"
+                },
+                {
+                    "Name": "PalmWood_Combat",
+                    "Bar": "PalmWood",
+                    "SwordId": "PalmWoodSword",
+                    "BowId": "PalmWoodBow",
+                    "HammerId": "PalmWoodHammer",
+                    "HelmetId": "PalmWoodHelmet",
+                    "ChestplateId": "PalmWoodBreastplate",
+                    "LeggingsId": "PalmWoodGreaves"
+                },
+                {
+                    "Name": "AshWood_Combat",
+                    "Bar": "AshWood",
+                    "SwordId": "AshWoodSword",
+                    "BowId": "AshWoodBow",
+                    "HammerId": "AshWoodHammer",
+                    "HelmetId": "AshWoodHelmet",
+                    "ChestplateId": "AshWoodBreastplate",
+                    "LeggingsId": "AshWoodGreaves"
+                }
+            ],
+            "Description": "all_woods_combat",
+            "Id": "all_woods_combat"
+        }
+    ]
+}

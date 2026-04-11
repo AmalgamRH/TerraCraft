@@ -2,7 +2,7 @@
     "RecipeGroups": [
         {
             "Id": "pickaxe_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_pickaxe",
                 "Shaped": true,
@@ -24,7 +24,7 @@
         },
         {
             "Id": "axe_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_axe",
                 "Shaped": true,
@@ -46,7 +46,7 @@
         },
         {
             "Id": "shortsword_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_shortsword",
                 "Shaped": true,
@@ -68,7 +68,7 @@
         },
         {
             "Id": "sword_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_broadsword",
                 "Shaped": true,
@@ -90,7 +90,7 @@
         },
         {
             "Id": "bow_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_bow",
                 "Shaped": true,
@@ -112,7 +112,7 @@
         },
         {
             "Id": "hammer_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_hammer",
                 "Shaped": true,
@@ -134,7 +134,7 @@
         },
         {
             "Id": "helmet_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_helmet",
                 "Shaped": true,
@@ -155,7 +155,7 @@
         },
         {
             "Id": "chestplate_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_chestplate",
                 "Shaped": true,
@@ -177,7 +177,7 @@
         },
         {
             "Id": "leggings_template_group",
-            "MaterialSource": "all_normal_bars",
+            "MaterialSource": "all_normal_bars_combat",
             "Template": {
                 "Id": "{Material}_leggings",
                 "Shaped": true,
@@ -201,151 +201,164 @@
         {
             "Materials": [
                 {
-                    "AxeId": "CopperAxe",
-                    "BowId": "CopperBow",
-                    "ShortswordId": "CopperShortsword",
-                    "PickaxeId": "CopperPickaxe",
-                    "Bar": "CopperBar",
-                    "LeggingsId": "CopperGreaves",
                     "Name": "Copper",
-                    "ChestplateId": "CopperChainmail",
+                    "Bar": "CopperBar",
                     "SwordId": "CopperBroadsword",
+                    "PickaxeId": "CopperPickaxe",
+                    "AxeId": "CopperAxe",
+                    "ShortswordId": "CopperShortsword",
+                    "BowId": "CopperBow",
+                    "HammerId": "CopperHammer",
                     "HelmetId": "CopperHelmet",
-                    "HammerId": "CopperHammer"
+                    "ChestplateId": "CopperChainmail",
+                    "LeggingsId": "CopperGreaves"
                 },
                 {
-                    "AxeId": "TinAxe",
-                    "BowId": "TinBow",
-                    "ShortswordId": "TinShortsword",
-                    "PickaxeId": "TinPickaxe",
-                    "Bar": "TinBar",
-                    "LeggingsId": "TinGreaves",
                     "Name": "Tin",
-                    "ChestplateId": "TinChainmail",
+                    "Bar": "TinBar",
                     "SwordId": "TinBroadsword",
+                    "PickaxeId": "TinPickaxe",
+                    "AxeId": "TinAxe",
+                    "ShortswordId": "TinShortsword",
+                    "BowId": "TinBow",
+                    "HammerId": "TinHammer",
                     "HelmetId": "TinHelmet",
-                    "HammerId": "TinHammer"
+                    "ChestplateId": "TinChainmail",
+                    "LeggingsId": "TinGreaves"
                 },
                 {
-                    "AxeId": "IronAxe",
-                    "BowId": "IronBow",
-                    "ShortswordId": "IronShortsword",
-                    "PickaxeId": "IronPickaxe",
-                    "Bar": "IronBar",
-                    "LeggingsId": "IronGreaves",
                     "Name": "Iron",
-                    "ChestplateId": "IronChainmail",
+                    "Bar": "IronBar",
                     "SwordId": "IronBroadsword",
+                    "PickaxeId": "IronPickaxe",
+                    "AxeId": "IronAxe",
+                    "ShortswordId": "IronShortsword",
+                    "BowId": "IronBow",
+                    "HammerId": "IronHammer",
                     "HelmetId": "IronHelmet",
-                    "HammerId": "IronHammer"
+                    "ChestplateId": "IronChainmail",
+                    "LeggingsId": "IronGreaves"
                 },
                 {
-                    "AxeId": "LeadAxe",
-                    "BowId": "LeadBow",
-                    "ShortswordId": "LeadShortsword",
-                    "PickaxeId": "LeadPickaxe",
-                    "Bar": "LeadBar",
-                    "LeggingsId": "LeadGreaves",
                     "Name": "Lead",
-                    "ChestplateId": "LeadChainmail",
+                    "Bar": "LeadBar",
                     "SwordId": "LeadBroadsword",
+                    "PickaxeId": "LeadPickaxe",
+                    "AxeId": "LeadAxe",
+                    "ShortswordId": "LeadShortsword",
+                    "BowId": "LeadBow",
+                    "HammerId": "LeadHammer",
                     "HelmetId": "LeadHelmet",
-                    "HammerId": "LeadHammer"
+                    "ChestplateId": "LeadChainmail",
+                    "LeggingsId": "LeadGreaves"
                 },
                 {
-                    "AxeId": "SilverAxe",
-                    "BowId": "SilverBow",
-                    "ShortswordId": "SilverShortsword",
-                    "PickaxeId": "SilverPickaxe",
-                    "Bar": "SilverBar",
-                    "LeggingsId": "SilverGreaves",
                     "Name": "Silver",
-                    "ChestplateId": "SilverChainmail",
+                    "Bar": "SilverBar",
                     "SwordId": "SilverBroadsword",
+                    "PickaxeId": "SilverPickaxe",
+                    "AxeId": "SilverAxe",
+                    "ShortswordId": "SilverShortsword",
+                    "BowId": "SilverBow",
+                    "HammerId": "SilverHammer",
                     "HelmetId": "SilverHelmet",
-                    "HammerId": "SilverHammer"
+                    "ChestplateId": "SilverChainmail",
+                    "LeggingsId": "SilverGreaves"
                 },
                 {
-                    "AxeId": "TungstenAxe",
-                    "BowId": "TungstenBow",
-                    "ShortswordId": "TungstenShortsword",
-                    "PickaxeId": "TungstenPickaxe",
-                    "Bar": "TungstenBar",
-                    "LeggingsId": "TungstenGreaves",
                     "Name": "Tungsten",
-                    "ChestplateId": "TungstenChainmail",
+                    "Bar": "TungstenBar",
                     "SwordId": "TungstenBroadsword",
+                    "PickaxeId": "TungstenPickaxe",
+                    "AxeId": "TungstenAxe",
+                    "ShortswordId": "TungstenShortsword",
+                    "BowId": "TungstenBow",
+                    "HammerId": "TungstenHammer",
                     "HelmetId": "TungstenHelmet",
-                    "HammerId": "TungstenHammer"
+                    "ChestplateId": "TungstenChainmail",
+                    "LeggingsId": "TungstenGreaves"
                 },
                 {
-                    "AxeId": "GoldAxe",
-                    "BowId": "GoldBow",
-                    "ShortswordId": "GoldShortsword",
-                    "PickaxeId": "GoldPickaxe",
-                    "Bar": "GoldBar",
-                    "LeggingsId": "GoldGreaves",
                     "Name": "Gold",
-                    "ChestplateId": "GoldChainmail",
+                    "Bar": "GoldBar",
                     "SwordId": "GoldBroadsword",
+                    "PickaxeId": "GoldPickaxe",
+                    "AxeId": "GoldAxe",
+                    "ShortswordId": "GoldShortsword",
+                    "BowId": "GoldBow",
+                    "HammerId": "GoldHammer",
                     "HelmetId": "GoldHelmet",
-                    "HammerId": "GoldHammer"
+                    "ChestplateId": "GoldChainmail",
+                    "LeggingsId": "GoldGreaves"
                 },
                 {
-                    "AxeId": "PlatinumAxe",
-                    "BowId": "PlatinumBow",
-                    "ShortswordId": "PlatinumShortsword",
-                    "PickaxeId": "PlatinumPickaxe",
-                    "Bar": "PlatinumBar",
-                    "LeggingsId": "PlatinumGreaves",
                     "Name": "Platinum",
-                    "ChestplateId": "PlatinumChainmail",
+                    "Bar": "PlatinumBar",
                     "SwordId": "PlatinumBroadsword",
+                    "PickaxeId": "PlatinumPickaxe",
+                    "AxeId": "PlatinumAxe",
+                    "ShortswordId": "PlatinumShortsword",
+                    "BowId": "PlatinumBow",
+                    "HammerId": "PlatinumHammer",
                     "HelmetId": "PlatinumHelmet",
-                    "HammerId": "PlatinumHammer"
+                    "ChestplateId": "PlatinumChainmail",
+                    "LeggingsId": "PlatinumGreaves"
                 },
                 {
-                    "AxeId": "WarAxeoftheNight",
-                    "BowId": "DemonBow",
-                    "ShortswordId": "",
-                    "PickaxeId": "NightmarePickaxe",
-                    "Bar": "DemoniteBar",
-                    "LeggingsId": "",
                     "Name": "Demonite",
-                    "ChestplateId": "",
+                    "Bar": "DemoniteBar",
                     "SwordId": "LightsBane",
-                    "HelmetId": "",
-                    "HammerId": ""
-                },
-                {
-                    "AxeId": "BloodLustCluster",
-                    "BowId": "TendonBow",
+                    "PickaxeId": "NightmarePickaxe",
+                    "AxeId": "WarAxeoftheNight",
                     "ShortswordId": "",
-                    "PickaxeId": "DeathbringerPickaxe",
-                    "Bar": "CrimtaneBar",
-                    "LeggingsId": "",
-                    "Name": "Crimtane",
+                    "BowId": "DemonBow",
+                    "HammerId": "",
+                    "HelmetId": "",
                     "ChestplateId": "",
-                    "SwordId": "BloodButcherer",
-                    "HelmetId": "",
-                    "HammerId": ""
+                    "LeggingsId": ""
                 },
                 {
-                    "AxeId": "",
-                    "BowId": "MoltenFury",
+                    "Name": "Crimtane",
+                    "Bar": "CrimtaneBar",
+                    "SwordId": "BloodButcherer",
+                    "PickaxeId": "DeathbringerPickaxe",
+                    "AxeId": "BloodLustCluster",
                     "ShortswordId": "",
-                    "PickaxeId": "MoltenPickaxe",
-                    "Bar": "HellstoneBar",
-                    "LeggingsId": "MoltenGreaves",
+                    "BowId": "TendonBow",
+                    "HammerId": "",
+                    "HelmetId": "",
+                    "ChestplateId": "",
+                    "LeggingsId": ""
+                },
+                {
+                    "Name": "Meteorite",
+                    "Bar": "MeteoriteBar",
+                    "SwordId": "",
+                    "PickaxeId": "",
+                    "AxeId": "",
+                    "ShortswordId": "",
+                    "BowId": "",
+                    "HammerId": "MeteorHamaxe",
+                    "HelmetId": "MeteorHelmet",
+                    "ChestplateId": "MeteorSuit",
+                    "LeggingsId": "MeteorLeggings"
+                },
+                {
                     "Name": "Hellstone",
-                    "ChestplateId": "MoltenBreastplate",
+                    "Bar": "HellstoneBar",
                     "SwordId": "FieryGreatsword",
+                    "PickaxeId": "MoltenPickaxe",
+                    "AxeId": "",
+                    "ShortswordId": "",
+                    "BowId": "MoltenFury",
+                    "HammerId": "MoltenHamaxe",
                     "HelmetId": "MoltenHelmet",
-                    "HammerId": "MoltenHamaxe"
+                    "ChestplateId": "MoltenBreastplate",
+                    "LeggingsId": "MoltenGreaves"
                 }
             ],
-            "Description": "all_normal_bars",
-            "Id": "all_normal_bars"
+            "Description": "all_normal_bars_combat",
+            "Id": "all_normal_bars_combat"
         }
     ]
 }

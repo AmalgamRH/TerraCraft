@@ -1,0 +1,40 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "torch_template_group",
+            "MaterialSource": "torch_materials",
+            "Template": {
+                "Id": "{Material}_torch",
+                "Shaped": true,
+                "RequiredTiles": [],
+                "Pattern": [
+                    ["{Gel}"],
+                    ["{Stick}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{TorchId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Gel": "Gel",
+                "Stick": "Stick",
+                "TorchId": "TorchId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Materials": [
+                {
+                    "Name": "Torch",
+                    "Gel": "Gel",
+                    "Stick": "TerraCraft:WoodenStick",
+                    "TorchId": "Torch"
+                }
+            ],
+            "Description": "torch_materials",
+            "Id": "torch_materials"
+        }
+    ]
+}
