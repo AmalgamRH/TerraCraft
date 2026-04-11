@@ -7,3 +7,33 @@ WoodenStick: {
 	DisplayName: 木棍
 	Tooltip: ""
 }
+
+AshWoodAxe: {
+	DisplayName: 白蜡木斧
+	Tooltip: ""
+}
+
+AshWoodPickaxe: {
+	DisplayName: 白蜡木镐
+	Tooltip: ""
+}
+
+StoneAxe: {
+	DisplayName: 石斧
+	Tooltip: ""
+}
+
+StonePickaxe: {
+	DisplayName: 石镐
+	Tooltip: ""
+}
+
+WoodAxe: {
+	DisplayName: 木斧
+	Tooltip: ""
+}
+
+WoodPickaxe: {
+	DisplayName: 木镐
+	Tooltip: ""
+}

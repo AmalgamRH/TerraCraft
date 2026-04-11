@@ -4,12 +4,11 @@
       "Id": "shovel",
       "Shaped": true,
       "RequiredTiles": [ "Anvils" ],
-      "Ingredients": [
-        { "X": 0, "Y": 1, "RecipeGroup": "IronBar", "Amount": 1 },
-        { "X": 1, "Y": 0, "RecipeGroup": "IronBar", "Amount": 1 },
-        { "X": 2, "Y": 1, "RecipeGroup": "IronBar", "Amount": 1 },
-        { "X": 1, "Y": 1, "ItemId": "TerraCraft:WoodenStick", "Amount": 1 },
-        { "X": 1, "Y": 2, "ItemId": "TerraCraft:WoodenStick", "Amount": 1 }
+      "Pattern": 
+      [
+        ["",                       {"RecipeGroup": "IronBar"},                       ""],
+        [{"RecipeGroup": "IronBar"},"TerraCraft:WoodenStick",{"RecipeGroup": "IronBar"}],
+        ["",                        "TerraCraft:WoodenStick",                        ""]
       ],
       "Outputs": [
         { "ItemId": "GravediggerShovel", "Amount": 1 }

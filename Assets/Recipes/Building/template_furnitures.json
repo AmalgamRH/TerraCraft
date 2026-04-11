@@ -1,0 +1,135 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "platform_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_platform",
+                "Shaped": true,
+                "RequiredTiles": [],
+                "Pattern": [
+                    ["{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{PlatformId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "PlatformId": "PlatformId"
+            }
+        },
+        {
+            "Id": "workbench_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_workbench",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}"],
+                    ["{PlatformId}","{PlatformId}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{WorkbenchId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "WorkbenchId": "WorkbenchId",
+                "PlatformId": "PlatformId"
+            }
+        },
+        {
+            "Id": "table_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_table",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}","","{Material}"],
+                    ["{Material}","","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{TableId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "TableId": "TableId"
+            }
+        },
+        {
+            "Id": "chair_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_chair",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "Pattern": [
+                    ["","","{Material}"],
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}","","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ChairId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "ChairId": "ChairId"
+            }
+        },
+        {
+            "Id": "door_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_door",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}"],
+                    ["{Material}","{Material}"],
+                    ["{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{DoorId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "DoorId": "DoorId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Materials": [
+                {
+                    "Name": "DynastyWood",
+                    "Material": "DynastyWood",
+                    "TileId": "HeavyWorkBench",
+                    "PlatformId": "DynastyPlatform",
+                    "WorkbenchId": "DynastyWorkBench",
+                    "TableId": "DynastyTable",
+                    "ChairId": "DynastyChair",
+                    "DoorId": "DynastyDoor"
+                }
+            ],
+            "Description": "furniture_materials",
+            "Id": "furniture_materials"
+        }
+    ]
+}

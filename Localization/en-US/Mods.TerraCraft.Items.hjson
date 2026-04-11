@@ -7,3 +7,33 @@ WoodenStick: {
 	DisplayName: Wooden Stick
 	Tooltip: ""
 }
+
+AshWoodAxe: {
+	DisplayName: Ash Wood Axe
+	Tooltip: ""
+}
+
+AshWoodPickaxe: {
+	DisplayName: Ash Wood Pickaxe
+	Tooltip: ""
+}
+
+StoneAxe: {
+	DisplayName: Stone Axe
+	Tooltip: ""
+}
+
+StonePickaxe: {
+	DisplayName: Stone Pickaxe
+	Tooltip: ""
+}
+
+WoodAxe: {
+	DisplayName: Wood Axe
+	Tooltip: ""
+}
+
+WoodPickaxe: {
+	DisplayName: Wood Pickaxe
+	Tooltip: ""
+}

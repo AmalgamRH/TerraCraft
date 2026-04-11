@@ -12,7 +12,7 @@
                     ["{Stick}"]
                 ],
                 "Outputs": [
-                    {"ItemId": "{TorchId}", "Amount": 1}
+                    {"ItemId": "{TorchId}", "Amount": 3}
                 ]
             },
             "PlaceholderMappings": {

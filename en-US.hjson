@@ -1,0 +1,15 @@
+Mods: {
+	TerraCraft: {
+		Configs: {
+			TCGameplayConfig: {
+				DisplayName: T C Gameplay Config
+				Headers.Gameplay: Gameplay Header
+
+				UseOverhaulGameplay: {
+					Label: Use Overhaul Gameplay
+					Tooltip: ""
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+  "Recipes": [
+    {
+      "Id": "heavyworkbench",
+      "Shaped": true,
+      "RequiredTiles": ["Anvils"],
+      "Pattern": 
+      [
+        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
+        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
+        [{"RecipeGroup": "Wood"},              "",               {"RecipeGroup": "Wood"}]
+      ],
+      "Outputs": [
+        { "ItemId": "HeavyWorkBench", "Amount": 1 }
+      ],
+      "Replacements": []
+    }
+  ]
+}

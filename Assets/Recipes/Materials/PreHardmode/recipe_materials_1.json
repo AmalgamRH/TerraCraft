@@ -15,12 +15,12 @@
       "Id": "wooden_stick",
       "Shaped": true,
       "RequiredTiles": [],
-      "Ingredients": [
-        { "X": 0, "Y": 0, "RecipeGroup": "Wood", "Amount": 1 },
-        { "X": 0, "Y": 1, "RecipeGroup": "Wood", "Amount": 1 }
+      "Pattern": [
+        [{"RecipeGroup": "Wood"}],
+        [{"RecipeGroup": "Wood"}]
       ],
       "Outputs": [
-        { "ItemId": "TerraCraft:WoodenStick", "Amount": 1 }
+        { "ItemId": "TerraCraft:WoodenStick", "Amount": 2 }
       ],
       "Replacements": []
     }

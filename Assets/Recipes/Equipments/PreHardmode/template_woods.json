@@ -1,6 +1,50 @@
 ﻿{
     "RecipeGroups": [
         {
+            "Id": "woodpickaxe_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_pickaxe",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["","TerraCraft:WoodenStick",""],
+                    ["","TerraCraft:WoodenStick",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{PickaxeId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "PickaxeId": "PickaxeId"
+            }
+        },
+        {
+            "Id": "woodaxe_template_group",
+            "MaterialSource": "all_woods_combat",
+            "Template": {
+                "Id": "{Material}_axe",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["","{Bar}","{Bar}"],
+                    ["","TerraCraft:WoodenStick","{Bar}"],
+                    ["","TerraCraft:WoodenStick",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{AxeId}", "Amount": 1, "UseDurability": false}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Material": "Name",
+                "Bar": "Bar",
+                "AxeId": "AxeId"
+            }
+        },
+        {
             "Id": "woodsword_template_group",
             "MaterialSource": "all_woods_combat",
             "Template": {
@@ -135,9 +179,24 @@
         {
             "Materials": [
                 {
+                    "Name": "Cactus",
+                    "Bar": "Cactus",
+                    "SwordId": "CactusSword",
+                    "PickaxeId": "CactusPickaxe",
+                    "HelmetId": "CactusHelmet",
+                    "ChestplateId": "CactusBreastplate",
+                    "LeggingsId": "CactusLeggings",
+                    "HammerId": "",
+                    "BowId": "",
+                    "AxeId": ""
+
+                },
+                {
                     "Name": "Wood_Combat",
                     "Bar": "Wood",
                     "SwordId": "WoodenSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "WoodenBow",
                     "HammerId": "WoodenHammer",
                     "HelmetId": "WoodHelmet",
@@ -148,6 +207,8 @@
                     "Name": "RichMahogany_Combat",
                     "Bar": "RichMahogany",
                     "SwordId": "RichMahoganySword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "RichMahoganyBow",
                     "HammerId": "RichMahoganyHammer",
                     "HelmetId": "RichMahoganyHelmet",
@@ -158,6 +219,8 @@
                     "Name": "Ebonwood_Combat",
                     "Bar": "Ebonwood",
                     "SwordId": "EbonwoodSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "EbonwoodBow",
                     "HammerId": "EbonwoodHammer",
                     "HelmetId": "EbonwoodHelmet",
@@ -168,6 +231,8 @@
                     "Name": "Shadewood_Combat",
                     "Bar": "Shadewood",
                     "SwordId": "ShadewoodSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "ShadewoodBow",
                     "HammerId": "ShadewoodHammer",
                     "HelmetId": "ShadewoodHelmet",
@@ -178,6 +243,8 @@
                     "Name": "Pearlwood_Combat",
                     "Bar": "Pearlwood",
                     "SwordId": "PearlwoodSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "PearlwoodBow",
                     "HammerId": "PearlwoodHammer",
                     "HelmetId": "PearlwoodHelmet",
@@ -188,6 +255,8 @@
                     "Name": "BorealWood_Combat",
                     "Bar": "BorealWood",
                     "SwordId": "BorealWoodSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "BorealWoodBow",
                     "HammerId": "BorealWoodHammer",
                     "HelmetId": "BorealWoodHelmet",
@@ -198,6 +267,8 @@
                     "Name": "PalmWood_Combat",
                     "Bar": "PalmWood",
                     "SwordId": "PalmWoodSword",
+                    "PickaxeId": "TerraCraft:WoodPickaxe",
+                    "AxeId": "TerraCraft:WoodAxe",
                     "BowId": "PalmWoodBow",
                     "HammerId": "PalmWoodHammer",
                     "HelmetId": "PalmWoodHelmet",
@@ -208,6 +279,8 @@
                     "Name": "AshWood_Combat",
                     "Bar": "AshWood",
                     "SwordId": "AshWoodSword",
+                    "PickaxeId": "TerraCraft:AshWoodPickaxe",
+                    "AxeId": "TerraCraft:AshWoodAxe",
                     "BowId": "AshWoodBow",
                     "HammerId": "AshWoodHammer",
                     "HelmetId": "AshWoodHelmet",
