@@ -6,7 +6,7 @@
             "Template": {
                 "Id": "{Material}_pickaxe",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}","{Bar}","{Bar}"],
                     ["","TerraCraft:WoodenStick",""],
@@ -28,7 +28,7 @@
             "Template": {
                 "Id": "{Material}_axe",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["","{Bar}","{Bar}"],
                     ["","TerraCraft:WoodenStick","{Bar}"],
@@ -50,7 +50,7 @@
             "Template": {
                 "Id": "{Material}_shortsword",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}"],
                     ["TerraCraft:WoodenStick"],
@@ -72,7 +72,7 @@
             "Template": {
                 "Id": "{Material}_broadsword",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}"],
                     ["{Bar}"],
@@ -94,7 +94,7 @@
             "Template": {
                 "Id": "{Material}_bow",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["TerraCraft:SpiderSilk","{Bar}",""],
                     ["TerraCraft:SpiderSilk","","{Bar}"],
@@ -116,7 +116,7 @@
             "Template": {
                 "Id": "{Material}_hammer",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}","{Bar}","{Bar}"],
                     ["{Bar}","TerraCraft:WoodenStick","{Bar}"],
@@ -138,7 +138,7 @@
             "Template": {
                 "Id": "{Material}_helmet",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}","{Bar}","{Bar}"],
                     ["{Bar}","","{Bar}"]
@@ -159,7 +159,7 @@
             "Template": {
                 "Id": "{Material}_chestplate",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}","","{Bar}"],
                     ["{Bar}","{Bar}","{Bar}"],
@@ -181,7 +181,7 @@
             "Template": {
                 "Id": "{Material}_leggings",
                 "Shaped": true,
-                "RequiredTiles": ["Anvils"],
+                "RequiredTiles": ["HeavyWorkBench"],
                 "Pattern": [
                     ["{Bar}","","{Bar}"],
                     ["{Bar}","","{Bar}"]

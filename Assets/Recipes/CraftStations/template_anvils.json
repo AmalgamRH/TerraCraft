@@ -33,25 +33,25 @@
                     "Name": "Iron",
                     "Bar": "IronBar",
                     "AnvilId": "IronAnvil",
-                    "CraftStationId": ""
+                    "CraftStationId": "HeavyWorkBench"
                 },
                 {
                     "Name": "Lead",
                     "Bar": "LeadBar",
                     "AnvilId": "LeadAnvil",
-                    "CraftStationId": ""
+                    "CraftStationId": "HeavyWorkBench"
                 },
                 {
                     "Name": "Mythril",
                     "Bar": "MythrilBar",
                     "AnvilId": "MythrilAnvil",
-                    "CraftStationId": "Anvils"
+                    "CraftStationId": "HeavyWorkBench"
                 },
                 {
                     "Name": "Orichalcum",
                     "Bar": "OrichalcumBar",
                     "AnvilId": "OrichalcumAnvil",
-                    "CraftStationId": "Anvils"
+                    "CraftStationId": "HeavyWorkBench"
                 }
             ]
         }

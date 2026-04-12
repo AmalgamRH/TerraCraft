@@ -1,0 +1,85 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "oreblocks_template_group_3_3",
+            "MaterialSource": "prehardmode_oreblock_materials",
+            "Template": {
+                "Id": "{Name}_block",
+                "Shaped": true,
+                "RequiredTiles": ["{RequiredTile}"],
+                "Pattern": [
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","{Bar}","{Bar}"],
+                    ["{Bar}","{Bar}","{Bar}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BlockId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "RequiredTile":"TileId",
+                "Bar": "Bar",
+                "BlockId": "BlockId"
+            }
+        },
+        {
+            "Id": "oreblocks_reverse_template_group_3_3",
+            "MaterialSource": "prehardmode_oreblock_materials",
+            "Template": {
+                "Id": "{Name}_bar",
+                "Shaped": false,
+                "RequiredTiles": [],
+                "Ingredients": [
+                    { "ItemId": "{BlockId}", "Amount": 1 }
+                ],
+                "Outputs": [
+                    {"ItemId": "{Bar}", "Amount": 9 }
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Bar": "Bar",
+                "BlockId": "BlockId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Description": "oreblock_materials",
+            "Id": "prehardmode_oreblock_materials",
+            "Materials": [
+                {
+                    "Name": "Copper",
+                    "TileId": "HeavyWorkBench",
+                    "Bar": "CopperBar",
+                    "BlockId": "TerraCraft:CopperBlock"
+                },
+                {
+                    "Name": "Iron",
+                    "TileId": "HeavyWorkBench",
+                    "Bar": "IronBar",
+                    "BlockId": "TerraCraft:IronBlock"
+                },
+                {
+                    "Name": "Gold",
+                    "TileId": "HeavyWorkBench",
+                    "Bar": "GoldBar",
+                    "BlockId": "TerraCraft:GoldBlock"
+                },
+                {
+                    "Name": "Demonite",
+                    "TileId": "HeavyWorkBench",
+                    "Bar": "DemoniteBar",
+                    "BlockId": "TerraCraft:DemoniteBlock"
+                },
+                {
+                    "Name": "Crimtane",
+                    "TileId": "HeavyWorkBench",
+                    "Bar": "CrimtaneBar",
+                    "BlockId": "TerraCraft:CrimtaneBlock"
+                }
+            ]
+        }
+    ]
+}

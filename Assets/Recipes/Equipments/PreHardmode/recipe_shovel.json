@@ -3,7 +3,7 @@
     {
       "Id": "shovel",
       "Shaped": true,
-      "RequiredTiles": [ "Anvils" ],
+      "RequiredTiles": [ "HeavyWorkBench" ],
       "Pattern": 
       [
         ["",                       {"RecipeGroup": "IronBar"},                       ""],

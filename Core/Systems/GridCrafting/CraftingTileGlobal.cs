@@ -14,9 +14,8 @@ namespace TerraCraft.Core.Systems.GridCrafting
         private static readonly List<(int TileType, int ItemType)> GridCraftingPairs = new()
         {
             (TileID.WorkBenches, ItemID.WorkBench),
-            (TileID.Anvils, ItemID.IronAnvil),
             (TileID.HeavyWorkBench, ItemID.HeavyWorkBench),
-            (TileID.MythrilAnvil, ItemID.MythrilAnvil)
+            (TileID.Sawmill, ItemID.Sawmill)
         };
 
         public override void MouseOver(int i, int j, int type)

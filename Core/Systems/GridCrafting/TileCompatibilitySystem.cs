@@ -44,8 +44,11 @@ namespace TerraCraft.Core.Systems.GridCrafting
 
         private void AddVanillaRelations()
         {
+            // 工作台
+            AddRelationship(TileID.WorkBenches, TileID.HeavyWorkBench);
+
             // 铁砧
-            AddRelationship(TileID.Anvils, TileID.MythrilAnvil);
+            //AddRelationship(TileID.Anvils, TileID.MythrilAnvil);
 
             // 熔炉
             AddRelationship(TileID.Furnaces, TileID.Hellforge);

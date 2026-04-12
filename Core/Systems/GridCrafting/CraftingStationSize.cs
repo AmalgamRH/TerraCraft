@@ -12,12 +12,10 @@ namespace TerraCraft.Core.Systems.GridCrafting
             switch (tileType)
             {
                 case TileID.WorkBenches:
-                case TileID.Anvils: 
-                    return (3, 3);
                 case TileID.HeavyWorkBench:
+                    return (3, 3);
+                case TileID.Sawmill:
                     return (5, 3);
-                case TileID.MythrilAnvil:
-                    return (5, 5);
             }
             return (2, 2);
         }

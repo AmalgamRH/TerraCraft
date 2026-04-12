@@ -3,11 +3,11 @@
     {
       "Id": "heavyworkbench",
       "Shaped": true,
-      "RequiredTiles": ["Anvils"],
+      "RequiredTiles": ["WorkBenches"],
       "Pattern": 
       [
         [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
-        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
+        [{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"}],
         [{"RecipeGroup": "Wood"},              "",               {"RecipeGroup": "Wood"}]
       ],
       "Outputs": [

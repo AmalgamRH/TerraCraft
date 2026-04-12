@@ -37,3 +37,58 @@ WoodPickaxe: {
 	DisplayName: 木镐
 	Tooltip: ""
 }
+
+CopperBlock: {
+	DisplayName: 铜块
+	Tooltip: ""
+}
+
+CrimtaneBlock: {
+	DisplayName: 猩红锭块
+	Tooltip: ""
+}
+
+DemoniteBlock: {
+	DisplayName: 魔矿锭块
+	Tooltip: ""
+}
+
+GoldBlock: {
+	DisplayName: 金块
+	Tooltip: ""
+}
+
+IronBlock: {
+	DisplayName: 铁块
+	Tooltip: ""
+}
+
+AdamantiteBlock: {
+	DisplayName: 精金块
+	Tooltip: ""
+}
+
+CobaltBlock: {
+	DisplayName: 钴块
+	Tooltip: ""
+}
+
+MythrilBlock: {
+	DisplayName: 秘银块
+	Tooltip: ""
+}
+
+OrichalcumBlock: {
+	DisplayName: 山铜块
+	Tooltip: ""
+}
+
+PalladiumBlock: {
+	DisplayName: 钯金块
+	Tooltip: ""
+}
+
+TitaniumBlock: {
+	DisplayName: 钛金块
+	Tooltip: ""
+}

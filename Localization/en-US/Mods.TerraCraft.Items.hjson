@@ -37,3 +37,58 @@ WoodPickaxe: {
 	DisplayName: Wood Pickaxe
 	Tooltip: ""
 }
+
+CopperBlock: {
+	DisplayName: Copper Block
+	Tooltip: ""
+}
+
+CrimtaneBlock: {
+	DisplayName: Crimtane Block
+	Tooltip: ""
+}
+
+DemoniteBlock: {
+	DisplayName: Demonite Block
+	Tooltip: ""
+}
+
+GoldBlock: {
+	DisplayName: Gold Block
+	Tooltip: ""
+}
+
+IronBlock: {
+	DisplayName: Iron Block
+	Tooltip: ""
+}
+
+AdamantiteBlock: {
+	DisplayName: Adamantite Block
+	Tooltip: ""
+}
+
+CobaltBlock: {
+	DisplayName: Cobalt Block
+	Tooltip: ""
+}
+
+MythrilBlock: {
+	DisplayName: Mythril Block
+	Tooltip: ""
+}
+
+OrichalcumBlock: {
+	DisplayName: Orichalcum Block
+	Tooltip: ""
+}
+
+PalladiumBlock: {
+	DisplayName: Palladium Block
+	Tooltip: ""
+}
+
+TitaniumBlock: {
+	DisplayName: Titanium Block
+	Tooltip: ""
+}

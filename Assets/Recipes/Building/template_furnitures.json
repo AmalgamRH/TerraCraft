@@ -27,7 +27,7 @@
             "Template": {
                 "Id": "{Name}_workbench",
                 "Shaped": true,
-                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "RequiredTiles": ["Sawmill","{TileId}"],
                 "Pattern": [
                     ["{Material}","{Material}"],
                     ["{PlatformId}","{PlatformId}"]
@@ -50,7 +50,7 @@
             "Template": {
                 "Id": "{Name}_table",
                 "Shaped": true,
-                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "RequiredTiles": ["Sawmill","{TileId}"],
                 "Pattern": [
                     ["{Material}","{Material}","{Material}"],
                     ["{Material}","","{Material}"],
@@ -73,7 +73,7 @@
             "Template": {
                 "Id": "{Name}_chair",
                 "Shaped": true,
-                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "RequiredTiles": ["Sawmill","{TileId}"],
                 "Pattern": [
                     ["","","{Material}"],
                     ["{Material}","{Material}","{Material}"],
@@ -96,7 +96,7 @@
             "Template": {
                 "Id": "{Name}_door",
                 "Shaped": true,
-                "RequiredTiles": ["WorkBenches","{TileId}"],
+                "RequiredTiles": ["Sawmill","{TileId}"],
                 "Pattern": [
                     ["{Material}","{Material}"],
                     ["{Material}","{Material}"],
