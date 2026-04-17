@@ -13,7 +13,6 @@ namespace TerraCraft.Core.Configs
         /// <summary>
         /// 完全启用新流程
         /// </summary>
-        public float UseOverhaulGameplay;
-
+        public bool UseOverhaulGameplay;
     }
 }

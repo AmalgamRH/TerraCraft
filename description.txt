@@ -1,1 +1,34 @@
-﻿回来再写
+﻿TerraCraft
+
+A Minecraft-style crafting and gameplay enhancement mod for Terraria.
+一款为《泰拉瑞亚》打造的Minecraft风格合成与玩法增强模组。
+
+This mod currently features a grid-based crafting system, with plans to introduce more Minecraft-inspired mechanics in the future. It aims to provide a different item acquisition and crafting experience from vanilla Terraria.
+本模组目前提供基于网格的合成系统，未来计划加入更多受Minecraft启发的机制，致力于带来不同于原版的道具获取与制作体验。
+
+This mod is a complete rewrite and expansion of its predecessor, MinecraftWorkbench (also by me) from the 1.4 Alpha days.
+本模组前身为 1.4 Alpha 时期的MinecraftWorkbench，TerraCraft是其全面重写与功能拓展的全新版本。
+
+⚠️ Note: The mod is in early development, and recipes are still incomplete. To try it out, please enable the relevant options in the config file.
+⚠️ 注意：模组目前处于早期开发阶段，配方尚不完善。体验时请在配置文件中启用相关选项。
+
+✨ Current Features / 特色
+Grid Crafting System
+网格合成系统
+After enabling "Use Overhaul Gameplay" in the config, you can freely arrange materials in a crafting grid. The Guide NPC will also show the corresponding recipes.
+启用配置中的「完全替代原版合成体系」后，你可以在合成网格中自由摆放材料进行合成。同时，向导 NPC 也会显示对应配方。
+
+📅 Future Plans / 未来计划
+Add a smelting system (similar to Minecraft's furnace)
+添加熔炼系统（类似Minecraft的熔炉）
+Add durability and anvil repair systems
+添加耐久度与铁砧修复系统
+
+💬 Feedback & Contributions
+Feedback and bug reports are welcome.
+欢迎提出功能建议或报告 Bug。
+This project is open-source under GPL 3.0, and Pull Requests are encouraged.
+项目基于 GPL 3.0 开源，欢迎提交 PR。
+
+🔗 GitHub Repository / 项目地址:
+https://github.com/AmalgamRH/TerraCraft

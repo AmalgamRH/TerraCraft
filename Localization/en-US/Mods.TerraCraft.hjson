@@ -1,0 +1,13 @@
+Configs: {
+	TCGameplayConfig: {
+		DisplayName: Gameplay Config
+		Headers.Gameplay: Gameplay
+
+		UseOverhaulGameplay: {
+			Label: Use Overhaul Gameplay
+			Tooltip: ""
+		}
+	}
+}
+
+UI.CraftStation: "Craft Station: "

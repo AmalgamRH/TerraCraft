@@ -3,8 +3,11 @@ TerraCraft/
 │   ├── DurabilityData/
 │   ├── Recipes/
 │   │   ├── Building/
+│   │   │   ├── template_furnitures.json
+│   │   │   ├── template_oreblocks.json
 │   │   │   └── template_torches.json
 │   │   ├── CraftStations/
+│   │   │   ├── recipe_heavyworkbench.json
 │   │   │   └── template_anvils.json
 │   │   ├── Equipments/
 │   │   │   └── PreHardmode/
@@ -16,17 +19,83 @@ TerraCraft/
 │   │           └── recipe_materials_1.json
 │   └── UI/
 │       └── Durability/
-│           ├── HealthBar1.png
-│           ├── HealthBar2.png
-│           └── HealthBar3.png
+│           ├── DurabilityBar1.png
+│           ├── DurabilityBar2.png
+│           └── DurabilityBar3.png
 ├── Content/
-│   └── Items/
-│       └── Materials/
-│           ├── SpiderSilk.cs
-│           ├── SpiderSilk.png
-│           ├── WoodenStick.cs
-│           └── WoodenStick.png
+│   ├── Items/
+│   │   ├── Materials/
+│   │   │   ├── SpiderSilk.cs
+│   │   │   ├── SpiderSilk.png
+│   │   │   ├── WoodenStick.cs
+│   │   │   └── WoodenStick.png
+│   │   ├── Placeables/
+│   │   │   └── OreBlocks/
+│   │   │       ├── AdamantiteBlock.cs
+│   │   │       ├── AdamantiteBlock.png
+│   │   │       ├── BaseOreBlockItem.cs
+│   │   │       ├── CobaltBlock.cs
+│   │   │       ├── CobaltBlock.png
+│   │   │       ├── CopperBlock.cs
+│   │   │       ├── CopperBlock.png
+│   │   │       ├── CrimtaneBlock.cs
+│   │   │       ├── CrimtaneBlock.png
+│   │   │       ├── DemoniteBlock.cs
+│   │   │       ├── DemoniteBlock.png
+│   │   │       ├── GoldBlock.cs
+│   │   │       ├── GoldBlock.png
+│   │   │       ├── IronBlock.cs
+│   │   │       ├── IronBlock.png
+│   │   │       ├── MythrilBlock.cs
+│   │   │       ├── MythrilBlock.png
+│   │   │       ├── OrichalcumBlock.cs
+│   │   │       ├── OrichalcumBlock.png
+│   │   │       ├── PalladiumBlock.cs
+│   │   │       ├── PalladiumBlock.png
+│   │   │       ├── TitaniumBlock.cs
+│   │   │       └── TitaniumBlock.png
+│   │   └── VanillaExt/
+│   │       ├── AshWoodAxe.cs
+│   │       ├── AshWoodAxe.png
+│   │       ├── AshWoodPickaxe.cs
+│   │       ├── AshWoodPickaxe.png
+│   │       ├── StoneAxe.cs
+│   │       ├── StoneAxe.png
+│   │       ├── StonePickaxe.cs
+│   │       ├── StonePickaxe.png
+│   │       ├── WoodAxe.cs
+│   │       ├── WoodAxe.png
+│   │       ├── WoodPickaxe.cs
+│   │       └── WoodPickaxe.png
+│   └── Tiles/
+│       └── OreBlocks/
+│           ├── AdamantiteBlockTile.cs
+│           ├── AdamantiteBlockTile.png
+│           ├── BaseBlockTile.cs
+│           ├── CobaltBlockTile.cs
+│           ├── CobaltBlockTile.png
+│           ├── CopperBlockTile.cs
+│           ├── CopperBlockTile.png
+│           ├── CrimtaneBlockTile.cs
+│           ├── CrimtaneBlockTile.png
+│           ├── DemoniteBlockTile.cs
+│           ├── DemoniteBlockTile.png
+│           ├── GoldBlockTile.cs
+│           ├── GoldBlockTile.png
+│           ├── IronBlockTile.cs
+│           ├── IronBlockTile.png
+│           ├── IronBlockTile2.png
+│           ├── MythrilBlockTile.cs
+│           ├── MythrilBlockTile.png
+│           ├── OrichalcumBlockTile.cs
+│           ├── OrichalcumBlockTile.png
+│           ├── PalladiumBlockTile.cs
+│           ├── PalladiumBlockTile.png
+│           ├── TitaniumBlockTile.cs
+│           └── TitaniumBlockTile.png
 ├── Core/
+│   ├── Configs/
+│   │   └── TCGameplayConfig.cs
 │   ├── DataStructures/
 │   │   └── GridCrafting/
 │   │       ├── GriddedRecipe.cs
@@ -45,37 +114,52 @@ TerraCraft/
 │   ├── Systems/
 │   │   ├── Durability/
 │   │   │   └── DurabilityGItem.cs
-│   │   └── GridCrafting/
-│   │       ├── CraftingStationSize.cs
-│   │       ├── CraftingTileGlobal.cs
-│   │       ├── GridCraftingMatcher.cs
-│   │       └── TileCompatibilitySystem.cs
+│   │   ├── GridCrafting/
+│   │   │   ├── CraftingStationSize.cs
+│   │   │   ├── CraftingTileGlobal.cs
+│   │   │   ├── GridCraftingMatcher.cs
+│   │   │   └── TileCompatibilitySystem.cs
+│   │   └── VanillaOverhaul/
+│   │       └── VanillaCraftingSystemDisabler.cs
 │   ├── UI/
 │   │   ├── AutoloadUIState.cs
 │   │   ├── GridCrafting/
 │   │   │   ├── GridCraftingUIRegister.cs
+│   │   │   ├── Preview/
+│   │   │   │   ├── UICraftPreviewPanel.cs
+│   │   │   │   ├── UICraftPreviewSlot.cs
+│   │   │   │   └── UICraftPreviewerState.cs
 │   │   │   ├── UIGridCraftingPanel.cs
 │   │   │   └── UIGridCraftingState.cs
 │   │   ├── GridCraftingInputHandler.cs
 │   │   ├── UIImageNeo.cs
+│   │   ├── VanillaItemSlot.cs
 │   │   └── VanillaItemSlotWrapper.cs
-│   └── Utils/
-│       ├── ColorHelper.cs
-│       ├── ItemIDResolver.cs
-│       ├── RecipeGroupResolver.cs
-│       ├── TileIDResolver.cs
-│       └── UIHelper.cs
+│   ├── Utils/
+│   │   ├── ColorHelper.cs
+│   │   ├── ItemIDResolver.cs
+│   │   ├── RecipeGroupResolver.cs
+│   │   ├── TileIDResolver.cs
+│   │   └── UIHelper.cs
+│   └── VanillaExt/
+│       ├── CopperToolModify.cs
+│       ├── MaterialItemDefines.cs
+│       ├── NormalOreMinPick.cs
+│       └── StartingItemsPlayer.cs
 ├── Debug/
 │   └── GridRecipeDebugCommand.cs
 ├── LICENSE.txt
 ├── Localization/
 │   ├── en-US/
-│   │   └── Mods.TerraCraft.Items.hjson
+│   │   ├── Mods.TerraCraft.Items.hjson
+│   │   └── Mods.TerraCraft.hjson
 │   └── zh-Hans/
-│       └── Mods.TerraCraft.Items.hjson
+│       ├── Mods.TerraCraft.Items.hjson
+│       └── Mods.TerraCraft.hjson
 ├── Properties/
 │   └── launchSettings.json
 ├── README.md
+├── README_zh-Hans.md
 ├── TerraCraft.cs
 ├── TerraCraft.csproj
 ├── TerraCraft.sln

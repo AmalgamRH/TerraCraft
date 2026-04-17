@@ -11,7 +11,7 @@
                     ["{Material}","{Material}"]
                 ],
                 "Outputs": [
-                    {"ItemId": "{PlatformId}", "Amount": 1}
+                    {"ItemId": "{PlatformId}", "Amount": 4}
                 ]
             },
             "PlaceholderMappings": {
@@ -27,7 +27,7 @@
             "Template": {
                 "Id": "{Name}_workbench",
                 "Shaped": true,
-                "RequiredTiles": ["Sawmill","{TileId}"],
+                "RequiredTiles": [],
                 "Pattern": [
                     ["{Material}","{Material}"],
                     ["{PlatformId}","{PlatformId}"]
@@ -50,7 +50,7 @@
             "Template": {
                 "Id": "{Name}_table",
                 "Shaped": true,
-                "RequiredTiles": ["Sawmill","{TileId}"],
+                "RequiredTiles": ["{TileId}"],
                 "Pattern": [
                     ["{Material}","{Material}","{Material}"],
                     ["{Material}","","{Material}"],
@@ -73,9 +73,9 @@
             "Template": {
                 "Id": "{Name}_chair",
                 "Shaped": true,
-                "RequiredTiles": ["Sawmill","{TileId}"],
+                "RequiredTiles": ["{TileId}"],
                 "Pattern": [
-                    ["","","{Material}"],
+                    ["{Material}","",""],
                     ["{Material}","{Material}","{Material}"],
                     ["{Material}","","{Material}"]
                 ],
@@ -96,7 +96,7 @@
             "Template": {
                 "Id": "{Name}_door",
                 "Shaped": true,
-                "RequiredTiles": ["Sawmill","{TileId}"],
+                "RequiredTiles": ["{TileId}"],
                 "Pattern": [
                     ["{Material}","{Material}"],
                     ["{Material}","{Material}"],
@@ -118,9 +118,99 @@
         {
             "Materials": [
                 {
+                    "Name": "Wood",
+                    "Material": "Wood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "WoodPlatform",
+                    "WorkbenchId": "WorkBench",
+                    "TableId": "WoodenTable",
+                    "ChairId": "WoodenChair",
+                    "DoorId": "WoodenDoor"
+                },
+                {
+                    "Name": "Ebonwood",
+                    "Material": "Ebonwood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "EbonwoodPlatform",
+                    "WorkbenchId": "EbonwoodWorkBench",
+                    "TableId": "EbonwoodTable",
+                    "ChairId": "EbonwoodChair",
+                    "DoorId": "EbonwoodDoor"
+                },
+                {
+                    "Name": "RichMahogany",
+                    "Material": "RichMahogany",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "RichMahoganyPlatform",
+                    "WorkbenchId": "RichMahoganyWorkBench",
+                    "TableId": "RichMahoganyTable",
+                    "ChairId": "RichMahoganyChair",
+                    "DoorId": "RichMahoganyDoor"
+                },
+                {
+                    "Name": "Pearlwood",
+                    "Material": "Pearlwood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "PearlwoodPlatform",
+                    "WorkbenchId": "PearlwoodWorkBench",
+                    "TableId": "PearlwoodTable",
+                    "ChairId": "PearlwoodChair",
+                    "DoorId": "PearlwoodDoor"
+                },
+                {
+                    "Name": "Shadewood",
+                    "Material": "Shadewood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "ShadewoodPlatform",
+                    "WorkbenchId": "ShadewoodWorkBench",
+                    "TableId": "ShadewoodTable",
+                    "ChairId": "ShadewoodChair",
+                    "DoorId": "ShadewoodDoor"
+                },
+                {
+                    "Name": "BorealWood",
+                    "Material": "BorealWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "BorealWoodPlatform",
+                    "WorkbenchId": "BorealWoodWorkBench",
+                    "TableId": "BorealWoodTable",
+                    "ChairId": "BorealWoodChair",
+                    "DoorId": "BorealWoodDoor"
+                },
+                {
+                    "Name": "PalmWood",
+                    "Material": "PalmWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "PalmWoodPlatform",
+                    "WorkbenchId": "PalmWoodWorkBench",
+                    "TableId": "PalmWoodTable",
+                    "ChairId": "PalmWoodChair",
+                    "DoorId": "PalmWoodDoor"
+                },
+                {
+                    "Name": "AshWood",
+                    "Material": "AshWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "AshWoodPlatform",
+                    "WorkbenchId": "AshWoodWorkbench",
+                    "TableId": "AshWoodTable",
+                    "ChairId": "AshWoodChair",
+                    "DoorId": "AshWoodDoor"
+                },
+                {
+                    "Name": "SpookyWood",
+                    "Material": "SpookyWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SpookyPlatform",
+                    "WorkbenchId": "SpookyWorkBench",
+                    "TableId": "SpookyTable",
+                    "ChairId": "SpookyChair",
+                    "DoorId": "SpookyDoor"
+                },
+                {
                     "Name": "DynastyWood",
                     "Material": "DynastyWood",
-                    "TileId": "HeavyWorkBench",
+                    "TileId": "WorkBenches",
                     "PlatformId": "DynastyPlatform",
                     "WorkbenchId": "DynastyWorkBench",
                     "TableId": "DynastyTable",

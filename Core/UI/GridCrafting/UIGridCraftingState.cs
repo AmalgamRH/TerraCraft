@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using TerraCraft.Core.Utils;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -20,20 +22,30 @@ namespace TerraCraft.Core.UI.GridCrafting
         public int ItemIconId { get; private set; }
         public override void OnInitialize()
         {
+            initialTimer = 10;
+            soundPlayed = false;
             panel = new UIGridCraftingPanel();
             panel.SetPos(150f, 270f);
             panel.InitializeGrid(TileId, ItemIconId);
             Append(panel);
         }
 
+        private int initialTimer = 10;
+        private bool soundPlayed = false;
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            if (Main.LocalPlayer.controlInv)
-                ModContent.GetInstance<GridCraftingUIRegister>().GridCraftingUI.SetState(null);
+            if (initialTimer > 0) initialTimer--;
+            if (!Main.playerInventory && initialTimer == 0)
+            {
+                ModContent.GetInstance<GridCraftingUIRegister>().CloseGridCraftingUI();
+                if (!soundPlayed)
+                {
+                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    soundPlayed = true;
+                }
+            }
         }
-
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);

@@ -8,6 +8,7 @@ using System.IO;
 using System;
 using TerraCraft.Core.DataStructures.GridCrafting;
 using Terraria.ID;
+using TerraCraft.Core.VanillaExt;
 
 namespace TerraCraft.Core.Loaders
 {
@@ -63,8 +64,14 @@ namespace TerraCraft.Core.Loaders
             RecipeDB = new RecipeDatabase { Recipes = allRecipes };
             // 初始化缓存
             RecipeDB.InitializeCache();
-        }
 
+            RecipeMaterialCache.Load(allRecipes);
+        }
+        public override void Unload()
+        {
+            RecipeMaterialCache.Unload();
+            RecipeDB = null;
+        }
         // 处理JSON内容，自动检测格式
         private void ProcessJsonContent(string jsonContent, string sourcePath, List<GriddedRecipe> allRecipes)
         {

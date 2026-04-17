@@ -1,0 +1,13 @@
+Configs: {
+	TCGameplayConfig: {
+		DisplayName: 设置
+		Headers.Gameplay: 游戏体验
+
+		UseOverhaulGameplay: {
+			Label: 完全替代原版合成体系
+			Tooltip: 完全禁用原版合成体系
+		}
+	}
+}
+
+UI.CraftStation: 需要制作站：

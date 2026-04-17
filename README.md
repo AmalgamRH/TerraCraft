@@ -38,7 +38,6 @@ The mod uses JSON, currently supporting multiple configuration methods and hot-r
 
 ## Future Plans (Restoring more Minecraft mechanics)
 
-- **Crafting Recipe Lookup Feature**: Initially planned as a button at the Guide's interface, but it must be included.
 - **Furnace System**: Implement Minecraft-like smelting recipes, supporting fuel slots and output slots, customizable smelting times, etc.
 - **Anvil System**: Add anvil UI, supporting tool repair (consumes corresponding materials) and item renaming.
 - **Redstone System**: huh?

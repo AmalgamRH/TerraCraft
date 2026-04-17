@@ -34,5 +34,21 @@ namespace TerraCraft.Core.Utils
             var groupItems = GetRecipeGroupItems(groupName);
             return groupItems.Contains(itemType);
         }
+
+        /// <summary>
+        /// 获取一个合成组的显示文本
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public static string GetDisplayText(string groupName)
+        {
+            if (string.IsNullOrEmpty(groupName)) return null;
+            if (RecipeGroup.recipeGroupIDs.TryGetValue(groupName, out int id) &&
+                RecipeGroup.recipeGroups.TryGetValue(id, out RecipeGroup group))
+            {
+                return group.GetText();
+            }
+            return groupName; // fallback
+        }
     }
 }

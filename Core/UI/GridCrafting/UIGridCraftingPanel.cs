@@ -6,6 +6,7 @@ using System.Linq;
 using TerraCraft.Core.DataStructures.GridCrafting;
 using TerraCraft.Core.Systems.Durability;
 using TerraCraft.Core.Systems.GridCrafting;
+using TerraCraft.Core.Systems.VanillaOverhaul;
 using TerraCraft.Core.Utils;
 using Terraria;
 using Terraria.Audio;
@@ -151,7 +152,7 @@ namespace TerraCraft.Core.UI.GridCrafting
             // 最后调 base（原版 UI 系统此时 mouseLeftRelease 已被我们处理过）
             base.Update(gameTime);
 
-            if (TileId == 0 || GridWidth == 0) return;
+            if (GridWidth == 0) return;
             RefreshMatching();
         }
 
@@ -355,7 +356,7 @@ namespace TerraCraft.Core.UI.GridCrafting
             {
                 if (!slot.Item.IsAir)
                 {
-                    Player.QuickSpawnItem(new EntitySource_OverfullInventory(Player, "MCWorkbench"), slot.Item, slot.Item.stack);
+                    Player.QuickSpawnItem(new EntitySource_OverfullInventory(Player, "GridCrafting"), slot.Item, slot.Item.stack);
                     slot.Item.TurnToAir();
                 }
             }

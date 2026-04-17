@@ -1,6 +1,7 @@
 ﻿using Iced.Intel;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using TerraCraft.Core.UI.GridCrafting.Preview;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -16,6 +17,7 @@ namespace TerraCraft.Core.UI.GridCrafting
         public void OpenGridCraftingUI(int tileId, int itemiconid = 0)
         {
             if (GridCraftingUI == null) return;
+
             if (GridCraftingUI.CurrentState == null)
             {
                 GridCraftingUI.SetState(new UIGridCraftingState(tileId, itemiconid));
@@ -27,7 +29,17 @@ namespace TerraCraft.Core.UI.GridCrafting
         {
             if (GridCraftingUI == null) return;
             GridCraftingUI.SetState(null);
-            SoundEngine.PlaySound(SoundID.MenuClose);
+        }
+
+        public void OpenGridCraftingPreviewUI(bool isFromGuide = false)
+        {
+            if (GridCraftingUI == null) return;
+            GridCraftingUI.SetState(null);
+            if (GridCraftingUI.CurrentState == null)
+            {
+                GridCraftingUI.SetState(new UICraftPreviewerState(isFromGuide));
+                SoundEngine.PlaySound(SoundID.MenuOpen);
+            }
         }
 
         public override void Load()

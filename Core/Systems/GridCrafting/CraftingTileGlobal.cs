@@ -3,6 +3,7 @@ using TerraCraft.Core.UI.GridCrafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace TerraCraft.Core.Systems.GridCrafting
 {
@@ -10,35 +11,36 @@ namespace TerraCraft.Core.Systems.GridCrafting
     {
         private GridCraftingUIRegister UIRegister => ModContent.GetInstance<GridCraftingUIRegister>();
 
-        // 使用元组列表，Tile 与 Item 成对出现，易于维护
-        private static readonly List<(int TileType, int ItemType)> GridCraftingPairs = new()
-        {
-            (TileID.WorkBenches, ItemID.WorkBench),
-            (TileID.HeavyWorkBench, ItemID.HeavyWorkBench),
-            (TileID.Sawmill, ItemID.Sawmill)
-        };
+        /// <summary>
+        /// 判断该 tileType 是否在我们支持的合成台列表里
+        /// </summary>
+        private static bool IsSupportedCraftingStation(int type)
+            => CraftingStationSize.IsSupported(type);
 
         public override void MouseOver(int i, int j, int type)
         {
-            var pair = GridCraftingPairs.Find(p => p.TileType == type);
-            if (pair != default)
-            {
-                Player player = Main.LocalPlayer;
-                player.cursorItemIconEnabled = true;
-                player.cursorItemIconID = pair.ItemType;
-                player.mouseInterface = true;
-            }
+            if (!IsSupportedCraftingStation(type))
+                return;
+
+            int style = TileObjectData.GetTileStyle(Main.tile[i, j]);
+            int itemID = TileLoader.GetItemDropFromTypeAndStyle(type, style);
+
+            Player player = Main.LocalPlayer;
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = itemID;
+            player.mouseInterface = true;
         }
 
         public override void RightClick(int i, int j, int type)
         {
-            var pair = GridCraftingPairs.Find(p => p.TileType == type);
-            if (pair != default)
-            {
-                Main.playerInventory = true;
-                // 传入 Tile ID 和对应的物品 ID（用于 UI 图标显示等）
-                UIRegister.OpenGridCraftingUI(pair.TileType, pair.ItemType);
-            }
+            if (!IsSupportedCraftingStation(type))
+                return;
+
+            int style = TileObjectData.GetTileStyle(Main.tile[i, j]);
+            int itemID = TileLoader.GetItemDropFromTypeAndStyle(type, style);
+
+            Main.playerInventory = true;
+            UIRegister.OpenGridCraftingUI(type, itemID);
         }
     }
 }
