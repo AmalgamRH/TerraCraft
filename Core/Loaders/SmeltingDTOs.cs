@@ -9,11 +9,11 @@ namespace TerraCraft.Core.Loaders
     internal class SmeltingFuelDTO
     {
         public List<string> ItemTypes { get; set; }
-        public int Level { get; set; }
-        public float Speed { get; set; }
+        public int Level { get; set; } = 0;
+        public float Speed { get; set; } = 1f;
         public int BurnTime { get; set; }
 
-        /// <summary>替换规则（可选）</summary>
+        /// <summary>替换规则</summary>
         public SmeltingFuelReplacementDTO Replacement { get; set; }
     }
     internal class SmeltingFuelReplacementDTO

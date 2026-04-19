@@ -1,21 +1,15 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TerraCraft.Core.DataStructures.GridCrafting;
-using TerraCraft.Core.Systems.Durability;
-using TerraCraft.Core.Systems.GridCrafting;
 using TerraCraft.Core.Systems.Smelting;
 using TerraCraft.Core.Utils;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
-using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace TerraCraft.Core.UI.GridCrafting
@@ -33,7 +27,14 @@ namespace TerraCraft.Core.UI.GridCrafting
         private UICustomItemSlot fuelSlot;
         private UICustomItemSlot outputSlot;
 
+        private UISmeltingProgressBar _progressBar;  // ç®­å¤´ï¼Œå·¦â†’å³ï¼Œç†”ç‚¼è¿›åº¦
+        private UISmeltingProgressBar _fireBar;       // ç«ç„°ï¼Œä¸‹â†’ä¸Šï¼Œç‡ƒæ–™å‰©ä½™
+
         private SmeltingInputHandler _inputHandler;
+
+        private const string ArrowTexPath = "TerraCraft/Assets/UI/Smelting/SmeltingArrow";
+        private const string FireTexPath = "TerraCraft/Assets/UI/Smelting/SmeltingFire";
+        private const string Fire2TexPath = "TerraCraft/Assets/UI/Smelting/SmeltingFire2";
 
         public void InitializeGrid(Point16 tilePos, int tileId, int itemiconid, TEFurnace furnace)
         {
@@ -55,55 +56,48 @@ namespace TerraCraft.Core.UI.GridCrafting
         private void LoadFromFurnace()
         {
             if (_furnace == null) return;
-
             for (int i = 0; i < materialSlots.Count && i < _furnace.material.Length; i++)
-            {
                 materialSlots[i].Item = _furnace.material[i];
-            }
             fuelSlot.Item = _furnace.fuel;
             outputSlot.Item = _furnace.output;
         }
+
         private void RecreateSlots(int inputSlotNum = 1)
         {
             SetPadding(0);
 
-            foreach (var slot in materialSlots)
-                RemoveChild(slot);
-            if (outputSlot != null)
-                RemoveChild(outputSlot);
-            if (fuelSlot != null)
-                RemoveChild(fuelSlot);
+            foreach (var slot in materialSlots) RemoveChild(slot);
+            if (outputSlot != null) RemoveChild(outputSlot);
+            if (fuelSlot != null) RemoveChild(fuelSlot);
+            if (_progressBar != null) RemoveChild(_progressBar);
+            if (_fireBar != null) RemoveChild(_fireBar);
             materialSlots.Clear();
 
-            // ========== ³£Á¿ ==========
             const float texSize = 52f;
             const float inputScale = 0.85f;
-            const float outputSlotScale = 1.2f;
-            const float arrowScale = 1.5f;
-
+            const float outputScale = 1.2f;
+            const float arrowScale = 1f;
             const float padding = 16f;
             const float slotGap = 8f;
-            const float outputSpacing = 80f;   // leftAreaRight µ½ outputSlotLeft
+            const float outputSpacing = 80f;
             const float iconSpacing = -10f;
 
-            // ========== ³ß´ç ==========
-            float slotW = texSize * inputScale;        // 44.2
-            float slotH = texSize * inputScale;        // 44.2
-            float outputW = texSize * outputSlotScale;   // 62.4
-            float outputH = texSize * outputSlotScale;   // 62.4
+            float slotW = texSize * inputScale;
+            float slotH = texSize * inputScale;
+            float outputW = texSize * outputScale;
+            float outputH = texSize * outputScale;
 
-            var arrowTex = TextureAssets.GolfBallArrow;
-            var arrowTexRect = new Rectangle(0, 0, arrowTex.Width() / 2 - 2, arrowTex.Height());
-            float arrowW = arrowTexRect.Width * arrowScale;
-            float arrowH = arrowTexRect.Height * arrowScale;
+            var arrowTex = TerraCraft.GetAsset2D(ArrowTexPath, AssetRequestMode.ImmediateLoad);
+            float arrowW = arrowTex.Width() * arrowScale;
+            float arrowH = arrowTex.Height() * arrowScale;
 
-            // ========== ×ó²à²¼¾Ö ==========
-            // ĞĞ0: ÊäÈë²Û
-            // ĞĞ1: ¿ÕÒ»¸ö²ÛµÄ¾àÀë£¨slotH + slotGap£©
-            // ĞĞ2: È¼ÁÏ²Û
+            var fireTex = TerraCraft.GetAsset2D(FireTexPath, AssetRequestMode.ImmediateLoad);
+            float fireW = fireTex.Width() * arrowScale;
+            float fireH = fireTex.Height() * arrowScale;
+
+            // å‚ç›´å¸ƒå±€
             float inputSlotsTop = padding;
-            float fuelSlotTop = padding + (slotH + slotGap) * 1.75f;   // ¿ÕÒ»ĞĞ
-
+            float fuelSlotTop = padding + (slotH + slotGap) * 1.75f;
             float inputTotalW = inputSlotNum * slotW + (inputSlotNum - 1) * slotGap;
             float fuelSlotLeft = (inputTotalW - slotW) / 2f;
 
@@ -112,15 +106,20 @@ namespace TerraCraft.Core.UI.GridCrafting
             float leftAreaCenterY = (leftAreaTop + leftAreaBottom) / 2f;
             float leftAreaRight = Math.Max(inputTotalW, fuelSlotLeft + slotW);
 
-            // ========== Êä³ö²Û ==========
+            // ç«ç„°æ¡ï¼šæ°´å¹³å±…ä¸­äºå·¦ä¾§åŒºåŸŸï¼Œå‚ç›´å±…ä¸­äºææ–™æ§½åº•~ç‡ƒæ–™æ§½é¡¶ä¹‹é—´
+            float fireMidY = (inputSlotsTop + slotH + fuelSlotTop) / 2f;
+            float fireLeft = (inputTotalW - fireW) / 2f;
+            float fireTop = fireMidY - fireH / 2f;
+
+            // è¾“å‡ºæ§½
             float outputSlotLeft = leftAreaRight + outputSpacing;
             float outputSlotTop = leftAreaCenterY - outputH / 2f;
 
-            // ========== ¼ıÍ·£¨¾ÓÖĞÓÚ¼ä¾àÇøÓò£¬´¹Ö±¾ÓÖĞ£© ==========
+            // ç®­å¤´è¿›åº¦æ¡
             float arrowLeft = leftAreaRight + (outputSpacing - arrowW) / 2f;
             float arrowTop = leftAreaCenterY - arrowH / 2f;
 
-            // ========== Í¼±ê£¨¶ÔÆë¼ıÍ·ÕıÏÂ·½Ë®Æ½¾ÓÖĞ£© ==========
+            // å›¾æ ‡
             bool hasIcon = ItemIcon > ItemID.None && TextureAssets.Item[ItemIcon] != null;
             float iconLeft = 0f, iconTop = 0f, iconW = 0f, iconH = 0f;
             if (hasIcon)
@@ -128,20 +127,19 @@ namespace TerraCraft.Core.UI.GridCrafting
                 var iconTex = TextureAssets.Item[ItemIcon];
                 iconW = iconTex.Width();
                 iconH = iconTex.Height();
-                iconLeft = arrowLeft + (arrowW - iconW) / 2f;   // ¶ÔÆë¼ıÍ·ÖĞĞÄ
+                iconLeft = arrowLeft + (arrowW - iconW) / 2f;
                 iconTop = outputSlotTop + outputH + iconSpacing;
             }
 
-            // ========== °üÎ§ºĞ & ¾ÓÖĞÆ«ÒÆ ==========
+            // é¢æ¿å®½åº¦ & X åç§»
             float minLeft = Math.Min(0f, fuelSlotLeft);
             float maxRight = outputSlotLeft + outputW;
             if (hasIcon) maxRight = Math.Max(maxRight, iconLeft + iconW);
-
             float layoutW = maxRight - minLeft;
             float newPanelWidth = layoutW + 100f;
             float offsetX = (newPanelWidth - layoutW) / 2f - minLeft;
 
-            // ========== ´´½¨¿Ø¼ş ==========
+            // ææ–™æ§½
             for (int i = 0; i < inputSlotNum; i++)
             {
                 var slot = new UICustomItemSlot(ItemSlot.Context.BankItem, inputScale);
@@ -151,32 +149,44 @@ namespace TerraCraft.Core.UI.GridCrafting
                 Append(slot);
             }
 
+            // ç«ç„°è¿›åº¦æ¡ï¼ˆææ–™æ§½ä¸ç‡ƒæ–™æ§½ä¹‹é—´ï¼Œä¸‹â†’ä¸Šï¼‰
+            _fireBar = new UISmeltingProgressBar(
+                texPath: FireTexPath,
+                texPath2: Fire2TexPath,
+                scale: arrowScale,
+                direction: UISmeltingProgressBar.FillDirection.BottomToTop,
+                bgColor: new Color(47, 56, 106),
+                fgColor: Color.White);
+            _fireBar.SetFuelRatio(_furnace);
+            _fireBar.Left.Set(fireLeft + offsetX, 0f);
+            _fireBar.Top.Set(fireTop, 0f);
+            Append(_fireBar);
+
+            // ç‡ƒæ–™æ§½
             fuelSlot = new UICustomItemSlot(ItemSlot.Context.BankItem, inputScale);
             fuelSlot.Left.Set(fuelSlotLeft + offsetX, 0f);
             fuelSlot.Top.Set(fuelSlotTop, 0f);
             Append(fuelSlot);
 
-            outputSlot = new UICustomItemSlot(ItemSlot.Context.BankItem, outputSlotScale);
+            // è¾“å‡ºæ§½
+            outputSlot = new UICustomItemSlot(ItemSlot.Context.BankItem, outputScale);
             outputSlot.Left.Set(outputSlotLeft + offsetX, 0f);
             outputSlot.Top.Set(outputSlotTop, 0f);
             Append(outputSlot);
 
-            var arrow = new UIImageNeo(arrowTex)
-            {
-                NormalizedOrigin = new Vector2(0.5f),
-                IgnoresMouseInteraction = true,
-                Color = new Color(47, 56, 106) * 0.7f,
-                Rotation = -MathHelper.PiOver2,
-                Rectangle = arrowTexRect,
-                ImageScale = arrowScale
-            };
+            // ç®­å¤´è¿›åº¦æ¡ï¼ˆå·¦â†’å³ï¼Œç†”ç‚¼è¿›åº¦ï¼‰
+            _progressBar = new UISmeltingProgressBar(
+                texPath: ArrowTexPath,
+                scale: arrowScale,
+                direction: UISmeltingProgressBar.FillDirection.LeftToRight,
+                bgColor: new Color(47, 56, 106),
+                fgColor: Color.White);
+            _progressBar.SetFurnace(_furnace);
+            _progressBar.Left.Set(arrowLeft + offsetX, 0f);
+            _progressBar.Top.Set(arrowTop, 0f);
+            Append(_progressBar);
 
-            arrow.Width.Set(arrowW, 0f);
-            arrow.Height.Set(arrowH, 0f);
-            arrow.Left.Set(arrowLeft + offsetX, 0f);
-            arrow.Top.Set(arrowTop, 0f);
-            Append(arrow);
-
+            // å›¾æ ‡
             if (hasIcon)
             {
                 var iconTex = TextureAssets.Item[ItemIcon];
@@ -192,7 +202,7 @@ namespace TerraCraft.Core.UI.GridCrafting
                 Append(icon);
             }
 
-            // ========== Ãæ°å³ß´ç ==========
+            // é¢æ¿å°ºå¯¸
             float contentBottom = leftAreaBottom;
             contentBottom = Math.Max(contentBottom, outputSlotTop + outputH);
             if (hasIcon) contentBottom = Math.Max(contentBottom, iconTop + iconH);

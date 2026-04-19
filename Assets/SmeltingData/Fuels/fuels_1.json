@@ -1,0 +1,31 @@
+﻿{
+    "Fuels": [
+        {
+            "ItemTypes": ["Wood","AshWood","RichMahogany"],
+            "Level": 0,
+            "Speed": 1,
+            "BurnTime": 900
+        },
+        {
+            "ItemTypes": ["WoodPlatform"],
+            "BurnTime": 900
+        },
+        {
+            "ItemTypes": ["TerraCraft:WoodenStick", "Gel"],
+            "BurnTime": 300
+        },
+        {
+            "ItemTypes": ["Coal"],
+            "BurnTime": 4800
+        },
+        {
+            "ItemTypes": ["Torch"],
+            "BurnTime": 900
+        },
+        {
+            "ItemTypes": ["LavaBucket"],
+            "BurnTime": 60000,
+            "Replacement": {"ReplaceWith":"EmptyBucket", "ReplaceAmount":1}
+        }
+    ]
+}

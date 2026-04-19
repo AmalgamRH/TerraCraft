@@ -427,13 +427,13 @@ namespace TerraCraft.Core.UI.GridCrafting
             SoundEngine.PlaySound(SoundID.Grab);
         }
 
-        private bool IsSameItem(Item currentItem, Item targetItem)
+        public bool IsSameItem(Item currentItem, Item targetItem)
         {
             return targetItem.type == currentItem.type &&
                    targetItem.prefix == currentItem.prefix &&
                    SameGlobals(currentItem, targetItem);
         }
-        private bool SameGlobals(Item a, Item b)
+        public bool SameGlobals(Item a, Item b)
         {
             List<Type> typesA = new List<Type>();
             List<Type> typesB = new List<Type>();

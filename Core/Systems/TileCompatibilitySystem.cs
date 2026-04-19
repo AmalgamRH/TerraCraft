@@ -51,8 +51,9 @@ namespace TerraCraft.Core.Systems
             //AddRelationship(TileID.Anvils, TileID.MythrilAnvil);
 
             // 熔炉
-            AddRelationship(TileID.Furnaces, TileID.Hellforge);
-            AddRelationship(TileID.Hellforge, TileID.AdamantiteForge);
+            AddRelationship(TileID.Furnaces, TileID.Hellforge); //地狱熔炉继承熔炉的所有配方
+            AddRelationship(TileID.Furnaces, TileID.GlassKiln); //玻璃窑继承熔炉的所有配方
+            AddRelationship(TileID.Hellforge, TileID.AdamantiteForge); //精金/钛金熔炉继承地狱熔炉的所有配方
 
             // 瓶子
             AddRelationship(TileID.Bottles, TileID.AlchemyTable);
