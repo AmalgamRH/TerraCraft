@@ -1,7 +1,7 @@
 namespace TerraCraft.Core.DataStructures.GridCrafting
 {
     /// <summary>替换规则（容器物品）</summary>
-    public struct Replacement
+    public struct RecipeReplacement
     {
         public int? X { get; set; }
         public int? Y { get; set; }
@@ -10,7 +10,7 @@ namespace TerraCraft.Core.DataStructures.GridCrafting
         public int? ReplaceWithType { get; set; }      // 替换成的物品 ID，null 表示直接移除
         public int ReplaceAmount { get; set; } = 1;
 
-        public Replacement()
+        public RecipeReplacement()
         {
             ReplaceAmount = 1;
         }

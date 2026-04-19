@@ -7,12 +7,12 @@ using Terraria.ID;
 
 namespace TerraCraft.Core.UI.GridCrafting
 {
-    internal class GridCraftingInputHandler
+    internal class CustomItemSlotInputHandler
     {
         private enum DragMode { None, PickUp, DistributePreview }
         private DragMode _currentMode = DragMode.None;
 
-        private readonly List<VanillaItemSlotWrapper> _inputSlots;
+        private readonly List<UICustomItemSlot> _inputSlots;
         private readonly Action _onSlotsChanged;
 
         // 预览分配状态
@@ -31,13 +31,13 @@ namespace TerraCraft.Core.UI.GridCrafting
         private bool _mouseLeftWasDown = false;
         private bool _mouseRightWasDown = false;
 
-        public GridCraftingInputHandler(List<VanillaItemSlotWrapper> slots, System.Action onChanged)
+        public CustomItemSlotInputHandler(List<UICustomItemSlot> slots, System.Action onChanged)
         {
             _inputSlots = slots;
             _onSlotsChanged = onChanged;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (PlayerInput.IgnoreMouseInterface)
             {

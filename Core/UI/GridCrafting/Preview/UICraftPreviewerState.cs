@@ -25,7 +25,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
     /// </summary>
     internal class UICraftPreviewerState : UIState
     {
-        private VanillaItemSlot _targetItemSlot;   // 用于放置物品的交互槽
+        private UIItemSlot _targetItemSlot;   // 用于放置物品的交互槽
         private UIList _recipeList;
         private UIScrollbar _scrollbar;
         private Item _lastTargetItem = new Item();
@@ -57,7 +57,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
             Append(mainPanel);
 
             // 目标物品槽（可交互，用于放入物品）
-            _targetItemSlot = new VanillaItemSlot(ItemSlot.Context.GuideItem, 0.85f);
+            _targetItemSlot = new UIItemSlot(ItemSlot.Context.GuideItem, 0.85f);
             _targetItemSlot.SetPos(Vector2.Zero);
             _targetItemSlot.ValidItemFunc = (item) => true;
             mainPanel.Append(_targetItemSlot);
@@ -104,7 +104,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                     Main.InGuideCraftMenu = false;
                     Main.playerInventory = false;
                     Player.dropItemCheck();
-                    ModContent.GetInstance<GridCraftingUIRegister>().CloseGridCraftingUI();
+                    ModContent.GetInstance<WorkstationUIRegister>().CloseWorkstationUI();
                     Recipe.FindRecipes();
                     return;
                 }
@@ -112,7 +112,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
 
             if (Player.controlInv)
             {
-                ModContent.GetInstance<GridCraftingUIRegister>().CloseGridCraftingUI();
+                ModContent.GetInstance<WorkstationUIRegister>().CloseWorkstationUI();
                 Player.SetTalkNPC(-1);
                 Main.playerInventory = false;
                 return;
@@ -249,7 +249,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
             };
         }
 
-        private static int GetDisplayItemType(Ingredient ing)
+        private static int GetDisplayItemType(RecipeIngredient ing)
         {
             if (ing.ItemType != 0) return ing.ItemType;
             if (!string.IsNullOrEmpty(ing.RecipeGroup))

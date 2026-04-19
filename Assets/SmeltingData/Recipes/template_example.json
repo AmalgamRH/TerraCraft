@@ -1,0 +1,42 @@
+﻿{
+    "SmeltingGroups": [
+        {
+            "Id": "example_group_recipe",
+            "MaterialSource": "example_materials",
+            "Template": {
+                "Id": "{Name}_default",
+                "RequiredTiles": ["{Station}"],
+                "Label": "Example",
+                "Ingredients": [{"ItemId":"{Tool}", "Amount":1}],
+                "Outputs": [{ "ItemId": "{Bar}", "Amount": 2 }],
+                "BaseSmeltTime": 600
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Tool": "Tool",
+                "Station": "StationId",
+                "Bar": "Bar"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "example_materials",
+            "Description": "example materials",
+            "Materials": [
+                {
+                    "Name": "iron_pickaxe",
+                    "Tool": "IronPickaxe",
+                    "Bar": "IronBar",
+                    "StationId": ""
+                },
+                {
+                    "Name": "gold_pickaxe",
+                    "Tool": "GoldPickaxe",
+                    "Bar": "GoldBar",
+                    "StationId": "GlassKiln"
+                }
+            ]
+        }
+    ]
+}

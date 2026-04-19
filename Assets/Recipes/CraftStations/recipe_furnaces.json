@@ -1,0 +1,34 @@
+{
+  "Recipes": [
+    {
+      "Id": "furnace",
+      "Shaped": true,
+      "RequiredTiles": ["WorkBenches"],
+      "Pattern": 
+      [
+        ["StoneBlock","StoneBlock","StoneBlock"],
+        ["StoneBlock","","StoneBlock"],
+        ["StoneBlock","StoneBlock","StoneBlock"]
+      ],
+      "Outputs": [
+        { "ItemId": "Furnace", "Amount": 1 }
+      ],
+      "Replacements": []
+    },
+    {
+      "Id": "glass_kiln",
+      "Shaped": true,
+      "RequiredTiles": ["HeavyWorkBench"],
+      "Pattern": 
+      [
+        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
+        [{"RecipeGroup": "IronBar"},"Furnace",{"RecipeGroup": "IronBar"}],
+        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}]
+      ],
+      "Outputs": [
+        { "ItemId": "GlassKiln", "Amount": 1 }
+      ],
+      "Replacements": []
+    }
+  ]
+}

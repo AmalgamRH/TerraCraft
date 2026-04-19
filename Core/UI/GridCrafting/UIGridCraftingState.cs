@@ -38,7 +38,7 @@ namespace TerraCraft.Core.UI.GridCrafting
             if (initialTimer > 0) initialTimer--;
             if (!Main.playerInventory && initialTimer == 0)
             {
-                ModContent.GetInstance<GridCraftingUIRegister>().CloseGridCraftingUI();
+                ModContent.GetInstance<WorkstationUIRegister>().CloseWorkstationUI();
                 if (!soundPlayed)
                 {
                     SoundEngine.PlaySound(SoundID.MenuClose);

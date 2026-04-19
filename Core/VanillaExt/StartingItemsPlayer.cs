@@ -33,7 +33,6 @@ namespace TerraCraft.Core.VanillaExt
                 Player.inventory[1].SetDefaults(axeType);
                 Player.inventory[1].Prefix(-1);
             }
-
             hasInitialized = true;
         }
     }

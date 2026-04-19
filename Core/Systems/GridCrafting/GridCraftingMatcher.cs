@@ -217,7 +217,7 @@ namespace TerraCraft.Core.Systems.GridCrafting
 
                     // 查找配方中该位置的配料
                     var ing = recipe.Ingredients.FirstOrDefault(i => i.X == recipeX && i.Y == recipeY);
-                    if (ing.Equals(default(Ingredient)))
+                    if (ing.Equals(default(RecipeIngredient)))
                     {
                         // 配方内无要求的位置必须为空
                         if (slotItem != null && !slotItem.IsAir)
@@ -359,7 +359,7 @@ namespace TerraCraft.Core.Systems.GridCrafting
             return hashParts.ToString();
         }
 
-        private bool MatchesIngredient(Item item, Ingredient ing)
+        private bool MatchesIngredient(Item item, RecipeIngredient ing)
         {
             if (item == null || item.IsAir) return false;
             if (ing.ItemType != 0)
@@ -378,7 +378,7 @@ namespace TerraCraft.Core.Systems.GridCrafting
 
         private class IngredientRequirement
         {
-            public Ingredient Ingredient;
+            public RecipeIngredient Ingredient;
             public int Needed;
         }
     }

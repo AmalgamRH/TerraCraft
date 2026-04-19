@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using TerraCraft.Core.Systems.GridCrafting;
+using TerraCraft.Core.Systems;
 using TerraCraft.Core.Utils;
 using Terraria;
 using Terraria.ModLoader;

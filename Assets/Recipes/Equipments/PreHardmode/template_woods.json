@@ -189,7 +189,18 @@
                     "HammerId": "",
                     "BowId": "",
                     "AxeId": ""
-
+                },
+                {
+                    "Name": "Stone",
+                    "Bar": "StoneBlock",
+                    "SwordId": "",
+                    "PickaxeId": "TerraCraft:StonePickaxe",
+                    "AxeId": "TerraCraft:StoneAxe",
+                    "BowId": "",
+                    "HammerId": "",
+                    "HelmetId": "",
+                    "ChestplateId": "",
+                    "LeggingsId": ""
                 },
                 {
                     "Name": "Wood_Combat",

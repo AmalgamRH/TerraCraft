@@ -1,6 +1,6 @@
 ﻿namespace TerraCraft.Core.DataStructures.GridCrafting
 {
-    public struct Ingredient
+    public struct RecipeIngredient
     {
         /// <summary>位置（仅当 Shaped = true 时有效）</summary>
         public int? X { get; set; }
@@ -11,7 +11,7 @@
 
         public int Amount { get; set; } = 1;
 
-        public Ingredient()
+        public RecipeIngredient()
         {
             Amount = 1;
         }

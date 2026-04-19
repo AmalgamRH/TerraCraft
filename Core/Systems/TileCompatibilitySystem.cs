@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerraCraft.Core.Systems.GridCrafting
+namespace TerraCraft.Core.Systems
 {
     public class TileCompatibilitySystem : ModSystem
     {

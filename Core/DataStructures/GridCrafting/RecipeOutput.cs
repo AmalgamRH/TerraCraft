@@ -1,6 +1,6 @@
 ﻿namespace TerraCraft.Core.DataStructures.GridCrafting
 {
-    public struct Output
+    public struct RecipeOutput
     {
         public int ItemType { get; set; }
         public int Amount { get; set; } = 1;
@@ -10,7 +10,7 @@
         public int? MaxDurability { get; set; }   // null 表示使用默认映射表
         public int? InitialDurability { get; set; } // null 表示等于 MaxDurability
 
-        public Output()
+        public RecipeOutput()
         {
             Amount = 1;
             UseDurability = false;

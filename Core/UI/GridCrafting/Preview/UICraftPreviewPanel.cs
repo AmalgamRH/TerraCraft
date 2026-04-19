@@ -147,7 +147,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
             }
         }
 
-        private static int GetDisplayItemType(Ingredient ing)
+        private static int GetDisplayItemType(RecipeIngredient ing)
         {
             if (ing.ItemType != 0) return ing.ItemType;
             if (!string.IsNullOrEmpty(ing.RecipeGroup))

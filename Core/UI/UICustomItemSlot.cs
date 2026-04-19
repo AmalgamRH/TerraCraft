@@ -10,7 +10,7 @@ namespace TerraCraft.Core.UI
     /// <summary>
     /// 仅负责绘制物品槽、悬停提示和预览分配效果，所有交互由外部处理。
     /// </summary>
-    internal class VanillaItemSlotWrapper : UIElement
+    internal class UICustomItemSlot : UIElement
     {
         internal Item Item;
         private readonly int _context;
@@ -20,7 +20,7 @@ namespace TerraCraft.Core.UI
         public bool IsPreviewSlot = false;
         public Item PreviewItem = null;      // 若不为 null，绘制预览物品而非实际 Item
 
-        public VanillaItemSlotWrapper(int context = ItemSlot.Context.BankItem, float scale = 1f)
+        public UICustomItemSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
         {
             _context = context;
             _scale = scale;

@@ -13,7 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace TerraCraft.Core.Systems.VanillaOverhaul
+namespace TerraCraft.Core.Systems
 {
     public class VanillaCraftingSystemDisabler : ModSystem
     {
@@ -39,7 +39,7 @@ namespace TerraCraft.Core.Systems.VanillaOverhaul
         {
             if (config.UseOverhaulGameplay)
             {
-                var ui = ModContent.GetInstance<GridCraftingUIRegister>().GridCraftingUI;
+                var ui = ModContent.GetInstance<WorkstationUIRegister>().WorkstationUI;
                 if (Main.playerInventory && ui.CurrentState == null)
                 {
                     ui.SetState(new UIGridCraftingState(-1, 0));
@@ -55,7 +55,7 @@ namespace TerraCraft.Core.Systems.VanillaOverhaul
             if (config.UseOverhaulGameplay && Main.InGuideCraftMenu)
             {
                 Main.InGuideCraftMenu = false;
-                ModContent.GetInstance<GridCraftingUIRegister>().OpenGridCraftingPreviewUI(isFromGuide: true);
+                ModContent.GetInstance<WorkstationUIRegister>().OpenGridCraftingPreviewUI(isFromGuide: true);
             }
             orig.Invoke(self);
         }

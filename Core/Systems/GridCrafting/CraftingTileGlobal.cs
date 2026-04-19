@@ -9,7 +9,7 @@ namespace TerraCraft.Core.Systems.GridCrafting
 {
     public class CraftingTileGlobal : GlobalTile
     {
-        private GridCraftingUIRegister UIRegister => ModContent.GetInstance<GridCraftingUIRegister>();
+        private WorkstationUIRegister UIRegister => ModContent.GetInstance<WorkstationUIRegister>();
 
         /// <summary>
         /// 判断该 tileType 是否在我们支持的合成台列表里

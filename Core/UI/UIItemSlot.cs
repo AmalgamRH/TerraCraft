@@ -8,20 +8,22 @@ using Terraria.UI;
 
 namespace TerraCraft.Core.UI
 {
-    internal class VanillaItemSlot : UIElement
+    /// <summary>
+    /// 贴近原版类型的物品槽
+    /// </summary>
+    internal class UIItemSlot : UIElement
     {
         internal Item Item;
         private readonly int _context;
         private readonly float _scale;
         internal Func<Item, bool> ValidItemFunc;
 
-        public VanillaItemSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
+        public UIItemSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
         {
             _context = context;
             _scale = scale;
             Item = new Item();
             Item.SetDefaults(0);
-
             Width.Set(TextureAssets.InventoryBack9.Value.Width * scale, 0f);
             Height.Set(TextureAssets.InventoryBack9.Value.Height * scale, 0f);
         }

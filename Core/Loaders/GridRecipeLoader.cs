@@ -66,6 +66,8 @@ namespace TerraCraft.Core.Loaders
             RecipeDB.InitializeCache();
 
             RecipeMaterialCache.Load(allRecipes);
+
+            Mod.Logger.Info($"[GridRecipeLoader] Successfully loaded {allRecipes.Count} grid recipes");
         }
         public override void Unload()
         {
@@ -372,7 +374,7 @@ namespace TerraCraft.Core.Loaders
                     tileIds = null;
 
                 // 转换Ingredients（从Pattern或Ingredients）
-                List<Ingredient> ingredients = new List<Ingredient>();
+                List<RecipeIngredient> ingredients = new List<RecipeIngredient>();
                 int gridWidth = 1;   // 默认尺寸，仅当Shaped = true且无Pattern时可能被AutoComputeDimensions覆盖
                 int gridHeight = 1;
 
@@ -390,7 +392,7 @@ namespace TerraCraft.Core.Loaders
                         if (!string.IsNullOrEmpty(ingDTO.ItemId))
                             itemType = ItemIDResolver.ParseItemType(ingDTO.ItemId);
 
-                        ingredients.Add(new Ingredient
+                        ingredients.Add(new RecipeIngredient
                         {
                             X = ingDTO.X,
                             Y = ingDTO.Y,
@@ -402,13 +404,13 @@ namespace TerraCraft.Core.Loaders
                 }
 
                 // 转换Outputs
-                List<Output> outputs = new List<Output>();
+                List<RecipeOutput> outputs = new List<RecipeOutput>();
                 if (dto.Outputs != null)
                 {
                     foreach (var outDTO in dto.Outputs)
                     {
                         int itemType = ItemIDResolver.ParseItemType(outDTO.ItemId);
-                        outputs.Add(new Output
+                        outputs.Add(new RecipeOutput
                         {
                             ItemType = itemType,
                             Amount = outDTO.Amount,
@@ -420,7 +422,7 @@ namespace TerraCraft.Core.Loaders
                 }
 
                 // 转换Replacements
-                List<Replacement> replacements = new List<Replacement>();
+                List<RecipeReplacement> replacements = new List<RecipeReplacement>();
                 if (dto.Replacements != null)
                 {
                     foreach (var repDTO in dto.Replacements)
@@ -433,7 +435,7 @@ namespace TerraCraft.Core.Loaders
                         if (!string.IsNullOrEmpty(repDTO.ReplaceWith))
                             replaceWithType = ItemIDResolver.ParseItemType(repDTO.ReplaceWith);
 
-                        replacements.Add(new Replacement
+                        replacements.Add(new RecipeReplacement
                         {
                             X = repDTO.X,
                             Y = repDTO.Y,
@@ -478,7 +480,7 @@ namespace TerraCraft.Core.Loaders
                     return $"({ing.X},{ing.Y}):{itemInfo}×{ing.Amount}";
                 }));
                 string outputsInfo = outputs.Count == 0 ? "None" : string.Join(", ", outputs.Select(output => $"ItemID:{output.ItemType}×{output.Amount}"));
-                Mod.Logger.Debug($"[Recipe] ID: {dto.Id} | Type: {(dto.Shaped ? "Shaped" : "Shapeless")} | Size: {gridWidth}x{gridHeight} | Tiles: {tileInfo} | Ingredients: {ingredientsInfo} | Outputs: {outputsInfo}");
+                // Mod.Logger.Debug($"[Recipe] ID: {dto.Id} | Type: {(dto.Shaped ? "Shaped" : "Shapeless")} | Size: {gridWidth}x{gridHeight} | Tiles: {tileInfo} | Ingredients: {ingredientsInfo} | Outputs: {outputsInfo}");
                 return recipe;
             }
             catch (Exception e)
@@ -488,9 +490,9 @@ namespace TerraCraft.Core.Loaders
             }
         }
 
-        private List<Ingredient> ParsePattern(List<List<PatternCellDTO>> pattern, out int width, out int height)
+        private List<RecipeIngredient> ParsePattern(List<List<PatternCellDTO>> pattern, out int width, out int height)
         {
-            var ingredients = new List<Ingredient>();
+            var ingredients = new List<RecipeIngredient>();
             height = pattern.Count;
             width = 0;
 
@@ -512,7 +514,7 @@ namespace TerraCraft.Core.Loaders
                         if (!string.IsNullOrEmpty(cell.ItemId))
                             itemType = ItemIDResolver.ParseItemType(cell.ItemId);
 
-                        ingredients.Add(new Ingredient
+                        ingredients.Add(new RecipeIngredient
                         {
                             X = x,
                             Y = y,

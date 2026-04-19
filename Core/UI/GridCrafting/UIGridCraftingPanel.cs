@@ -6,7 +6,6 @@ using System.Linq;
 using TerraCraft.Core.DataStructures.GridCrafting;
 using TerraCraft.Core.Systems.Durability;
 using TerraCraft.Core.Systems.GridCrafting;
-using TerraCraft.Core.Systems.VanillaOverhaul;
 using TerraCraft.Core.Utils;
 using Terraria;
 using Terraria.Audio;
@@ -27,8 +26,8 @@ namespace TerraCraft.Core.UI.GridCrafting
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
 
-        private VanillaItemSlotWrapper outputSlot;
-        private List<VanillaItemSlotWrapper> inputSlots = new List<VanillaItemSlotWrapper>();
+        private UICustomItemSlot outputSlot;
+        private List<UICustomItemSlot> inputSlots = new List<UICustomItemSlot>();
         private Player Player => Main.LocalPlayer;
 
         private GridCraftingMatcher _currentMatcher;
@@ -44,7 +43,7 @@ namespace TerraCraft.Core.UI.GridCrafting
         private const int CraftRepeatDelay = 30;
 
         // 输入槽交互处理器（已分离）
-        private GridCraftingInputHandler _inputHandler;
+        private CustomItemSlotInputHandler _inputHandler;
 
         private Item[] _lastGridItems;
 
@@ -57,7 +56,7 @@ namespace TerraCraft.Core.UI.GridCrafting
             RecreateSlots();
 
             // 初始化交互处理器，传入回调 RefreshMatching
-            _inputHandler = new GridCraftingInputHandler(inputSlots, RefreshMatching);
+            _inputHandler = new CustomItemSlotInputHandler(inputSlots, RefreshMatching);
         }
 
         private void RecreateSlots()
@@ -82,7 +81,7 @@ namespace TerraCraft.Core.UI.GridCrafting
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    var slot = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 0.85f);
+                    var slot = new UICustomItemSlot(ItemSlot.Context.BankItem, 0.85f);
                     if (x == 0 && y == 0)
                     {
                         slotSize = slot.GetSize(true);
@@ -95,7 +94,7 @@ namespace TerraCraft.Core.UI.GridCrafting
                 }
             }
 
-            outputSlot = new VanillaItemSlotWrapper(4, 0.85f);
+            outputSlot = new UICustomItemSlot(4, 0.85f);
             float outputSlotHeight = outputSlot.Height.Pixels;
             float gridActualHeight = (GridHeight - 1) * actualSpacing + slotSize.Y;
             float outputLeft = padding + GridWidth * actualSpacing + outputSpacing;
