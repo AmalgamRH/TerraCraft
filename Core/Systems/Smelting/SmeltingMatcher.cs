@@ -57,9 +57,10 @@ namespace TerraCraft.Core.Systems.Smelting
         public static float GetTotalSpeed(int tileId, SmeltingRecipe recipe, float fuelSpeed)
         {
             if (recipe.Id == null) return 0f;
-            float furnaceSpeed = SmeltingTileDataBase.GetSpeedMultiplier(tileId, recipe.Label);
-            if (furnaceSpeed <= 0f) furnaceSpeed = 1f;  // 找不到匹配时默认1倍速
-            return furnaceSpeed * fuelSpeed;
+            float? furnaceSpeed = SmeltingTileDataBase.GetSpeedMultiplier(tileId, recipe.Label);
+            if (!furnaceSpeed.HasValue || furnaceSpeed.Value <= 0f)
+                return 0f;
+            return furnaceSpeed.Value * fuelSpeed;
         }
 
         public static void GetFuelData(int itemType, out int burnTime, out float speed, out int level)

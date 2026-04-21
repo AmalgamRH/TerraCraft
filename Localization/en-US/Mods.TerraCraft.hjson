@@ -10,4 +10,5 @@ Configs: {
 	}
 }
 
+Tooltips.Fuel: Fuel
 UI.CraftStation: "Craft Station: "

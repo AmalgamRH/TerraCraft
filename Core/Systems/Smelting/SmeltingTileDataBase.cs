@@ -50,17 +50,24 @@ namespace TerraCraft.Core.Systems.Smelting
             => TileData.TryGetValue(tileType, out var data) ? data.BaseSpeedMultiplier : 1.0f;
 
         /// <summary>获取指定熔炉对某个原料标签的最终速度倍率（若标签有特定倍率则返回该倍率，否则返回基础倍率）</summary>
-        public static float GetSpeedMultiplier(int tileType, string label)
+        public static float? GetSpeedMultiplier(int tileType, string label)
         {
             if (!TileData.TryGetValue(tileType, out var data))
-                return 1.0f;  // 未注册的熔炉默认速度 1.0
-
+                return 1f; // 未注册默认 1 倍
             if (!string.IsNullOrEmpty(label) && data.LabelSpeedMultipliers.TryGetValue(label, out var labelMulti))
                 return labelMulti;
-
-            return data.BaseSpeedMultiplier;
+            if (data.BaseSpeedMultiplier > 0f)
+                return data.BaseSpeedMultiplier;
+            return null; // 基础速度为 0 且没有标签倍率 → 不支持
         }
-
+        public static bool CanSmelt(int tileType, string label)
+        {
+            if (!TileData.TryGetValue(tileType, out var data))
+                return true; // 未注册的熔炉默认允许
+            if (data.BaseSpeedMultiplier <= 0f && !data.LabelSpeedMultipliers.ContainsKey(label))
+                return false; // 基础速度为 0 且没有标签倍率 → 禁止
+            return true;
+        }
         /// <summary>检查某个熔炉是否被本系统支持（即是否在 TileData 中有注册）</summary>
         public static bool IsSupported(int tileType) => TileData.ContainsKey(tileType);
     }

@@ -65,13 +65,13 @@ namespace TerraCraft.Core.Loaders
             // 初始化缓存
             RecipeDB.InitializeCache();
 
-            RecipeMaterialCache.Load(allRecipes);
+            CustomItemDataCache.LoadGridMaterialItem(allRecipes);
 
             Mod.Logger.Info($"[GridRecipeLoader] Successfully loaded {allRecipes.Count} grid recipes");
         }
         public override void Unload()
         {
-            RecipeMaterialCache.Unload();
+            CustomItemDataCache.UnloadGridMaterialItem();
             RecipeDB = null;
         }
         // 处理JSON内容，自动检测格式

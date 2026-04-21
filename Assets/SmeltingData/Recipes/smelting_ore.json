@@ -1,0 +1,100 @@
+﻿{
+  "Smelting": [
+    {
+      "Id": "copperbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"CopperOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "CopperBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "tinbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"TinOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "TinBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "ironbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"IronOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "IronBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "leadbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"LeadOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "LeadBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "silverbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"SilverOre", "Amount":10}],
+      "Outputs": [{ "ItemId": "SilverBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "tungstenbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"TungstenOre", "Amount":10}],
+      "Outputs": [{ "ItemId": "TungstenBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "goldbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"GoldOre", "Amount":10}],
+      "Outputs": [{ "ItemId": "GoldBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "platinumbar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"PlatinumOre", "Amount":10}],
+      "Outputs": [{ "ItemId": "PlatinumBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "demonitebar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"DemoniteOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "DemoniteBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "crimtanebar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"CrimtaneOre", "Amount":8}],
+      "Outputs": [{ "ItemId": "CrimtaneBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "meteoritebar",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"Meteorite", "Amount":8}],
+      "Outputs": [{ "ItemId": "MeteoriteBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    },
+    {
+      "Id": "hellstoneBar",
+      "RequiredTiles": ["Hellforge"],
+      "Label": "Ore",
+      "Ingredients": [{"ItemId":"Hellstone", "Amount":8},{"ItemId":"Obsidian", "Amount":1}],
+      "Outputs": [{ "ItemId": "HellstoneBar", "Amount": 1 }],
+      "BaseSmeltTime": 600
+    }
+  ]
+}

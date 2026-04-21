@@ -1,26 +1,14 @@
 ﻿using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+using TerraCraft.Core.DataStructures.GridCrafting;
+using TerraCraft.Core.DataStructures.Smelting;
 
 namespace TerraCraft.Core.VanillaExt
 {
-    public class MaterialItemDefines : GlobalItem
-    {
-        public override void SetDefaults(Item item)
-        {
-            if (RecipeMaterialCache.MaterialItemIds.Contains(item.type))
-            {
-                item.material = true;
-            }
-        }
-    }
-    public static class RecipeMaterialCache
+    public static class CustomItemDataCache
     {
         public static HashSet<int> MaterialItemIds { get; private set; } = new();
-
-        public static void Load(List<DataStructures.GridCrafting.GriddedRecipe> recipes)
+        public static HashSet<int> FuelItemIds { get; private set; } = new();
+        public static void LoadGridMaterialItem(List<GriddedRecipe> recipes)
         {
             MaterialItemIds.Clear();
 
@@ -30,14 +18,12 @@ namespace TerraCraft.Core.VanillaExt
 
                 foreach (var ing in recipe.Ingredients)
                 {
-                    // 直接物品ID
-                    if (ing.ItemType > 0)
+                    if (ing.ItemType > 0)   //物品ID
                     {
                         MaterialItemIds.Add(ing.ItemType);
                     }
-                    // 配方组
                     else if (!string.IsNullOrEmpty(ing.RecipeGroup))
-                    {
+                    {   // 配方组
                         try
                         {
                             var items = Utils.RecipeGroupResolver.GetRecipeGroupItems(ing.RecipeGroup);
@@ -48,11 +34,23 @@ namespace TerraCraft.Core.VanillaExt
                     }
                 }
             }
-
-            ModContent.GetInstance<TerraCraft>().Logger.Info($"[TerraCraft] Cached {MaterialItemIds.Count} material items.");
+            TerraCraft.Instance.Logger.Info($"Cached {MaterialItemIds.Count} material items.");
         }
+        public static void LoadFuelItem(List<SmeltingFuel> fuels)
+        {
+            FuelItemIds.Clear();
 
-        public static void Unload()
+            foreach (var fuel in fuels)
+            {
+                FuelItemIds.Add(fuel.ItemType);
+            }
+            TerraCraft.Instance.Logger.Info($"Cached {MaterialItemIds.Count} material items.");
+        }
+        public static void UnloadGridMaterialItem()
+        {
+            MaterialItemIds.Clear();
+        }
+        public static void UnloadFuelItem()
         {
             MaterialItemIds.Clear();
         }

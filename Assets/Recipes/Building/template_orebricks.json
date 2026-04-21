@@ -1,0 +1,83 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "orebricks_template_group",
+            "MaterialSource": "orebrick_materials",
+            "Template": {
+                "Id": "{Name}_brick",
+                "Shaped": true,
+                "RequiredTiles": ["HeavyWorkBench"],
+                "Pattern": [
+                    ["","StoneBlock",""],
+                    ["StoneBlock","{Ore}","StoneBlock"],
+                    ["","StoneBlock",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BrickId}", "Amount": 4}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Ore": "Ore",
+                "BrickId": "BrickId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "orebrick_materials",
+            "Description": "orebrick_materials",
+            "Materials": [
+                { "Name": "Copper", "Ore": "CopperOre", "BrickId": "CopperBrick" },
+                { "Name": "Tin", "Ore": "TinOre", "BrickId": "TinBrick" },
+                { "Name": "Iron", "Ore": "IronOre", "BrickId": "IronBrick" },
+                { "Name": "Lead", "Ore": "LeadOre", "BrickId": "LeadBrick" },
+                { "Name": "Silver", "Ore": "SilverOre", "BrickId": "SilverBrick" },
+                { "Name": "Tungsten", "Ore": "TungstenOre", "BrickId": "TungstenBrick" },
+                { "Name": "Gold", "Ore": "GoldOre", "BrickId": "GoldBrick" },
+                { "Name": "Platinum", "Ore": "PlatinumOre", "BrickId": "PlatinumBrick" },
+                { "Name": "Meteorite", "Ore": "Meteorite", "BrickId": "MeteoriteBrick" },
+                { "Name": "Obsidian", "Ore": "Obsidian", "BrickId": "ObsidianBrick" },
+                { "Name": "Hellstone", "Ore": "Hellstone", "BrickId": "HellstoneBrick" },
+                { "Name": "Cobalt", "Ore": "CobaltOre", "BrickId": "CobaltBrick" },
+                { "Name": "Palladium", "Ore": "PalladiumOre", "BrickId": "PalladiumColumn" },
+                { "Name": "Mythril", "Ore": "MythrilOre", "BrickId": "MythrilBrick" },
+                { "Name": "Orichalcum", "Ore": "OrichalcumOre", "BrickId": "BubblegumBlock" },
+                { "Name": "Titanium", "Ore": "TitaniumOre", "BrickId": "TitanstoneBlock" },
+                { "Name": "Adamantite", "Ore": "AdamantiteOre", "BrickId": "AdamantiteBeam" },
+                { "Name": "Chlorophyte", "Ore": "ChlorophyteOre", "BrickId": "ChlorophyteBrick" },
+                { "Name": "Luminite", "Ore": "LunarOre", "BrickId": "LunarBrick" }
+            ]
+        }
+    ],
+    "Recipes": [
+        {
+            "Id": "Demonite_brick",
+            "Shaped": true,
+            "RequiredTiles": ["HeavyWorkBench"],
+            "Pattern": [
+                    ["","EbonstoneBlock",""],
+                    ["EbonstoneBlock","DemoniteOre","EbonstoneBlock"],
+                    ["","EbonstoneBlock",""]
+                ],
+            "Outputs": [
+                { "ItemId": "DemoniteBrick", "Amount": 1 }
+            ],
+            "Replacements": []
+        },
+        {
+            "Id": "Crimtane_brick",
+            "Shaped": true,
+            "RequiredTiles": ["HeavyWorkBench"],
+            "Pattern": [
+                    ["","CrimstoneBlock",""],
+                    ["CrimstoneBlock","CrimtaneOre","CrimstoneBlock"],
+                    ["","CrimstoneBlock",""]
+                ],
+            "Outputs": [
+                { "ItemId": "CrimtaneBrick", "Amount": 1 }
+            ],
+            "Replacements": []
+        }
+    ]
+}

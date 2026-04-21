@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using TerraCraft.Core.DataStructures.Smelting;
 using TerraCraft.Core.Utils;
 using Terraria.ID;
+using TerraCraft.Core.VanillaExt;
 
 namespace TerraCraft.Core.Loaders
 {
@@ -24,7 +25,7 @@ namespace TerraCraft.Core.Loaders
 
         private void LoadSmeltingRecipes()
         {
-            var allRecipes = new List<SmeltingRecipe>();
+            var allSmeltingRecipes = new List<SmeltingRecipe>();
             var allFuels = new List<SmeltingFuel>();
 
             // 加载嵌入资源
@@ -36,7 +37,7 @@ namespace TerraCraft.Core.Loaders
                     using Stream stream = Mod.GetFileStream(assetPath);
                     using StreamReader reader = new StreamReader(stream);
                     string json = reader.ReadToEnd();
-                    ProcessJson(json, assetPath, allRecipes, allFuels);
+                    ProcessJson(json, assetPath, allSmeltingRecipes, allFuels);
                 }
                 catch (Exception e)
                 {
@@ -52,7 +53,7 @@ namespace TerraCraft.Core.Loaders
                     try
                     {
                         string json = File.ReadAllText(filePath);
-                        ProcessJson(json, filePath, allRecipes, allFuels);
+                        ProcessJson(json, filePath, allSmeltingRecipes, allFuels);
                     }
                     catch (Exception e)
                     {
@@ -62,16 +63,18 @@ namespace TerraCraft.Core.Loaders
             }
 
             // 应用唯一性约束：同一主材料 + 同一熔炉类型只能保留一个配方
-            allRecipes = ApplyUniquenessConstraint(allRecipes);
+            allSmeltingRecipes = ApplyUniquenessConstraint(allSmeltingRecipes);
 
             Database = new SmeltingDatabase
             {
-                Recipes = allRecipes,
+                Recipes = allSmeltingRecipes,
                 Fuels = allFuels
             };
             Database.InitializeCache();
 
-            Mod.Logger.Info($"[SmeltingLoader] Successfully loaded {allRecipes.Count} smelting recipes, {allFuels.Count} fuels");
+            CustomItemDataCache.LoadFuelItem(allFuels);
+
+            Mod.Logger.Info($"[SmeltingLoader] Successfully loaded {allSmeltingRecipes.Count} smelting recipes, {allFuels.Count} fuels");
         }
 
         private void ProcessJson(string json, string sourcePath, List<SmeltingRecipe> allRecipes, List<SmeltingFuel> allFuels)
@@ -418,6 +421,7 @@ namespace TerraCraft.Core.Loaders
         public override void Unload()
         {
             Database = null;
+            CustomItemDataCache.UnloadFuelItem();
         }
     }
 }

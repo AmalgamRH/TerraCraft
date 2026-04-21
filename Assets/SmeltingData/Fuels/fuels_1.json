@@ -1,14 +1,102 @@
 ﻿{
     "Fuels": [
         {
-            "ItemTypes": ["Wood","AshWood","RichMahogany"],
+            "ItemTypes": ["Wood","Ebonwood","RichMahogany","Pearlwood","Shadewood","BorealWood","PalmWood","AshWood","SpookyWood","DynastyWood"],
             "Level": 0,
             "Speed": 1,
             "BurnTime": 900
         },
         {
-            "ItemTypes": ["WoodPlatform"],
+            "ItemTypes": ["WoodPlatform","LivingWoodPlatform","EbonwoodPlatform","RichMahoganyPlatform","PearlwoodPlatform","ShadewoodPlatform","BorealWoodPlatform","PalmWoodPlatform","AshWoodPlatform","SpookyPlatform","DynastyPlatform"],
+            "BurnTime": 450
+        },
+        {
+            "ItemTypes": ["Acorn","GrassSeeds","CorruptSeeds","CrimsonSeeds","MushroomGrassSeeds","JungleGrassSeeds","DaybloomSeeds","MoonglowSeeds","BlinkrootSeeds","DeathweedSeeds","WaterleafSeeds","FireblossomSeeds","HallowedSeeds","ShiverthornSeeds","PumpkinSeed","AshGrassSeeds","GemTreeTopazSeed","GemTreeAmethystSeed","GemTreeSapphireSeed","GemTreeEmeraldSeed","GemTreeRubySeed","GemTreeDiamondSeed","GemTreeAmberSeed"],
+            "BurnTime": 300
+        },
+        {
+            "ItemTypes": [
+                "WoodenTable", "WoodenDoor", "WorkBench", "Bed", "Bookcase", "Dresser",
+                "EbonwoodTable", "EbonwoodDoor", "EbonwoodWorkBench", "EbonwoodBed", "EbonwoodBookcase", "EbonwoodDresser", "EbonwoodPiano", "EbonwoodClock", "EbonwoodBathtub", "EbonwoodSink", "EbonwoodSofa",
+                "RichMahoganyTable", "RichMahoganyDoor", "RichMahoganyWorkBench", "RichMahoganyBed", "RichMahoganyBookcase", "RichMahoganyDresser", "RichMahoganyPiano", "RichMahoganyClock", "RichMahoganyBathtub", "RichMahoganySink", "RichMahoganySofa",
+                "PearlwoodTable", "PearlwoodDoor", "PearlwoodWorkBench", "PearlwoodBed", "PearlwoodBookcase", "PearlwoodDresser", "PearlwoodPiano", "PearlwoodClock", "PearlwoodBathtub", "PearlwoodSink", "PearlwoodSofa",
+                "ShadewoodTable", "ShadewoodDoor", "ShadewoodWorkBench", "ShadewoodBed", "ShadewoodBookcase", "ShadewoodDresser", "ShadewoodPiano", "ShadewoodClock", "ShadewoodBathtub", "ShadewoodSink", "ShadewoodSofa",
+                "BorealWoodTable", "BorealWoodDoor", "BorealWoodWorkBench", "BorealWoodBed", "BorealWoodBookcase", "BorealWoodDresser", "BorealWoodPiano", "BorealWoodClock", "BorealWoodBathtub", "BorealWoodSink", "BorealWoodSofa",
+                "PalmWoodTable", "PalmWoodDoor", "PalmWoodWorkBench", "PalmWoodBed", "PalmWoodBookcase", "PalmWoodDresser", "PalmWoodPiano", "PalmWoodClock", "PalmWoodBathtub", "PalmWoodSink", "PalmWoodSofa",
+                "AshWoodTable", "AshWoodDoor", "AshWoodWorkbench", "AshWoodBed", "AshWoodBookcase", "AshWoodDresser", "AshWoodPiano", "AshWoodClock", "AshWoodBathtub", "AshWoodSink", "AshWoodSofa",
+                "SpookyTable", "SpookyDoor", "SpookyWorkBench", "SpookyBed", "SpookyBookcase", "SpookyDresser", "SpookyPiano", "SpookyClock", "SpookyBathtub", "SpookySink", "SpookySofa",
+                "DynastyTable", "DynastyDoor", "DynastyWorkBench", "DynastyBed", "DynastyBookcase", "DynastyDresser", "DynastyPiano", "DynastyClock", "DynastyBathtub", "DynastySink", "DynastySofa",
+                "LivingWoodTable", "LivingWoodDoor", "LivingWoodWorkBench", "LivingWoodBed", "LivingWoodBookcase", "LivingWoodDresser", "LivingWoodPiano", "LivingWoodClock", "LivingWoodBathtub", "LivingWoodSink", "LivingWoodSofa"
+            ],
+            "BurnTime": 3600
+        },
+        {
+            "ItemTypes": [
+                "TikiTorch",
+                "EbonwoodCandelabra", "EbonwoodCandle", "EbonwoodChandelier", "EbonwoodLamp", "EbonwoodLantern",
+                "RichMahoganyCandelabra", "RichMahoganyCandle", "RichMahoganyChandelier", "RichMahoganyLamp", "RichMahoganyLantern",
+                "PearlwoodCandelabra", "PearlwoodCandle", "PearlwoodChandelier", "PearlwoodLamp", "PearlwoodLantern",
+                "ShadewoodCandelabra", "ShadewoodCandle", "ShadewoodChandelier", "ShadewoodLamp", "ShadewoodLantern",
+                "BorealWoodCandelabra", "BorealWoodCandle", "BorealWoodChandelier", "BorealWoodLamp", "BorealWoodLantern",
+                "PalmWoodCandelabra", "PalmWoodCandle", "PalmWoodChandelier", "PalmWoodLamp", "PalmWoodLantern",
+                "AshWoodCandelabra", "AshWoodCandle", "AshWoodChandelier", "AshWoodLamp", "AshWoodLantern",
+                "SpookyCandelabra", "SpookyCandle", "SpookyChandelier", "SpookyLamp", "SpookyLantern",
+                "DynastyCandelabra", "DynastyCandle", "DynastyChandelier", "DynastyLamp", "DynastyLantern",
+                "LivingWoodCandelabra", "LivingWoodCandle", "LivingWoodChandelier", "LivingWoodLamp", "LivingWoodLantern"
+            ],
+            "BurnTime": 1500
+        },
+        {
+            "ItemTypes": [
+                "WoodenChair", "Chest",
+                "EbonwoodChair", "EbonwoodChest", "EbonwoodSink", "EbonwoodSofa", "ToiletEbonyWood",
+                "RichMahoganyChair", "RichMahoganyChest", "RichMahoganySink", "RichMahoganySofa", "ToiletRichMahogany",
+                "PearlwoodChair", "PearlwoodChest", "PearlwoodSink", "PearlwoodSofa", "ToiletPearlwood",
+                "ShadewoodChair", "ShadewoodChest", "ShadewoodSink", "ShadewoodSofa", "ToiletShadewood",
+                "BorealWoodChair", "BorealWoodChest", "BorealWoodSink", "BorealWoodSofa", "ToiletBoreal",
+                "PalmWoodChair", "PalmWoodChest", "PalmWoodSink", "PalmWoodSofa", "ToiletPalm",
+                "AshWoodChair", "AshWoodChest", "AshWoodSink", "AshWoodSofa", "AshWoodToilet",
+                "SpookyChair", "SpookyChest", "SpookySink", "SpookySofa", "ToiletSpooky",
+                "DynastyChair", "DynastyChest", "DynastySink", "DynastySofa", "ToiletDynasty",
+                "LivingWoodChair", "LivingWoodChest", "LivingWoodSink", "LivingWoodSofa", "ToiletLivingWood"
+            ],
             "BurnTime": 900
+        },
+        {
+            "ItemTypes": [
+                "WoodHelmet", "WoodBreastplate", "WoodGreaves",
+                "EbonwoodHelmet", "EbonwoodBreastplate", "EbonwoodGreaves",
+                "RichMahoganyHelmet", "RichMahoganyBreastplate", "RichMahoganyGreaves",
+                "PearlwoodHelmet", "PearlwoodBreastplate", "PearlwoodGreaves",
+                "ShadewoodHelmet", "ShadewoodBreastplate", "ShadewoodGreaves",
+                "BorealWoodHelmet", "BorealWoodBreastplate", "BorealWoodGreaves",
+                "PalmWoodHelmet", "PalmWoodBreastplate", "PalmWoodGreaves",
+                "AshWoodHelmet", "AshWoodBreastplate", "AshWoodGreaves",
+                "SpookyHelmet", "SpookyBreastplate", "SpookyLeggings"
+            ],
+            "BurnTime": 900
+        },
+        {
+            "ItemTypes": [
+                "WoodenSword", "WoodenBow", "WoodenHammer", "WoodenBoomerang", "WoodFishingPole","TerraCraft:WoodPickaxe","TerraCraft:WoodAxe",
+                "EbonwoodSword", "EbonwoodBow", "EbonwoodHammer",
+                "RichMahoganySword", "RichMahoganyBow", "RichMahoganyHammer",
+                "PearlwoodSword", "PearlwoodBow", "PearlwoodHammer",
+                "ShadewoodSword", "ShadewoodBow", "ShadewoodHammer",
+                "BorealWoodSword", "BorealWoodBow", "BorealWoodHammer",
+                "PalmWoodSword", "PalmWoodBow", "PalmWoodHammer",
+                "AshWoodSword", "AshWoodBow", "AshWoodHammer","TerraCraft:AshWoodPickaxe","TerraCraft:AshWoodAxe",
+                "LivingWoodWand", "LivingMahoganyWand", "LivingMahoganyLeafWand"
+            ],
+            "BurnTime": 600
+        },
+        {
+            "ItemTypes": [
+                "WoodWall",
+                "EbonwoodWall", "RichMahoganyWall", "PearlwoodWall", "ShadewoodWall", "BorealWoodWall", "PalmWoodWall", "AshWoodWall", "SpookyWoodWall", "WhiteDynastyWall", "BlueDynastyWall", "LivingWoodWall",
+                "EbonwoodFence", "RichMahoganyFence", "PearlwoodFence", "ShadewoodFence", "BorealWoodFence", "PalmWoodFence", "AshWoodFence", "WoodenFence"
+            ],
+            "BurnTime": 225
         },
         {
             "ItemTypes": ["TerraCraft:WoodenStick", "Gel"],

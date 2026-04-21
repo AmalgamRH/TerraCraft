@@ -18,7 +18,7 @@ namespace TerraCraft.Core.Systems.Smelting
 
         public float progress;
         public int burnTime;
-        public int maxBurnTime;   // 每次点火时记录峰值，用于计算燃料进度比例
+        public int maxBurnTime;
         public int tileID;
         public Item[] material = new Item[MAX_MATERIALS];
         public Item fuel = new Item();
@@ -109,6 +109,7 @@ namespace TerraCraft.Core.Systems.Smelting
             if (canSmelt && burnTime > 0 && _currentRecipe.HasValue && _currentRecipe.Value.Id != null)
             {
                 float increment = SmeltingMatcher.GetTotalSpeed(tileID, _currentRecipe.Value, _currentFuelSpeed);
+                if (increment <= 0f) return; // 不支持的标签，increment==0 时 0>=0 会误触发完成
                 progress += increment;
                 if (progress >= _requiredTotalTime)
                 {
@@ -138,9 +139,19 @@ namespace TerraCraft.Core.Systems.Smelting
             if (!_currentRecipe.HasValue || _currentRecipe.Value.Id == null) return false;
             var recipe = _currentRecipe.Value;
 
-            int required = recipe.Ingredients[0].Amount;
-            int current = GetMaterialAmount(recipe.Ingredients[0].ItemType);
-            if (current < required) return false;
+            float totalSpeed = SmeltingMatcher.GetTotalSpeed(tileID, recipe, _currentFuelSpeed);
+            if (totalSpeed <= 0f) return false;
+
+            // 多材料检查：按顺序匹配每个材料槽
+            for (int i = 0; i < recipe.Ingredients.Count; i++)
+            {
+                var ing = recipe.Ingredients[i];
+                if (i >= material.Length) return false;
+                var slot = material[i];
+                if (slot == null || slot.IsAir) return false;
+                if (slot.type != ing.ItemType) return false;
+                if (slot.stack < ing.Amount) return false;
+            }
 
             if (!SmeltingMatcher.CanAddOutput(recipe, output)) return false;
 
@@ -157,32 +168,43 @@ namespace TerraCraft.Core.Systems.Smelting
                 if (!SmeltingMatcher.IsFuelValidForRecipe(recipe, fuel.type, level))
                     return false;
             }
-
             return true;
         }
 
-        private void ConsumeFuel()  //这里需要改，必须要燃料槽消耗后为空才能替换，即stack==1
+        private void ConsumeFuel()
         {
             if (fuel.IsAir) return;
             SmeltingMatcher.GetFuelData(fuel.type, out int burnAdd, out float speed, out int level);
             if (burnAdd <= 0) return;
 
+            //储存当前燃烧周期的燃料数据
             _currentFuelSpeed = speed;
             _currentFuelLevel = level;
             _currentFuelType = fuel.type;
             burnTime += burnAdd;
-            maxBurnTime = burnTime;   // 记录本次点火峰值
+            maxBurnTime = burnTime;
 
             var replacement = SmeltingLoader.Database.GetFuelReplacement(fuel.type);
+
+            fuel.stack--;
+            bool fuelSlotEmpty = fuel.stack <= 0;
+            if (fuelSlotEmpty) fuel.TurnToAir();
+
+            //带有替换规则的燃料
             if (replacement.ReplaceWithType.HasValue && replacement.ReplaceWithType.Value != 0)
             {
-                fuel.SetDefaults(replacement.ReplaceWithType.Value);
-                fuel.stack = replacement.ReplaceAmount;
-            }
-            else
-            {
-                fuel.stack--;
-                if (fuel.stack <= 0) fuel.TurnToAir();
+                Item replaceItem = new Item();
+                replaceItem.SetDefaults(replacement.ReplaceWithType.Value);
+                replaceItem.stack = replacement.ReplaceAmount;
+
+                if (fuelSlotEmpty) // 如果燃料槽为空，直接放入；否则掉落
+                    fuel = replaceItem;
+                else
+                {
+                    Item.NewItem(new EntitySource_TileBreak(Position.X, Position.Y),
+                    Position.X * 16, Position.Y * 16, 16, 16,
+                    replacement.ReplaceWithType.Value, replacement.ReplaceAmount);
+                }
             }
             MarkDirty();
         }
@@ -191,7 +213,7 @@ namespace TerraCraft.Core.Systems.Smelting
         {
             if (!_currentRecipe.HasValue) return;
             var recipe = _currentRecipe.Value;
-            DeductIngredient(recipe.Ingredients[0]);
+            DeductIngredients(recipe);
             AddOutput(recipe.Outputs[0]);
             ApplyReplacements(recipe);
             MarkDirty();
@@ -200,17 +222,17 @@ namespace TerraCraft.Core.Systems.Smelting
             _cachedMainItemType = -1;
         }
 
-        private void DeductIngredient(SmeltingIngredient ing)
+        private void DeductIngredients(SmeltingRecipe recipe)
         {
-            int toDeduct = ing.Amount;
-            for (int i = 0; i < MAX_MATERIALS && toDeduct > 0; i++)
+            for (int i = 0; i < recipe.Ingredients.Count; i++)
             {
-                if (material[i] != null && !material[i].IsAir && material[i].type == ing.ItemType)
+                var ing = recipe.Ingredients[i];
+                if (i >= material.Length) continue;
+                var slot = material[i];
+                if (slot != null && !slot.IsAir && slot.type == ing.ItemType)
                 {
-                    int take = Math.Min(material[i].stack, toDeduct);
-                    material[i].stack -= take;
-                    toDeduct -= take;
-                    if (material[i].stack <= 0) material[i].TurnToAir();
+                    slot.stack -= ing.Amount;
+                    if (slot.stack <= 0) slot.TurnToAir();
                 }
             }
         }
@@ -274,14 +296,6 @@ namespace TerraCraft.Core.Systems.Smelting
             return -1;
         }
 
-        private int GetMaterialAmount(int itemType)
-        {
-            int total = 0;
-            foreach (var item in material)
-                if (item != null && !item.IsAir && item.type == itemType) total += item.stack;
-            return total;
-        }
-
         private bool AreRecipesEqual(SmeltingRecipe? a, SmeltingRecipe? b)
         {
             if (!a.HasValue && !b.HasValue) return true;
@@ -293,7 +307,6 @@ namespace TerraCraft.Core.Systems.Smelting
         private void SendSync() => NetMessage.SendData(MessageID.TileEntitySharing, number: ID, number2: Position.X, number3: Position.Y);
 
         #region 网络 IO
-
         public override void NetSend(BinaryWriter writer)
         {
             writer.Write(progress);
@@ -307,7 +320,6 @@ namespace TerraCraft.Core.Systems.Smelting
             ItemIO.Send(fuel, writer, writeStack: true);
             ItemIO.Send(output, writer, writeStack: true);
         }
-
         public override void NetReceive(BinaryReader reader)
         {
             progress = reader.ReadSingle();
@@ -323,7 +335,6 @@ namespace TerraCraft.Core.Systems.Smelting
 
             _cachedMainItemType = -1;
         }
-
         public override void SaveData(TagCompound tag)
         {
             tag["progress"] = progress;
@@ -338,7 +349,6 @@ namespace TerraCraft.Core.Systems.Smelting
             tag["fuel"] = ItemIO.Save(fuel);
             tag["output"] = ItemIO.Save(output);
         }
-
         public override void LoadData(TagCompound tag)
         {
             progress = tag.GetFloat("progress");
@@ -361,14 +371,12 @@ namespace TerraCraft.Core.Systems.Smelting
 
             _cachedMainItemType = -1;
         }
-
         #endregion
 
         public override void OnNetPlace()
         {
             NetMessage.SendData(MessageID.TileEntitySharing, number: ID, number2: Position.X, number3: Position.Y);
         }
-
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction, int alternate)
         {
             TileObjectData tileData = TileObjectData.GetTileData(type, style, alternate);
@@ -384,30 +392,25 @@ namespace TerraCraft.Core.Systems.Smelting
 
             return Place(topLeftX, topLeftY);
         }
-
         public override void NetPlaceEntityAttempt(int x, int y)
         {
             int ID = Place(x, y);
             NetMessage.SendData(MessageID.TileEntitySharing, number: ID, number2: x, number3: y);
         }
-
         public new int Place(int i, int j)
         {
             return base.Place(i, j);
         }
-
         public override bool IsTileValidForEntity(int x, int y)
         {
             TileObjectData tileData = TileObjectData.GetTileData(Main.tile[x, y]);
             return Main.tile[x, y].HasTile && Main.tile[x, y].TileType == tileID;
         }
-
         public new void Kill(int x, int y)
         {
             DropContents();
             base.Kill(x, y);
         }
-
         public void DropContents()
         {
             for (int i = 0; i < MAX_MATERIALS; i++)

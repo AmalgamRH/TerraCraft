@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using TerraCraft.Core.UI.GridCrafting;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using TerraCraft.Core.UI;
-using Terraria.ID;
+using TerraCraft.Core.UI.GridCrafting;
 using Terraria;
 using Terraria.Audio;
-using System;
-using Terraria.ModLoader.IO;
-using Terraria.ModLoader;
-using System.Linq;
+using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace TerraCraft.Core.Systems.Smelting
 {
@@ -22,7 +21,6 @@ namespace TerraCraft.Core.Systems.Smelting
         private Item _prevFuel;
         private Item _prevOutput;
 
-        // 记录上一帧鼠标左键状态
         private bool _lastMouseLeft;
 
         public SmeltingInputHandler(
@@ -51,7 +49,6 @@ namespace TerraCraft.Core.Systems.Smelting
             base.Update();
             SyncToFurnace();
 
-            // 更新上一帧状态
             _lastMouseLeft = Main.mouseLeft;
         }
 
@@ -67,17 +64,35 @@ namespace TerraCraft.Core.Systems.Smelting
             bool leftJustPressed = Main.mouseLeft && !_lastMouseLeft;
             if (!leftJustPressed) return;
 
+            // Shift+左键：直接存入背包
+            if (Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift))
+            {
+                Item itemToTake = _outputSlot.Item.Clone();
+                int leftover = Main.LocalPlayer.QuickSpawnItem(new EntitySource_Misc("SmeltingReplacement"), itemToTake, itemToTake.stack);
+                if (leftover <= 0)
+                {
+                    _outputSlot.Item.TurnToAir();
+                }
+                else
+                {
+                    // 如果背包满了部分未放入，则放回（理论上 QuickSpawnItem 会自动掉落剩余，但这里安全处理）
+                    _outputSlot.Item.stack = leftover;
+                }
+                SoundEngine.PlaySound(SoundID.Grab);
+                Main.mouseLeftRelease = false;
+                return;
+            }
+
+            // 普通左键逻辑（拿走+合并）
             Item mouseItem = Main.mouseItem;
             Item slotItem = _outputSlot.Item;
 
-            // 鼠标为空，直接拿走
             if (mouseItem.IsAir)
             {
                 Main.mouseItem = slotItem.Clone();
                 _outputSlot.Item.TurnToAir();
                 SoundEngine.PlaySound(SoundID.Grab);
             }
-            // 鼠标同类型且未满叠，合并
             else if (IsSameItem(mouseItem, slotItem))
             {
                 int canAdd = Math.Min(slotItem.stack, mouseItem.maxStack - mouseItem.stack);
@@ -86,10 +101,24 @@ namespace TerraCraft.Core.Systems.Smelting
                 if (slotItem.stack <= 0) _outputSlot.Item.TurnToAir();
                 SoundEngine.PlaySound(SoundID.Grab);
             }
-            // 鼠标有其他物品，不做交换（熔炉输出槽不允许放入）
 
             Main.mouseLeftRelease = false;
         }
+
+        public void SyncFromFurnace() // 在 SyncFromFurnace 中增加索引安全
+        {
+            if (Main.mouseItem.IsAir && !Main.mouseLeft) // 仅在玩家未与 UI 交互时同步
+            {
+                if (_outputSlot != null && !_outputSlot.GetInnerDimensions().ToRectangle().Contains(Main.MouseScreen.ToPoint()))
+                    _outputSlot.Item = _furnace.output;
+
+                for (int i = 0; i < _materialSlots.Count && i < _furnace.material.Length; i++)
+                    _materialSlots[i].Item = _furnace.material[i];
+
+                _fuelSlot.Item = _furnace.fuel;
+            }
+        }
+
         private void SyncToFurnace()
         {
             if (_furnace == null) return;
@@ -120,20 +149,6 @@ namespace TerraCraft.Core.Systems.Smelting
             }
 
             if (dirty) SendSync();
-        }
-
-        public void SyncFromFurnace()
-        {
-            if (_furnace == null) return;
-
-            var rect = _outputSlot.GetInnerDimensions().ToRectangle();
-            bool mouseOnOutput = rect.Contains(Main.MouseScreen.ToPoint());
-
-            if (!mouseOnOutput)
-            {
-                _outputSlot.Item = _furnace.output;
-                _prevOutput = _furnace.output;
-            }
         }
 
         private void SendSync()

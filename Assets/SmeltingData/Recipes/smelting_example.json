@@ -1,26 +1,11 @@
 ﻿{
   "Smelting": [
     {
-      "Id": "example_recipe",
+      "Id": "glass",
       "RequiredTiles": [],
-      "Ingredients": ["SandBlock"],
+      "Ingredients": [{"ItemId":"SandBlock", "Amount":2}],
       "Outputs": ["Glass"],
       "BaseSmeltTime": 180
-    },
-    {
-      "Id": "example_advance_recipe",
-      "RequiredTiles": ["Hellforge"],
-      "Label": "Ore",
-      "Ingredients": [{"ItemId":"Hellstone", "Amount":8},{"ItemId":"Obsidian", "Amount":1}],
-      "Outputs": [{ "ItemId": "HellstoneBar", "Amount": 1 }],
-      "BaseSmeltTime": 600
-    },
-    {
-      "Id": "example_mod_recipe",
-      "RequiredTiles": [],
-      "Ingredients": [{"ItemId":9, "Amount":5}],
-      "Outputs": [{ "ItemId": "TerraCraft:WoodenStick", "Amount": 2 }],
-      "BaseSmeltTime": 300
     }
   ]
 }
