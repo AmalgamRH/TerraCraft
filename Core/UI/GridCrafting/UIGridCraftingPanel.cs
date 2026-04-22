@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TerraCraft.Core.DataStructures.GridCrafting;
@@ -328,22 +329,43 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         private void PerformConsumption()
         {
+            // 先执行消耗（减少堆叠，归零则清空）
             foreach (var kv in _currentConsumptions)
             {
                 Item slotItem = inputSlots[kv.Key].Item;
                 slotItem.stack -= kv.Value;
-                if (slotItem.stack <= 0) slotItem.TurnToAir();
+                if (slotItem.stack <= 0)
+                    slotItem.TurnToAir();
             }
+
+            // 处理替换逻辑
             if (_currentReplacements != null)
             {
                 foreach (var rep in _currentReplacements)
                 {
-                    if (rep.ReplaceWithItem.HasValue)
+                    Item currentItem = inputSlots[rep.SlotIndex].Item;
+                    bool slotIsEmpty = currentItem.IsAir || currentItem.stack <= 0;
+
+                    if (slotIsEmpty)
                     {
-                        inputSlots[rep.SlotIndex].Item.SetDefaults(rep.ReplaceWithItem.Value);
-                        inputSlots[rep.SlotIndex].Item.stack = rep.ReplaceAmount;
+                        // 槽位为空，应用替换
+                        if (rep.ReplaceWithItem.HasValue)
+                        {
+                            inputSlots[rep.SlotIndex].Item.SetDefaults(rep.ReplaceWithItem.Value);
+                            inputSlots[rep.SlotIndex].Item.stack = rep.ReplaceAmount;
+                        }
+                        else
+                        {
+                            inputSlots[rep.SlotIndex].Item.TurnToAir();
+                        }
                     }
-                    else inputSlots[rep.SlotIndex].Item.TurnToAir();
+                    else
+                    {
+                        if (rep.ReplaceWithItem.HasValue)
+                        {
+                            Player.QuickSpawnItem(Player.GetSource_FromThis(), rep.ReplaceWithItem.Value, rep.ReplaceAmount);
+                        }
+                    }
                 }
             }
         }

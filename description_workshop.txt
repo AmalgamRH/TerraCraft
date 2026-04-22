@@ -1,9 +1,9 @@
-﻿[size=5][b]TerraCraft[/b][/size]
+﻿[b]TerraCraft[/b]
 [i]一款为《泰拉瑞亚》打造的Minecraft风格合成与玩法增强模组。[/i]
 
 [hr][/hr]
 
-[size=3][b]📖 关于[/b][/size]
+[b]📖 关于[/b]
 本模组目前提供基于网格的合成系统，未来计划加入更多受Minecraft启发的机制，致力于带来不同于原版的道具获取与制作体验。
 
 本模组前身为 1.4 Alpha 时期的 [b]MinecraftWorkbench[/b]，TerraCraft 是其全面重写与功能拓展的全新版本。
@@ -15,28 +15,30 @@
 
 [hr][/hr]
 
-[size=3][b]✨ 当前特色[/b][/size]
+[b]✨ 当前特色[/b]
 [list]
 [*][b]网格合成系统[/b]
 启用配置中的「完全替代原版合成体系」后，你可以在合成网格中自由摆放材料进行合成。同时，向导 NPC 也会显示对应配方。
+[*][b]熔炼系统[/b]
+熔炼系统已加入，但是尚未进行多人模式测试。
 [/list]
 
 [hr][/hr]
 
-[size=3][b]📅 未来计划[/b][/size]
+[b]📅 未来计划[/b]
 [list]
-[*]添加熔炼系统（类似Minecraft的熔炉）
+[*]为原版几乎所有可制作物品添加配方
 [*]添加耐久度与铁砧修复系统
 [/list]
 
 [hr][/hr]
 
-[size=3][b]💬 反馈与参与[/b][/size]
+[b]💬 反馈与参与[/b]
 欢迎提出功能建议或报告 Bug。
 
-本项目基于 [b]GPL 3.0[/b] 开源，欢迎提交 PR。
+本项目基于 [b]GPL 3.0[/b] 开源，欢迎提交issue和PR。
 
 [hr][/hr]
 
-[size=3][b]🔗 项目地址[/b][/size]
+[b]🔗 项目地址[/b]
 [url]https://github.com/AmalgamRH/TerraCraft[/url]

@@ -1,0 +1,37 @@
+﻿[b]TerraCraft[/b]
+[i]A Minecraft-style crafting and gameplay enhancement mod for Terraria.[/i]
+
+[hr][/hr]
+[b]📖 About[/b]
+This mod currently provides a grid-based crafting system, with plans to add more Minecraft-inspired mechanics in the future, aiming to deliver a different experience for obtaining and creating items compared to vanilla.
+
+The mod is a complete rewrite and expansion of its predecessor, [b]MinecraftWorkbench[/b] from the 1.4 Alpha era.
+
+[quote][b]⚠️ Note[/b]
+The mod is in early development, and recipes are not yet complete. Please enable the relevant option in the config file when trying it out.[/quote]
+
+[b]✨ Current Features[/b]
+[list]
+[*][b]Grid Crafting System[/b]
+After enabling "Use Overhaul Gameplay" in the config, you can freely arrange materials in the crafting grid to create items. The Guide NPC will also display the corresponding recipes.
+[*][b]Smelting System[/b]
+Smelting system is now added. (Currently NOT tested in multiplayer mode!)
+
+[/list]
+
+[b]📅 Future Plans[/b]
+[list]
+[*]Full multiplayer support
+[*]Add recipes for almost all craftable items in the vanilla game
+[*]Add durability and an anvil repair system
+[/list]
+
+[hr][/hr]
+[b]💬 Feedback & Contributions[/b]
+Feel free to suggest features or report bugs.
+
+This project is open source under [b]GPL 3.0[/b]. Issues or pull requests are welcome.
+
+[b]🔗 Project Repository[/b]
+[url]https://github.com/AmalgamRH/TerraCraft[/url][quote=tModLoader TerraCraft]
+Developed By Amalgam[/quote]

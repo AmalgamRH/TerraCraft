@@ -1,0 +1,11 @@
+﻿{
+    "Smelting": [
+        {
+            "Id": "glass",
+            "RequiredTiles": [],
+            "Ingredients": [{"ItemId":"SandBlock", "Amount":2}],
+            "Outputs": ["Glass"],
+            "BaseSmeltTime": 180
+        }
+    ]
+}

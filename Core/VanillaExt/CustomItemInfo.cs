@@ -20,6 +20,10 @@ namespace TerraCraft.Core.VanillaExt
             {
                 isFuel = true;
             }
+            if (item.type == ItemID.Coal)
+            {
+                item.maxStack = Item.CommonMaxStack;
+            }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
@@ -40,6 +44,9 @@ namespace TerraCraft.Core.VanillaExt
                     break;
                 case ItemID.HeavyWorkBench:
                     AddOrReplaceTooltipLine(tooltips, "SmeltingInfo", TerraCraft.GetLocalizedText("Tooltips.HeavyWorkbench"));
+                    break;
+                case ItemID.Coal:
+                    RemoveTooltipLine(tooltips);
                     break;
             }
         }
@@ -71,6 +78,14 @@ namespace TerraCraft.Core.VanillaExt
             else
             {
                 legacyLine.Text = text;
+            }
+        }
+        private void RemoveTooltipLine(List<TooltipLine> tooltips)
+        {
+            var legacyLine = tooltips.Find(t => t.Mod == "Terraria" && t.Name.StartsWith("Tooltip"));
+            if (legacyLine != null)
+            {
+                tooltips.Remove(legacyLine);
             }
         }
     }

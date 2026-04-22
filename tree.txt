@@ -5,9 +5,11 @@ TerraCraft/
 │   │   ├── Building/
 │   │   │   ├── template_furnitures.json
 │   │   │   ├── template_oreblocks.json
+│   │   │   ├── template_orebricks.json
 │   │   │   └── template_torches.json
 │   │   ├── CraftStations/
-│   │   │   ├── recipe_heavyworkbench.json
+│   │   │   ├── recipe_furnaces.json
+│   │   │   ├── recipe_workbenches.json
 │   │   │   └── template_anvils.json
 │   │   ├── Equipments/
 │   │   │   └── PreHardmode/
@@ -17,11 +19,26 @@ TerraCraft/
 │   │   └── Materials/
 │   │       └── PreHardmode/
 │   │           └── recipe_materials_1.json
+│   ├── SmeltingData/
+│   │   ├── Fuels/
+│   │   │   └── fuels_1.json
+│   │   └── Recipes/
+│   │       ├── smelting_example.json
+│   │       ├── smelting_ore.json
+│   │       └── template_example.json
+│   ├── Tiles/
+│   │   ├── Tiles_17_Ext.png
+│   │   ├── Tiles_302_Ext.png
+│   │   └── Tiles_77_Ext.png
 │   └── UI/
-│       └── Durability/
-│           ├── DurabilityBar1.png
-│           ├── DurabilityBar2.png
-│           └── DurabilityBar3.png
+│       ├── Durability/
+│       │   ├── DurabilityBar1.png
+│       │   ├── DurabilityBar2.png
+│       │   └── DurabilityBar3.png
+│       └── Smelting/
+│           ├── SmeltingArrow.png
+│           ├── SmeltingFire.png
+│           └── SmeltingFire2.png
 ├── Content/
 │   ├── Items/
 │   │   ├── Materials/
@@ -97,18 +114,28 @@ TerraCraft/
 │   ├── Configs/
 │   │   └── TCGameplayConfig.cs
 │   ├── DataStructures/
-│   │   └── GridCrafting/
-│   │       ├── GriddedRecipe.cs
-│   │       ├── Ingredient.cs
-│   │       ├── Output.cs
-│   │       ├── RecipeDatabase.cs
-│   │       └── Replacement.cs
+│   │   ├── GridCrafting/
+│   │   │   ├── GriddedRecipe.cs
+│   │   │   ├── RecipeDatabase.cs
+│   │   │   ├── RecipeIngredient.cs
+│   │   │   ├── RecipeOutput.cs
+│   │   │   └── RecipeReplacement.cs
+│   │   └── Smelting/
+│   │       ├── SmeltingDatabase.cs
+│   │       ├── SmeltingFuel.cs
+│   │       ├── SmeltingIngredient.cs
+│   │       ├── SmeltingOutput.cs
+│   │       ├── SmeltingRecipe.cs
+│   │       └── SmeltingReplacement.cs
 │   ├── Loaders/
 │   │   ├── AutoloadUILoader.cs
+│   │   ├── CustomItemDataCache.cs
 │   │   ├── GridRecipeDTOs.cs
 │   │   ├── GridRecipeLoader.cs
 │   │   ├── IOrderedLoadable.cs
-│   │   └── OrderedLoaderManager.cs
+│   │   ├── OrderedLoaderManager.cs
+│   │   ├── SmeltingDTOs.cs
+│   │   └── SmeltingLoader.cs
 │   ├── Network/
 │   │   └── NetworkPacketHandler.cs
 │   ├── Systems/
@@ -117,37 +144,45 @@ TerraCraft/
 │   │   ├── GridCrafting/
 │   │   │   ├── CraftingStationSize.cs
 │   │   │   ├── CraftingTileGlobal.cs
-│   │   │   ├── GridCraftingMatcher.cs
-│   │   │   └── TileCompatibilitySystem.cs
-│   │   └── VanillaOverhaul/
-│   │       └── VanillaCraftingSystemDisabler.cs
+│   │   │   └── GridCraftingMatcher.cs
+│   │   ├── Smelting/
+│   │   │   ├── SmeltingMatcher.cs
+│   │   │   ├── SmeltingTileDataBase.cs
+│   │   │   ├── SmeltingTileGlobal.cs
+│   │   │   └── TEFurnace.cs
+│   │   ├── TileCompatibilitySystem.cs
+│   │   └── VanillaCraftingSystemDisabler.cs
 │   ├── UI/
 │   │   ├── AutoloadUIState.cs
+│   │   ├── CustomItemSlotInputHandler.cs
 │   │   ├── GridCrafting/
-│   │   │   ├── GridCraftingUIRegister.cs
 │   │   │   ├── Preview/
 │   │   │   │   ├── UICraftPreviewPanel.cs
 │   │   │   │   ├── UICraftPreviewSlot.cs
 │   │   │   │   └── UICraftPreviewerState.cs
 │   │   │   ├── UIGridCraftingPanel.cs
 │   │   │   └── UIGridCraftingState.cs
-│   │   ├── GridCraftingInputHandler.cs
+│   │   ├── Smelting/
+│   │   │   ├── SmeltingInputHandler.cs
+│   │   │   ├── UISmeltingPanel.cs
+│   │   │   ├── UISmeltingProgressBar.cs
+│   │   │   └── UISmeltingState.cs
+│   │   ├── UICustomItemSlot.cs
 │   │   ├── UIImageNeo.cs
-│   │   ├── VanillaItemSlot.cs
-│   │   └── VanillaItemSlotWrapper.cs
+│   │   ├── UIItemSlot.cs
+│   │   └── WorkstationUIRegister.cs
 │   ├── Utils/
 │   │   ├── ColorHelper.cs
 │   │   ├── ItemIDResolver.cs
 │   │   ├── RecipeGroupResolver.cs
+│   │   ├── SmeltingHelper.cs
 │   │   ├── TileIDResolver.cs
 │   │   └── UIHelper.cs
 │   └── VanillaExt/
 │       ├── CopperToolModify.cs
-│       ├── MaterialItemDefines.cs
+│       ├── CustomItemInfo.cs
 │       ├── NormalOreMinPick.cs
 │       └── StartingItemsPlayer.cs
-├── Debug/
-│   └── GridRecipeDebugCommand.cs
 ├── LICENSE.txt
 ├── Localization/
 │   ├── en-US/
@@ -165,6 +200,7 @@ TerraCraft/
 ├── TerraCraft.sln
 ├── build.txt
 ├── description.txt
+├── description_workshop-en.txt
 ├── description_workshop.txt
 ├── icon.png
 ├── tree.py

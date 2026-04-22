@@ -1,0 +1,38 @@
+﻿{
+    "SmeltingGroups": [
+        {
+            "Id": "template_coal",
+            "MaterialSource": "all_woods",
+            "Template": {
+                "Id": "coal_{Name}",
+                "RequiredTiles": [],
+                "Label": "Wood",
+                "Ingredients": [{"ItemId":"{Wood}", "Amount":1}],
+                "Outputs": [{"ItemId":"Coal", "Amount":1}],
+                "BaseSmeltTime": 600
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Wood": "Wood"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "all_woods",
+            "Description": "all_woods",
+            "Materials": [
+                {"Name": "wood", "Wood": "Wood"},
+                {"Name": "ebonwood", "Wood": "Ebonwood"},
+                {"Name": "rich_mahogany", "Wood": "RichMahogany"},
+                {"Name": "pearlwood", "Wood": "Pearlwood"},
+                {"Name": "shadewood", "Wood": "Shadewood"},
+                {"Name": "boreal_wood", "Wood": "BorealWood"},
+                {"Name": "palm_wood", "Wood": "PalmWood"},
+                {"Name": "ash_wood", "Wood": "AshWood"},
+                {"Name": "spooky_wood", "Wood": "SpookyWood"},
+                {"Name": "dynasty_wood", "Wood": "DynastyWood"}
+            ]
+        }
+    ]
+}

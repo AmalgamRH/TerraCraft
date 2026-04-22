@@ -1,28 +1,54 @@
 {
   "Recipes": [
     {
-      "Id": "string",
-      "Shaped": false,
-      "RequiredTiles": [],
-      "Ingredients": [
-        { "ItemId": "Cobweb", "Amount": 4 }
-      ],
-      "Outputs": [
-        { "ItemId": "TerraCraft:SpiderSilk", "Amount": 1 }
-      ]
+        "Id": "string",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "Cobweb", "Amount": 4}
+        ],
+        "Outputs": [
+            {"ItemId": "TerraCraft:SpiderSilk", "Amount": 1}
+        ]
     },
     {
-      "Id": "wooden_stick",
-      "Shaped": true,
-      "RequiredTiles": [],
-      "Pattern": [
-        [{"RecipeGroup": "Wood"}],
-        [{"RecipeGroup": "Wood"}]
-      ],
-      "Outputs": [
-        { "ItemId": "TerraCraft:WoodenStick", "Amount": 2 }
-      ],
-      "Replacements": []
+        "Id": "wooden_stick",
+        "Shaped": true,
+        "RequiredTiles": [],
+        "Pattern": [
+            [{"RecipeGroup": "Wood"}],
+            [{"RecipeGroup": "Wood"}]
+        ],
+        "Outputs": [
+            {"ItemId": "TerraCraft:WoodenStick", "Amount": 2}
+        ],
+        "Replacements": []
+    },
+    {
+        "Id": "chain",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+            [{"RecipeGroup": "IronBar"}],
+            [{"RecipeGroup": "IronBar"}]
+        ],
+        "Outputs": [
+            {"ItemId": "Chain", "Amount": 20}
+        ],
+        "Replacements": []
+    },
+    {
+        "Id": "empty_bucket",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+            [{"RecipeGroup": "IronBar"},"",{"RecipeGroup": "IronBar"}],
+            ["",{"RecipeGroup": "IronBar"},""]
+        ],
+        "Outputs": [
+            {"ItemId": "EmptyBucket", "Amount": 2}
+        ],
+        "Replacements": []
     }
   ]
 }

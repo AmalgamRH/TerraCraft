@@ -1,0 +1,19 @@
+{
+    "Recipes": [
+        {
+            "Id": "sawmill",
+            "Shaped": true,
+            "RequiredTiles": ["WorkBenches"],
+            "Pattern": 
+            [
+                [{"RecipeGroup": "Wood"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
+                [{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},"Chain"],
+                [{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"}]
+            ],
+            "Outputs": [
+                { "ItemId": "Sawmill", "Amount": 1 }
+            ],
+            "Replacements": []
+        }
+    ]
+}
