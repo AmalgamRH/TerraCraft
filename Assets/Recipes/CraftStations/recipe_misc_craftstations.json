@@ -1,0 +1,18 @@
+{
+    "Recipes": [
+        {
+            "Id": "loom",
+            "Shaped": true,
+            "RequiredTiles": ["Sawmill"],
+            "Pattern": 
+            [
+                ["",{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},""],
+                ["",{"RecipeGroup": "Wood"},"TerraCraft:WoodenStick",{"RecipeGroup": "Wood"},""],
+                [{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"},{"RecipeGroup": "Wood"}]
+            ],
+            "Outputs": [
+                { "ItemId": "Loom", "Amount": 1 }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,707 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "platform_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_platform",
+                "Shaped": true,
+                "RequiredTiles": [],
+                "Pattern": [
+                    ["{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{PlatformId}", "Amount": 4}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "PlatformId": "PlatformId"
+            }
+        },
+        {
+            "Id": "workbench_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_workbench",
+                "Shaped": true,
+                "RequiredTiles": [],
+                "Pattern": [
+                    ["{Material}","{Material}"],
+                    ["{PlatformId}","{PlatformId}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{WorkbenchId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "WorkbenchId": "WorkbenchId",
+                "PlatformId": "PlatformId"
+            }
+        },
+        {
+            "Id": "table_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_table",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}","","{Material}"],
+                    ["{Material}","","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{TableId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "TableId": "TableId"
+            }
+        },
+        {
+            "Id": "chair_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_chair",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}","",""],
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}","","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ChairId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "ChairId": "ChairId"
+            }
+        },
+        {
+            "Id": "door_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_door",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}"],
+                    ["{Material}","{Material}"],
+                    ["{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{DoorId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "DoorId": "DoorId"
+            }
+        },
+        {
+            "Id": "chest_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_chest",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}",{"RecipeGroup": "IronBar"},"{Material}"],
+                    ["{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ChestId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "ChestId": "ChestId"
+            }
+        },
+        {
+            "Id": "sink_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_sink",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}","","{Material}"],
+                    ["{Material}","WaterBucket","{Material}"],
+                    ["","{Material}",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{SinkId}", "Amount": 1}
+                ],
+                "Replacements": [
+                    {
+                        "X":1,"Y":1,
+                        "OriginalItemId": "WaterBucket",
+                        "ReplaceWith": "EmptyBucket",
+                        "ReplaceAmount": 1
+                    }
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "SinkId": "SinkId"
+            }
+        },
+
+
+
+        {
+            "Id": "candle_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_candle",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["","Torch",""],
+                    ["","{Material}",""],
+                    ["{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{CandleId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "CandleId": "CandleId"
+            }
+        },
+        {
+            "Id": "candelabra_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_candelabra",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["Torch","Torch","Torch"],
+                    ["{Material}","{Material}","{Material}"],
+                    ["","{Material}",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{CandelabraId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "CandelabraId": "CandelabraId"
+            }
+        },
+        {
+            "Id": "lamp_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_lamp",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["Torch"],
+                    ["{Material}"],
+                    ["{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{LampId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "LampId": "LampId"
+            }
+        },
+        {
+            "Id": "lantern_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_lantern",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId}"],
+                "Pattern": [
+                    ["{Material}"],
+                    ["{Material}"],
+                    ["Torch"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{LanternId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId":"TileId",
+                "LanternId": "LanternId"
+            }
+        },
+        {
+            "Id": "chandelier_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_chandelier",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["","","Chain","",""],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"],
+                    ["Torch","","Torch","","Torch"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ChandelierId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "ChandelierId": "ChandelierId"
+            }
+        },
+
+
+
+        {
+            "Id": "bathtub_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_bathtub",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","","","","{Material}"],
+                    ["{Material}","","","","{Material}"],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BathtubId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "BathtubId": "BathtubId"
+            }
+        },
+        {
+            "Id": "bed_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_bed",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["Silk","Silk","Silk","Silk","Silk"],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BedId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "BedId": "BedId"
+            }
+        },
+        {
+            "Id": "bookcase_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_bookcase",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","Book","{Material}","Book","{Material}"],
+                    ["{Material}","Book","{Material}","Book","{Material}"],
+                    ["{Material}","Book","{Material}","Book","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{BookcaseId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "BookcaseId": "BookcaseId"
+            }
+        },
+        {
+            "Id": "clock_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_clock",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","Glass","{Material}","{Material}","{Material}"],
+                    ["Glass",{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},"{Material}"],
+                    ["{Material}","Glass","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ClockId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "ClockId": "ClockId"
+            }
+        },
+        {
+            "Id": "dresser_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_dresser",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"],
+                    ["{Material}","",{"RecipeGroup": "IronBar"},"","{Material}"],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{DresserId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "DresserId": "DresserId"
+            }
+        },
+        {
+            "Id": "piano_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_piano",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","{Material}","Book","{Material}","{Material}"],
+                    ["{Material}","Bone","Bone","Bone","{Material}"],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{PianoId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "PianoId": "PianoId"
+            }
+        },
+        {
+            "Id": "sofa_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_sofa",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","Silk","Silk","Silk","{Material}"],
+                    ["{Material}","{Material}","{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{SofaId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "SofaId": "SofaId"
+            }
+        },
+        {
+            "Id": "toilet_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_toilet",
+                "Shaped": true,
+                "RequiredTiles": ["{TileId2}"],
+                "Pattern": [
+                    ["{Material}","",""],
+                    ["{Material}","{Material}","{Material}"],
+                    ["{Material}","{Material}","{Material}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{ToiletId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "Material",
+                "TileId2":"TileId2",
+                "ToiletId": "ToiletId"
+            }
+        }
+    ],
+
+    "MaterialDefinitions": [
+        {
+            "Id": "furniture_materials",
+            "Description": "furniture_materials",
+            "Materials": [
+                {
+                    "Name": "Generic_1_Wood",
+                    "Material": "Wood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "WoodPlatform", "WorkbenchId": "WorkBench",
+
+                    "TableId": "WoodenTable", "ChairId": "WoodenChair", "DoorId": "WoodenDoor", 
+                    "ChestId": "Chest", "SinkId": "",
+                    "CandleId": "", "CandelabraId": "", "LampId": "", "LanternId": "",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "",
+                    "BathtubId": "", "BedId": "", "BookcaseId": "", "ClockId": "",
+                    "DresserId": "", "PianoId": "", "SofaId": "", "ToiletId": ""
+                },
+                {
+                    "Name": "BorealWood",
+                    "Material": "BorealWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "BorealWoodPlatform", "WorkbenchId": "BorealWoodWorkBench",
+
+                    "TableId": "BorealWoodTable", "ChairId": "BorealWoodChair", "DoorId": "BorealWoodDoor", 
+                    "ChestId": "BorealWoodChest", "SinkId": "BorealWoodSink",
+                    "CandleId": "BorealWoodCandle", "CandelabraId": "BorealWoodCandelabra", "LampId": "BorealWoodLamp", "LanternId": "BorealWoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "BorealWoodChandelier",
+                    "BathtubId": "BorealWoodBathtub", "BedId": "BorealWoodBed", "BookcaseId": "BorealWoodBookcase", "ClockId": "BorealWoodClock",
+                    "DresserId": "BorealWoodDresser", "PianoId": "BorealWoodPiano", "SofaId": "BorealWoodSofa", "ToiletId": "ToiletBoreal"
+                },
+                {
+                    "Name": "RichMahogany",
+                    "Material": "RichMahogany",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "RichMahoganyPlatform", "WorkbenchId": "RichMahoganyWorkBench",
+
+                    "TableId": "RichMahoganyTable", "ChairId": "RichMahoganyChair", "DoorId": "RichMahoganyDoor", 
+                    "ChestId": "RichMahoganyChest", "SinkId": "RichMahoganySink",
+                    "CandleId": "RichMahoganyCandle", "CandelabraId": "RichMahoganyCandelabra", "LampId": "RichMahoganyLamp", "LanternId": "RichMahoganyLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "RichMahoganyChandelier",
+                    "BathtubId": "RichMahoganyBathtub", "BedId": "RichMahoganyBed", "BookcaseId": "RichMahoganyBookcase", "ClockId": "RichMahoganyClock",
+                    "DresserId": "RichMahoganyDresser", "PianoId": "RichMahoganyPiano", "SofaId": "RichMahoganySofa", "ToiletId": "ToiletRichMahogany"
+                },
+                {
+                    "Name": "PalmWood",
+                    "Material": "PalmWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "PalmWoodPlatform", "WorkbenchId": "PalmWoodWorkBench",
+
+                    "TableId": "PalmWoodTable", "ChairId": "PalmWoodChair", "DoorId": "PalmWoodDoor", 
+                    "ChestId": "PalmWoodChest", "SinkId": "PalmWoodSink",
+                    "CandleId": "PalmWoodCandle", "CandelabraId": "PalmWoodCandelabra", "LampId": "PalmWoodLamp", "LanternId": "PalmWoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "PalmWoodChandelier",
+                    "BathtubId": "PalmWoodBathtub", "BedId": "PalmWoodBed", "BookcaseId": "PalmWoodBookcase", "ClockId": "PalmWoodClock",
+                    "DresserId": "PalmWoodDresser", "PianoId": "PalmWoodPiano", "SofaId": "PalmWoodSofa", "ToiletId": "ToiletPalm"
+                },
+                {
+                    "Name": "Ebonwood",
+                    "Material": "Ebonwood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "EbonwoodPlatform", "WorkbenchId": "EbonwoodWorkBench",
+
+                    "TableId": "EbonwoodTable", "ChairId": "EbonwoodChair", "DoorId": "EbonwoodDoor", 
+                    "ChestId": "EbonwoodChest", "SinkId": "EbonwoodSink",
+                    "CandleId": "EbonwoodCandle", "CandelabraId": "EbonwoodCandelabra", "LampId": "EbonwoodLamp", "LanternId": "EbonwoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "EbonwoodChandelier",
+                    "BathtubId": "EbonwoodBathtub", "BedId": "EbonwoodBed", "BookcaseId": "EbonwoodBookcase", "ClockId": "EbonwoodClock",
+                    "DresserId": "EbonwoodDresser", "PianoId": "EbonwoodPiano", "SofaId": "EbonwoodSofa", "ToiletId": "ToiletEbonyWood"
+                },
+                {
+                    "Name": "Shadewood",
+                    "Material": "Shadewood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "ShadewoodPlatform", "WorkbenchId": "ShadewoodWorkBench",
+
+                    "TableId": "ShadewoodTable", "ChairId": "ShadewoodChair", "DoorId": "ShadewoodDoor", 
+                    "ChestId": "ShadewoodChest", "SinkId": "ShadewoodSink",
+                    "CandleId": "ShadewoodCandle", "CandelabraId": "ShadewoodCandelabra", "LampId": "ShadewoodLamp", "LanternId": "ShadewoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "ShadewoodChandelier",
+                    "BathtubId": "ShadewoodBathtub", "BedId": "ShadewoodBed", "BookcaseId": "ShadewoodBookcase", "ClockId": "ShadewoodClock",
+                    "DresserId": "ShadewoodDresser", "PianoId": "ShadewoodPiano", "SofaId": "ShadewoodSofa", "ToiletId": "ToiletShadewood"
+                },
+                {
+                    "Name": "AshWood",
+                    "Material": "AshWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "AshWoodPlatform", "WorkbenchId": "AshWoodWorkbench",
+
+                    "TableId": "AshWoodTable", "ChairId": "AshWoodChair", "DoorId": "AshWoodDoor", 
+                    "ChestId": "AshWoodChest", "SinkId": "AshWoodSink",
+                    "CandleId": "AshWoodCandle", "CandelabraId": "AshWoodCandelabra", "LampId": "AshWoodLamp", "LanternId": "AshWoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "AshWoodChandelier",
+                    "BathtubId": "AshWoodBathtub", "BedId": "AshWoodBed", "BookcaseId": "AshWoodBookcase", "ClockId": "AshWoodClock",
+                    "DresserId": "AshWoodDresser", "PianoId": "AshWoodPiano", "SofaId": "AshWoodSofa", "ToiletId": "AshWoodToilet"
+                },
+                {
+                    "Name": "Pearlwood",
+                    "Material": "Pearlwood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "PearlwoodPlatform", "WorkbenchId": "PearlwoodWorkBench",
+
+                    "TableId": "PearlwoodTable", "ChairId": "PearlwoodChair", "DoorId": "PearlwoodDoor", 
+                    "ChestId": "PearlwoodChest", "SinkId": "PearlwoodSink",
+                    "CandleId": "PearlwoodCandle", "CandelabraId": "PearlwoodCandelabra", "LampId": "PearlwoodLamp", "LanternId": "PearlwoodLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "PearlwoodChandelier",
+                    "BathtubId": "PearlwoodBathtub", "BedId": "PearlwoodBed", "BookcaseId": "PearlwoodBookcase", "ClockId": "PearlwoodClock",
+                    "DresserId": "PearlwoodDresser", "PianoId": "PearlwoodPiano", "SofaId": "PearlwoodSofa", "ToiletId": "ToiletPearlwood"
+                },
+                {
+                    "Name": "DynastyWood",
+                    "Material": "DynastyWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "DynastyPlatform", "WorkbenchId": "DynastyWorkBench",
+
+                    "TableId": "DynastyTable", "ChairId": "DynastyChair", "DoorId": "DynastyDoor", 
+                    "ChestId": "DynastyChest", "SinkId": "DynastySink",
+                    "CandleId": "DynastyCandle", "CandelabraId": "DynastyCandelabra", "LampId": "DynastyLamp", "LanternId": "DynastyLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "DynastyChandelier",
+                    "BathtubId": "DynastyBathtub", "BedId": "DynastyBed", "BookcaseId": "DynastyBookcase", "ClockId": "DynastyClock",
+                    "DresserId": "DynastyDresser", "PianoId": "DynastyPiano", "SofaId": "DynastySofa", "ToiletId": "ToiletDynasty"
+                },
+                {
+                    "Name": "SpookyWood",
+                    "Material": "SpookyWood",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SpookyPlatform", "WorkbenchId": "SpookyWorkBench",
+
+                    "TableId": "SpookyTable", "ChairId": "SpookyChair", "DoorId": "SpookyDoor", 
+                    "ChestId": "SpookyChest", "SinkId": "SpookySink",
+                    "CandleId": "SpookyCandle", "CandelabraId": "SpookyCandelabra", "LampId": "SpookyLamp", "LanternId": "SpookyLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SpookyChandelier",
+                    "BathtubId": "SpookyBathtub", "BedId": "SpookyBed", "BookcaseId": "SpookyBookcase", "ClockId": "SpookyClock",
+                    "DresserId": "SpookyDresser", "PianoId": "SpookyPiano", "SofaId": "SpookySofa", "ToiletId": "ToiletSpooky"
+                },
+
+                {
+                    "Name": "LivingWood",
+                    "Material": "Wood",
+                    "TileId": "LivingLoom",
+                    "PlatformId": "LivingWoodPlatform", "WorkbenchId": "LivingWoodWorkBench",
+
+                    "TableId": "LivingWoodTable", "ChairId": "LivingWoodChair", "DoorId": "LivingWoodDoor",
+                    "ChestId": "LivingWoodChest", "SinkId": "LivingWoodSink",
+                    "CandleId": "LivingWoodCandle", "CandelabraId": "LivingWoodCandelabra", "LampId": "LivingWoodLamp", "LanternId": "LivingWoodLantern",
+
+                    "TileId2": "LivingLoom",
+                    "ChandelierId": "LivingWoodChandelier",
+                    "BathtubId": "LivingWoodBathtub", "BedId": "LivingWoodBed", "BookcaseId": "LivingWoodBookcase", "ClockId": "LivingWoodClock",
+                    "DresserId": "LivingWoodDresser", "PianoId": "LivingWoodPiano", "SofaId": "LivingWoodSofa", "ToiletId": "ToiletLivingWood"
+                },
+                {
+                    "Name": "Bamboo",
+                    "Material": "BambooBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "BambooPlatform", "WorkbenchId": "BambooWorkbench",
+
+                    "TableId": "BambooTable", "ChairId": "BambooChair", "DoorId": "BambooDoor",
+                    "ChestId": "BambooChest", "SinkId": "BambooSink",
+                    "CandleId": "BambooCandle", "CandelabraId": "BambooCandelabra", "LampId": "BambooLamp", "LanternId": "BambooLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "BambooChandelier",
+                    "BathtubId": "BambooBathtub", "BedId": "BambooBed", "BookcaseId": "BambooBookcase", "ClockId": "BambooClock",
+                    "DresserId": "BambooDresser", "PianoId": "BambooPiano", "SofaId": "BambooSofa", "ToiletId": "BambooToilet"
+                },
+                {
+                    "Name": "Cactus",
+                    "Material": "Cactus",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "CactusPlatform", "WorkbenchId": "CactusWorkBench",
+
+                    "TableId": "CactusTable", "ChairId": "CactusChair", "DoorId": "CactusDoor",
+                    "ChestId": "CactusChest", "SinkId": "CactusSink",
+                    "CandleId": "CactusCandle", "CandelabraId": "CactusCandelabra", "LampId": "CactusLamp", "LanternId": "CactusLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "CactusChandelier",
+                    "BathtubId": "CactusBathtub", "BedId": "CactusBed", "BookcaseId": "CactusBookcase", "ClockId": "CactusClock",
+                    "DresserId": "CactusDresser", "PianoId": "CactusPiano", "SofaId": "CactusSofa", "ToiletId": "ToiletCactus"
+                },
+                {
+                    "Name": "Pumpkin",
+                    "Material": "Pumpkin",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "PumpkinPlatform", "WorkbenchId": "PumpkinWorkBench",
+
+                    "TableId": "PumpkinTable", "ChairId": "PumpkinChair", "DoorId": "PumpkinDoor",
+                    "ChestId": "PumpkinChest", "SinkId": "PumpkinSink",
+                    "CandleId": "PumpkinCandle", "CandelabraId": "PumpkinCandelabra", "LampId": "PumpkinLamp", "LanternId": "PumpkinLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "PumpkinChandelier",
+                    "BathtubId": "PumpkinBathtub", "BedId": "PumpkinBed", "BookcaseId": "PumpkinBookcase", "ClockId": "PumpkinClock",
+                    "DresserId": "PumpkinDresser", "PianoId": "PumpkinPiano", "SofaId": "PumpkinSofa", "ToiletId": "ToiletPumpkin"
+                },
+                {
+                    "Name": "Mushroom",
+                    "Material": "GlowingMushroom",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "MushroomPlatform", "WorkbenchId": "MushroomWorkBench",
+
+                    "TableId": "MushroomTable", "ChairId": "MushroomChair", "DoorId": "MushroomDoor",
+                    "ChestId": "MushroomChest", "SinkId": "MushroomSink",
+                    "CandleId": "MushroomCandle", "CandelabraId": "MushroomCandelabra", "LampId": "MushroomLamp", "LanternId": "MushroomLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "MushroomChandelier",
+                    "BathtubId": "MushroomBathtub", "BedId": "MushroomBed", "BookcaseId": "MushroomBookcase", "ClockId": "MushroomClock",
+                    "DresserId": "MushroomDresser", "PianoId": "MushroomPiano", "SofaId": "MushroomSofa", "ToiletId": "ToiletMushroom"
+                }
+            ]
+        }
+    ]
+}

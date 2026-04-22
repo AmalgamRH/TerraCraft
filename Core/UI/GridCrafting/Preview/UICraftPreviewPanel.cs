@@ -23,7 +23,7 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
         private readonly UICraftPreviewSlot _outputSlot;
         private readonly int _gridWidth;
         private readonly int _gridHeight;
-
+        public int OutputItemType => _outputSlot?.Item?.type ?? 0;
         /// <summary>
         /// 构造预览面板
         /// </summary>

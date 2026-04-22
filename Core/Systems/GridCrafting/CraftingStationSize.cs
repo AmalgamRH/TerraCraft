@@ -14,6 +14,8 @@ namespace TerraCraft.Core.Systems.GridCrafting
             { TileID.WorkBenches,    (3, 3) },
             { TileID.HeavyWorkBench, (3, 3) },
             { TileID.Sawmill,        (5, 3) },
+            { TileID.Loom,           (3, 3) },
+            { TileID.LivingLoom,     (5, 3) },
         };
 
         public static bool IsSupported(int tileType)

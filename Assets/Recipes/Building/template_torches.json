@@ -23,6 +23,17 @@
             ]
         },
         {
+            "Id": "pink_torch",
+            "Shaped": true,
+            "RequiredTiles": [],
+            "Pattern": [
+                ["PinkGel"],
+                ["TerraCraft:WoodenStick"]],
+            "Outputs": [
+                {"ItemId": "PinkTorch", "Amount": 3}
+            ]
+        },
+        {
             "Id": "mushroom_torch",
             "Shaped": true,
             "RequiredTiles": [],
@@ -58,31 +69,7 @@
             ]
         },
         {
-            "Id": "corrupt_torch_1",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PurpleIceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "CorruptTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "corrupt_torch_2",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "CorruptHardenedSand", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "CorruptTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "corrupt_torch_3",
+            "Id": "corrupt_torch",
             "Shaped": false,
             "RequiredTiles": [],
             "Ingredients": [
@@ -94,35 +81,11 @@
             ]
         },
         {
-            "Id": "crimson_torch_1",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "RedIceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "CrimsonTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "crimson_torch_2",
+            "Id": "crimson_torch",
             "Shaped": false,
             "RequiredTiles": [],
             "Ingredients": [
                 {"ItemId": "CrimstoneBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "CrimsonTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "crimson_torch_3",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "CrimsonHardenedSand", "Amount": 1},
                 {"ItemId": "Torch", "Amount": 3}
             ],
             "Outputs": [
@@ -154,47 +117,11 @@
             ]
         },
         {
-            "Id": "desert_torch_1",
+            "Id": "desert_torch",
             "Shaped": false,
             "RequiredTiles": [],
             "Ingredients": [
                 {"ItemId": "HardenedSand", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "DesertTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "desert_torch_2",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "HallowHardenedSand", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "DesertTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "desert_torch_3",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "CrimsonHardenedSand", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "DesertTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "desert_torch_4",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "CorruptHardenedSand", "Amount": 1},
                 {"ItemId": "Torch", "Amount": 3}
             ],
             "Outputs": [
@@ -214,83 +141,11 @@
             ]
         },
         {
-            "Id": "hallowed_torch_1",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PinkIceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "HallowedTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "hallowed_torch_2",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "HallowHardenedSand", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "HallowedTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "hallowed_torch_3",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PearlstoneBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "HallowedTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "ice_torch_1",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PinkIceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "IceTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "ice_torch_2",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "RedIceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "IceTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "ice_torch_3",
+            "Id": "ice_torch",
             "Shaped": false,
             "RequiredTiles": [],
             "Ingredients": [
                 {"ItemId": "IceBlock", "Amount": 1},
-                {"ItemId": "Torch", "Amount": 3}
-            ],
-            "Outputs": [
-                {"ItemId": "IceTorch", "Amount": 3}
-            ]
-        },
-        {
-            "Id": "ice_torch_4",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PurpleIceBlock", "Amount": 1},
                 {"ItemId": "Torch", "Amount": 3}
             ],
             "Outputs": [
@@ -343,18 +198,6 @@
             ],
             "Outputs": [
                 {"ItemId": "OrangeTorch", "Amount": 20}
-            ]
-        },
-        {
-            "Id": "pink_torch",
-            "Shaped": false,
-            "RequiredTiles": [],
-            "Ingredients": [
-                {"ItemId": "PinkGel", "Amount": 1},
-                {"RecipeGroup": "Wood", "Amount": 1}
-            ],
-            "Outputs": [
-                {"ItemId": "PinkTorch", "Amount": 3}
             ]
         },
         {

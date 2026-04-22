@@ -48,7 +48,7 @@ namespace TerraCraft.Core.Systems
             AddRelationship(TileID.WorkBenches, TileID.HeavyWorkBench);
 
             // 铁砧
-            //AddRelationship(TileID.Anvils, TileID.MythrilAnvil);
+            AddRelationship(TileID.Anvils, TileID.MythrilAnvil);
 
             // 熔炉
             AddRelationship(TileID.Furnaces, TileID.Hellforge); //地狱熔炉继承熔炉的所有配方
@@ -57,6 +57,9 @@ namespace TerraCraft.Core.Systems
 
             // 瓶子
             AddRelationship(TileID.Bottles, TileID.AlchemyTable);
+
+            // 织布机
+            AddRelationship(TileID.Loom, TileID.LivingLoom);
         }
 
         private void AddRelationship(int parentTileId, int childTileId)

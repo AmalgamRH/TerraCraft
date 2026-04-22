@@ -21,8 +21,7 @@
         ],
         "Outputs": [
             {"ItemId": "TerraCraft:WoodenStick", "Amount": 2}
-        ],
-        "Replacements": []
+        ]
     },
     {
         "Id": "chain",
@@ -34,8 +33,7 @@
         ],
         "Outputs": [
             {"ItemId": "Chain", "Amount": 20}
-        ],
-        "Replacements": []
+        ]
     },
     {
         "Id": "empty_bucket",
@@ -47,8 +45,31 @@
         ],
         "Outputs": [
             {"ItemId": "EmptyBucket", "Amount": 2}
+        ]
+    },
+    {
+        "Id": "empty_bucket",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+            [{"RecipeGroup": "IronBar"},"",{"RecipeGroup": "IronBar"}],
+            ["",{"RecipeGroup": "IronBar"},""]
         ],
-        "Replacements": []
+        "Outputs": [
+            {"ItemId": "EmptyBucket", "Amount": 2}
+        ]
+    },
+    {
+        "Id": "silk",
+        "Shaped": true,
+        "RequiredTiles": ["Loom"],
+        "Pattern": [
+            ["Cobweb","Cobweb","Cobweb"],
+            ["Cobweb","Cobweb","Cobweb"]
+        ],
+        "Outputs": [
+            {"ItemId": "Silk", "Amount": 1}
+        ]
     }
   ]
 }

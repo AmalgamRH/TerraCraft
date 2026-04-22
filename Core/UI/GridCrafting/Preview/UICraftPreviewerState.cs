@@ -135,7 +135,6 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                 return;
 
             int targetItemType = _targetItemSlot.Item.type;
-            // 改为获取“输出为该物品”或“需要该物品作为原料”的所有配方
             var recipes = GetRecipesByOutputOrInput(targetItemType);
 
             foreach (var recipeInfo in recipes)
@@ -144,6 +143,18 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                 if (previewPanel != null)
                     _recipeList.Add(previewPanel);
             }
+
+            var sortedChildren = _recipeList._items
+                .Cast<UICraftPreviewPanel>()
+                .OrderBy(panel => panel.OutputItemType)
+                .ToList(); //对UIList内部的子元素列表按输出ID排序
+
+            _recipeList._items.Clear();
+            foreach (var panel in sortedChildren)
+                _recipeList._items.Add(panel);
+
+            // 强制重新计算布局
+            _recipeList.Recalculate();
         }
 
         /// <summary>
@@ -156,20 +167,16 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
             if (GridRecipeLoader.RecipeDB == null)
                 return result;
 
-            // 使用HashSet自动去重
             var uniqueRecipes = new HashSet<GriddedRecipe>();
 
-            // 1. 作为输出的配方
             var outputRecipes = GridRecipeLoader.RecipeDB.GetRecipesByOutput(itemType);
             foreach (var recipe in outputRecipes)
                 uniqueRecipes.Add(recipe);
 
-            // 2. 作为输入的配方（假设RecipeDatabase已实现GetRecipesByInput方法）
             var inputRecipes = GridRecipeLoader.RecipeDB.GetRecipesByInput(itemType);
             foreach (var recipe in inputRecipes)
                 uniqueRecipes.Add(recipe);
 
-            // 转换为预览数据
             foreach (var recipe in uniqueRecipes)
             {
                 var previewData = ConvertToPreviewData(recipe);
@@ -190,44 +197,6 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
             var output = recipe.Outputs[0];
             var outputItem = new Item(output.ItemType, output.Amount);
 
-            Item[] inputs = new Item[recipe.GridWidth * recipe.GridHeight];
-            string[] nameOverrides = new string[inputs.Length];
-
-            if (recipe.Ingredients != null)
-            {
-                foreach (var ing in recipe.Ingredients)
-                {
-                    int displayType = GetDisplayItemType(ing);
-                    if (displayType == 0) continue;
-
-                    string overrideName = null;
-                    if (ing.ItemType == 0 && !string.IsNullOrEmpty(ing.RecipeGroup))
-                        overrideName = RecipeGroupResolver.GetDisplayText(ing.RecipeGroup);
-
-                    if (recipe.Shaped && ing.X.HasValue && ing.Y.HasValue)
-                    {
-                        int index = ing.Y.Value * recipe.GridWidth + ing.X.Value;
-                        if (index >= 0 && index < inputs.Length)
-                        {
-                            inputs[index] = new Item(displayType, ing.Amount);
-                            nameOverrides[index] = overrideName;
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < inputs.Length; i++)
-                        {
-                            if (inputs[i] == null || inputs[i].IsAir)
-                            {
-                                inputs[i] = new Item(displayType, ing.Amount);
-                                nameOverrides[i] = overrideName;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
             // 工作台信息
             int stationTileId = 0;
             int stationItemIcon = ItemID.None;
@@ -237,16 +206,105 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                 stationItemIcon = TileLoader.GetItemDropFromTypeAndStyle(stationTileId);
             }
 
-            return new RecipePreviewData
+            if (recipe.Shaped)
             {
-                GridWidth = recipe.GridWidth,
-                GridHeight = recipe.GridHeight,
-                Inputs = inputs,
-                DisplayNameOverrides = nameOverrides,
-                Output = outputItem,
-                StationTileId = stationTileId,
-                StationItemIcon = stationItemIcon
-            };
+                int totalCells = recipe.GridWidth * recipe.GridHeight;
+                Item[] inputs = new Item[totalCells];
+                string[] nameOverrides = new string[totalCells];
+
+                if (recipe.Ingredients != null)
+                {
+                    foreach (var ing in recipe.Ingredients)
+                    {
+                        int displayType = GetDisplayItemType(ing);
+                        if (displayType == 0) continue;
+
+                        string overrideName = null;
+                        if (ing.ItemType == 0 && !string.IsNullOrEmpty(ing.RecipeGroup))
+                            overrideName = RecipeGroupResolver.GetDisplayText(ing.RecipeGroup);
+
+                        if (ing.X.HasValue && ing.Y.HasValue)
+                        {
+                            int index = ing.Y.Value * recipe.GridWidth + ing.X.Value;
+                            if (index >= 0 && index < inputs.Length)
+                            {
+                                inputs[index] = new Item(displayType, ing.Amount);
+                                nameOverrides[index] = overrideName;
+                            }
+                        }
+                        else
+                        {
+                            // 有序配方但没有坐标？按顺序填充
+                            for (int i = 0; i < inputs.Length; i++)
+                            {
+                                if (inputs[i] == null || inputs[i].IsAir)
+                                {
+                                    inputs[i] = new Item(displayType, ing.Amount);
+                                    nameOverrides[i] = overrideName;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return new RecipePreviewData
+                {
+                    GridWidth = recipe.GridWidth,
+                    GridHeight = recipe.GridHeight,
+                    Inputs = inputs,
+                    DisplayNameOverrides = nameOverrides,
+                    Output = outputItem,
+                    StationTileId = stationTileId,
+                    StationItemIcon = stationItemIcon
+                };
+            }
+            else // 无序配方：动态计算网格尺寸，忽略原始 GridWidth/Height
+            {
+                var validIngredients = new List<(int type, int amount, string overrideName)>();
+                if (recipe.Ingredients != null)
+                {
+                    foreach (var ing in recipe.Ingredients)
+                    {
+                        int displayType = GetDisplayItemType(ing);
+                        if (displayType == 0) continue;
+
+                        string overrideName = null;
+                        if (ing.ItemType == 0 && !string.IsNullOrEmpty(ing.RecipeGroup))
+                            overrideName = RecipeGroupResolver.GetDisplayText(ing.RecipeGroup);
+
+                        validIngredients.Add((displayType, ing.Amount, overrideName));
+                    }
+                }
+
+                int n = validIngredients.Count;
+                if (n == 0) return null;
+
+                int gridSize = (int)Math.Ceiling(Math.Sqrt(n));
+                int totalCells = gridSize * gridSize;
+
+                Item[] inputs = new Item[totalCells];
+                string[] nameOverrides = new string[totalCells];
+
+                for (int i = 0; i < n; i++)
+                {
+                    var ing = validIngredients[i];
+                    inputs[i] = new Item(ing.type, ing.amount);
+                    nameOverrides[i] = ing.overrideName;
+                }
+                // 剩余格子保持 null (IsAir)
+
+                return new RecipePreviewData
+                {
+                    GridWidth = gridSize,
+                    GridHeight = gridSize,
+                    Inputs = inputs,
+                    DisplayNameOverrides = nameOverrides,
+                    Output = outputItem,
+                    StationTileId = stationTileId,
+                    StationItemIcon = stationItemIcon
+                };
+            }
         }
 
         private static int GetDisplayItemType(RecipeIngredient ing)
