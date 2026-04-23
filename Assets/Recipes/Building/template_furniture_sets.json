@@ -700,6 +700,366 @@
                     "ChandelierId": "MushroomChandelier",
                     "BathtubId": "MushroomBathtub", "BedId": "MushroomBed", "BookcaseId": "MushroomBookcase", "ClockId": "MushroomClock",
                     "DresserId": "MushroomDresser", "PianoId": "MushroomPiano", "SofaId": "MushroomSofa", "ToiletId": "ToiletMushroom"
+                },
+                {
+                    "Name": "Granite",
+                    "Material": "GraniteBlock",
+                    "TileId": "HeavyWorkBench",
+                    "PlatformId": "GranitePlatform", "WorkbenchId": "GraniteWorkBench",
+
+                    "TableId": "GraniteTable", "ChairId": "GraniteChair", "DoorId": "GraniteDoor",
+                    "ChestId": "GraniteChest", "SinkId": "GraniteSink",
+                    "CandleId": "GraniteCandle", "CandelabraId": "GraniteCandelabra", "LampId": "GraniteLamp", "LanternId": "GraniteLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "GraniteChandelier",
+                    "BathtubId": "GraniteBathtub", "BedId": "GraniteBed", "BookcaseId": "GraniteBookcase", "ClockId": "GraniteClock",
+                    "DresserId": "GraniteDresser", "PianoId": "GranitePiano", "SofaId": "GraniteSofa", "ToiletId": "ToiletGranite"
+                },
+                {
+                    "Name": "Marble",
+                    "Material": "MarbleBlock",
+                    "TileId": "HeavyWorkBench",
+                    "PlatformId": "MarblePlatform", "WorkbenchId": "MarbleWorkBench",
+
+                    "TableId": "MarbleTable", "ChairId": "MarbleChair", "DoorId": "MarbleDoor",
+                    "ChestId": "MarbleChest", "SinkId": "MarbleSink",
+                    "CandleId": "MarbleCandle", "CandelabraId": "MarbleCandelabra", "LampId": "MarbleLamp", "LanternId": "MarbleLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "MarbleChandelier",
+                    "BathtubId": "MarbleBathtub", "BedId": "MarbleBed", "BookcaseId": "MarbleBookcase", "ClockId": "MarbleClock",
+                    "DresserId": "MarbleDresser", "PianoId": "MarblePiano", "SofaId": "MarbleSofa", "ToiletId": "ToiletMarble"
+                },
+                {
+                    "Name": "Sandstone",
+                    "Material": "SmoothSandstone",
+                    "TileId": "HeavyWorkBench",
+                    "PlatformId": "SandstonePlatform", "WorkbenchId": "SandstoneWorkbench",
+
+                    "TableId": "SandstoneTable", "ChairId": "SandstoneChair", "DoorId": "SandstoneDoor",
+                    "ChestId": "DesertChest", "SinkId": "SandstoneSink",
+                    "CandleId": "SandstoneCandle", "CandelabraId": "SandstoneCandelabra", "LampId": "SandstoneLamp", "LanternId": "SandstoneLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SandstoneChandelier",
+                    "BathtubId": "SandstoneBathtub", "BedId": "SandstoneBed", "BookcaseId": "SandstoneBookcase", "ClockId": "SandstoneClock",
+                    "DresserId": "SandstoneDresser", "PianoId": "SandstonePiano", "SofaId": "SandstoneSofa", "ToiletId": "SandstoneToilet"
+                },
+                {
+                    "Name": "Stone",
+                    "Material": "GrayBrick",
+                    "TileId": "HeavyWorkBench",
+                    "PlatformId": "StonePlatform", "WorkbenchId": "",
+
+                    "TableId": "", "ChairId": "", "DoorId": "StoneDoor",
+                    "ChestId": "", "SinkId": "",
+                    "CandleId": "", "CandelabraId": "", "LampId": "", "LanternId": "",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "",
+                    "BathtubId": "", "BedId": "", "BookcaseId": "", "ClockId": "",
+                    "DresserId": "", "PianoId": "", "SofaId": "", "ToiletId": ""
+                },
+                {
+                    "Name": "Frozen",
+                    "Material": "IceBlock",
+                    "TileId": "IceMachine",
+                    "PlatformId": "FrozenPlatform", "WorkbenchId": "FrozenWorkBench",
+
+                    "TableId": "FrozenTable", "ChairId": "FrozenChair", "DoorId": "FrozenDoor",
+                    "ChestId": "IceChest", "SinkId": "FrozenSink",
+                    "CandleId": "FrozenCandle", "CandelabraId": "FrozenCandelabra", "LampId": "FrozenLamp", "LanternId": "FrozenLantern",
+
+                    "TileId2": "IceMachine",
+                    "ChandelierId": "FrozenChandelier",
+                    "BathtubId": "FrozenBathtub", "BedId": "FrozenBed", "BookcaseId": "FrozenBookcase", "ClockId": "FrozenClock",
+                    "DresserId": "FrozenDresser", "PianoId": "FrozenPiano", "SofaId": "FrozenSofa", "ToiletId": "ToiletFrozen"
+                },
+                {
+                    "Name": "Coral",
+                    "Material": "ReefBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "CoralPlatform", "WorkbenchId": "CoralWorkbench",
+
+                    "TableId": "CoralTable", "ChairId": "CoralChair", "DoorId": "CoralDoor",
+                    "ChestId": "CoralChest", "SinkId": "CoralSink",
+                    "CandleId": "CoralCandle", "CandelabraId": "CoralCandelabra", "LampId": "CoralLamp", "LanternId": "CoralLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "CoralChandelier",
+                    "BathtubId": "CoralBathtub", "BedId": "CoralBed", "BookcaseId": "CoralBookcase", "ClockId": "CoralClock",
+                    "DresserId": "CoralDresser", "PianoId": "CoralPiano", "SofaId": "CoralSofa", "ToiletId": "CoralToilet"
+                },
+                {
+                    "Name": "Skyware",
+                    "Material": "SunplateBlock",
+                    "TileId": "SkyMill",
+                    "PlatformId": "SkywarePlatform", "WorkbenchId": "SkywareWorkbench",
+
+                    "TableId": "SkywareTable", "ChairId": "SkywareChair", "DoorId": "SkywareDoor",
+                    "ChestId": "SkywareChest", "SinkId": "SkywareSink",
+                    "CandleId": "SkywareCandle", "CandelabraId": "SkywareCandelabra", "LampId": "SkywareLamp", "LanternId": "SkywareLantern",
+
+                    "TileId2": "SkyMill",
+                    "ChandelierId": "SkywareChandelier",
+                    "BathtubId": "SkywareBathtub", "BedId": "SkywareBed", "BookcaseId": "SkywareBookcase", "ClockId": "SkywareClock",
+                    "DresserId": "SkywareDresser", "PianoId": "SkywarePiano", "SofaId": "SkywareSofa", "ToiletId": "ToiletSunplate"
+                },
+                {
+                    "Name": "Meteorite",
+                    "Material": "MeteoriteBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "MeteoritePlatform", "WorkbenchId": "MeteoriteWorkBench",
+
+                    "TableId": "MeteoriteTable", "ChairId": "MeteoriteChair", "DoorId": "MeteoriteDoor",
+                    "ChestId": "MeteoriteChest", "SinkId": "MeteoriteSink",
+                    "CandleId": "MeteoriteCandle", "CandelabraId": "MeteoriteCandelabra", "LampId": "MeteoriteLamp", "LanternId": "MeteoriteLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "MeteoriteChandelier",
+                    "BathtubId": "MeteoriteBathtub", "BedId": "MeteoriteBed", "BookcaseId": "MeteoriteBookcase", "ClockId": "MeteoriteClock",
+                    "DresserId": "MeteoriteDresser", "PianoId": "MeteoritePiano", "SofaId": "MeteoriteSofa", "ToiletId": "ToiletMeteor"
+                },
+                {
+                    "Name": "Lesion",
+                    "Material": "LesionBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "LesionPlatform", "WorkbenchId": "LesionWorkbench",
+
+                    "TableId": "LesionTable", "ChairId": "LesionChair", "DoorId": "LesionDoor",
+                    "ChestId": "LesionChest", "SinkId": "LesionSink",
+                    "CandleId": "LesionCandle", "CandelabraId": "LesionCandelabra", "LampId": "LesionLamp", "LanternId": "LesionLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "LesionChandelier",
+                    "BathtubId": "LesionBathtub", "BedId": "LesionBed", "BookcaseId": "LesionBookcase", "ClockId": "LesionClock",
+                    "DresserId": "LesionDresser", "PianoId": "LesionPiano", "SofaId": "LesionSofa", "ToiletId": "ToiletLesion"
+                },
+                {
+                    "Name": "Flesh",
+                    "Material": "FleshBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "FleshPlatform", "WorkbenchId": "FleshWorkBench",
+
+                    "TableId": "FleshTable", "ChairId": "FleshChair", "DoorId": "FleshDoor",
+                    "ChestId": "FleshChest", "SinkId": "FleshSink",
+                    "CandleId": "FleshCandle", "CandelabraId": "FleshCandelabra", "LampId": "FleshLamp", "LanternId": "FleshLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "FleshChandelier",
+                    "BathtubId": "FleshBathtub", "BedId": "FleshBed", "BookcaseId": "FleshBookcase", "ClockId": "FleshClock",
+                    "DresserId": "FleshDresser", "PianoId": "FleshPiano", "SofaId": "FleshSofa", "ToiletId": "ToiletFlesh"
+                },
+                {
+                    "Name": "Crystal",
+                    "Material": "CrystalBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "CrystalPlatform", "WorkbenchId": "CrystalWorkbench",
+
+                    "TableId": "CrystalTable", "ChairId": "CrystalChair", "DoorId": "CrystalDoor",
+                    "ChestId": "CrystalChest", "SinkId": "CrystalSink",
+                    "CandleId": "CrystalCandle", "CandelabraId": "CrystalCandelabra", "LampId": "CrystalLamp", "LanternId": "CrystalLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "CrystalChandelier",
+                    "BathtubId": "CrystalBathtub", "BedId": "CrystalBed", "BookcaseId": "CrystalBookCase", "ClockId": "CrystalClock",
+                    "DresserId": "CrystalDresser", "PianoId": "CrystalPiano", "SofaId": "CrystalSofaHowDoesThatEvenWork", "ToiletId": "ToiletCrystal"
+                },
+                {
+                    "Name": "Bone",
+                    "Material": "Bone",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "BonePlatform", "WorkbenchId": "BoneWorkBench",
+
+                    "TableId": "BoneTable", "ChairId": "BoneChair", "DoorId": "BoneDoor",
+                    "ChestId": "BoneChest", "SinkId": "BoneSink",
+                    "CandleId": "", "CandelabraId": "BoneCandelabra", "LampId": "BoneLamp", "LanternId": "BoneLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "BoneChandelier",
+                    "BathtubId": "BoneBathtub", "BedId": "BoneBed", "BookcaseId": "BoneBookcase", "ClockId": "BoneClock",
+                    "DresserId": "BoneDresser", "PianoId": "BonePiano", "SofaId": "BoneSofa", "ToiletId": "ToiletBone"
+                },
+                {
+                    "Name": "Glass",
+                    "Material": "Glass",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "GlassPlatform", "WorkbenchId": "GlassWorkBench",
+
+                    "TableId": "GlassTable", "ChairId": "GlassChair", "DoorId": "GlassDoor",
+                    "ChestId": "GlassChest", "SinkId": "GlassSink",
+                    "CandleId": "GlassCandle", "CandelabraId": "GlassCandelabra", "LampId": "GlassLamp", "LanternId": "GlassLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "GlassChandelier",
+                    "BathtubId": "GlassBathtub", "BedId": "GlassBed", "BookcaseId": "GlassBookcase", "ClockId": "GlassClock",
+                    "DresserId": "GlassDresser", "PianoId": "GlassPiano", "SofaId": "GlassSofa", "ToiletId": "ToiletGlass"
+                },
+                {
+                    "Name": "Balloon",
+                    "Material": "SillyBalloonGreen",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "BalloonPlatform", "WorkbenchId": "BalloonWorkbench",
+
+                    "TableId": "BalloonTable", "ChairId": "BalloonChair", "DoorId": "BalloonDoor",
+                    "ChestId": "BalloonChest", "SinkId": "BalloonSink",
+                    "CandleId": "BalloonCandle", "CandelabraId": "BalloonCandelabra", "LampId": "BalloonLamp", "LanternId": "BalloonLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "BalloonChandelier",
+                    "BathtubId": "BalloonBathtub", "BedId": "BalloonBed", "BookcaseId": "BalloonBookcase", "ClockId": "BalloonClock",
+                    "DresserId": "BalloonDresser", "PianoId": "BalloonPiano", "SofaId": "BalloonSofa", "ToiletId": "BalloonToilet"
+                },
+                {
+                    "Name": "Slime",
+                    "Material": "SlimeBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SlimePlatform", "WorkbenchId": "SlimeWorkBench",
+
+                    "TableId": "SlimeTable", "ChairId": "SlimeChair", "DoorId": "SlimeDoor",
+                    "ChestId": "SlimeChest", "SinkId": "SlimeSink",
+                    "CandleId": "SlimeCandle", "CandelabraId": "SlimeCandelabra", "LampId": "SlimeLamp", "LanternId": "SlimeLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SlimeChandelier",
+                    "BathtubId": "SlimeBathtub", "BedId": "SlimeBed", "BookcaseId": "SlimeBookcase", "ClockId": "SlimeClock",
+                    "DresserId": "SlimeDresser", "PianoId": "SlimePiano", "SofaId": "SlimeSofa", "ToiletId": "ToiletSlime"
+                },
+                {
+                    "Name": "Honey",
+                    "Material": "HoneyBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "HoneyPlatform", "WorkbenchId": "HoneyWorkBench",
+
+                    "TableId": "HoneyTable", "ChairId": "HoneyChair", "DoorId": "HoneyDoor",
+                    "ChestId": "HoneyChest", "SinkId": "HoneySink",
+                    "CandleId": "HoneyCandle", "CandelabraId": "HoneyCandelabra", "LampId": "HoneyLamp", "LanternId": "HoneyLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "HoneyChandelier",
+                    "BathtubId": "HoneyBathtub", "BedId": "HoneyBed", "BookcaseId": "HoneyBookcase", "ClockId": "HoneyClock",
+                    "DresserId": "HoneyDresser", "PianoId": "HoneyPiano", "SofaId": "HoneySofa", "ToiletId": "ToiletHoney"
+                },
+                {
+                    "Name": "Spider",
+                    "Material": "SpiderBlock",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SpiderPlatform", "WorkbenchId": "SpiderWorkbench",
+
+                    "TableId": "SpiderTable", "ChairId": "SpiderChair", "DoorId": "SpiderDoor",
+                    "ChestId": "SpiderChest", "SinkId": "SpiderSinkSpiderSinkDoesWhateverASpiderSinkDoes",
+                    "CandleId": "SpiderCandle", "CandelabraId": "SpiderCandelabra", "LampId": "SpiderLamp", "LanternId": "SpiderLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SpiderChandelier",
+                    "BathtubId": "SpiderBathtub", "BedId": "SpiderBed", "BookcaseId": "SpiderBookcase", "ClockId": "SpiderClock",
+                    "DresserId": "SpiderDresser", "PianoId": "SpiderPiano", "SofaId": "SpiderSofa", "ToiletId": "ToiletSpider"
+                },
+                {
+                    "Name": "Steampunk",
+                    "Material": "Cog",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SteampunkPlatform", "WorkbenchId": "SteampunkWorkBench",
+
+                    "TableId": "SteampunkTable", "ChairId": "SteampunkChair", "DoorId": "SteampunkDoor",
+                    "ChestId": "SteampunkChest", "SinkId": "SteampunkSink",
+                    "CandleId": "SteampunkCandle", "CandelabraId": "SteampunkCandelabra", "LampId": "SteampunkLamp", "LanternId": "SteampunkLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SteampunkChandelier",
+                    "BathtubId": "SteampunkBathtub", "BedId": "SteampunkBed", "BookcaseId": "SteampunkBookcase", "ClockId": "SteampunkClock",
+                    "DresserId": "SteampunkDresser", "PianoId": "SteampunkPiano", "SofaId": "SteampunkSofa", "ToiletId": "ToiletSteampunk"
+                },
+                {
+                    "Name": "Lihzahrd",
+                    "Material": "LihzahrdBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "LihzahrdPlatform", "WorkbenchId": "LihzahrdWorkBench",
+
+                    "TableId": "LihzahrdTable", "ChairId": "LihzahrdChair", "DoorId": "LihzahrdDoor",
+                    "ChestId": "LihzahrdChest", "SinkId": "LihzahrdSink",
+                    "CandleId": "LihzahrdCandle", "CandelabraId": "LihzahrdCandelabra", "LampId": "LihzahrdLamp", "LanternId": "LihzahrdLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "LihzahrdChandelier",
+                    "BathtubId": "LihzahrdBathtub", "BedId": "LihzahrdBed", "BookcaseId": "LihzahrdBookcase", "ClockId": "LihzahrdClock",
+                    "DresserId": "LihzahrdDresser", "PianoId": "LihzahrdPiano", "SofaId": "LihzahrdSofa", "ToiletId": "ToiletLihzhard"
+                },
+                {
+                    "Name": "Martian",
+                    "Material": "MartianConduitPlating",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "MartianPlatform", "WorkbenchId": "MartianWorkBench",
+
+                    "TableId": "MartianTable", "ChairId": "MartianHoverChair", "DoorId": "MartianDoor",
+                    "ChestId": "MartianChest", "SinkId": "MartianSink",
+                    "CandleId": "MartianHoverCandle", "CandelabraId": "MartianTableLamp", "LampId": "MartianLamppost", "LanternId": "MartianLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "MartianChandelier",
+                    "BathtubId": "MartianBathtub", "BedId": "MartianBed", "BookcaseId": "MartianHolobookcase", "ClockId": "MartianAstroClock",
+                    "DresserId": "MartianDresser", "PianoId": "MartianPiano", "SofaId": "MartianSofa", "ToiletId": "ToiletMartian"
+                },
+                {
+                    "Name": "Solar",
+                    "Material": "SolarBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "SolarPlatform", "WorkbenchId": "SolarWorkbench",
+
+                    "TableId": "SolarTable", "ChairId": "SolarChair", "DoorId": "SolarDoor",
+                    "ChestId": "SolarChest", "SinkId": "SolarSink",
+                    "CandleId": "SolarCandle", "CandelabraId": "SolarCandelabra", "LampId": "SolarLamp", "LanternId": "SolarLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "SolarChandelier",
+                    "BathtubId": "SolarBathtub", "BedId": "SolarBed", "BookcaseId": "SolarBookcase", "ClockId": "SolarClock",
+                    "DresserId": "SolarDresser", "PianoId": "SolarPiano", "SofaId": "SolarSofa", "ToiletId": "SolarToilet"
+                },
+                {
+                    "Name": "Vortex",
+                    "Material": "VortexBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "VortexPlatform", "WorkbenchId": "VortexWorkbench",
+
+                    "TableId": "VortexTable", "ChairId": "VortexChair", "DoorId": "VortexDoor",
+                    "ChestId": "VortexChest", "SinkId": "VortexSink",
+                    "CandleId": "VortexCandle", "CandelabraId": "VortexCandelabra", "LampId": "VortexLamp", "LanternId": "VortexLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "VortexChandelier",
+                    "BathtubId": "VortexBathtub", "BedId": "VortexBed", "BookcaseId": "VortexBookcase", "ClockId": "VortexClock",
+                    "DresserId": "VortexDresser", "PianoId": "VortexPiano", "SofaId": "VortexSofa", "ToiletId": "VortexToilet"
+                },
+                {
+                    "Name": "Nebula",
+                    "Material": "NebulaBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "NebulaPlatform", "WorkbenchId": "NebulaWorkbench",
+
+                    "TableId": "NebulaTable", "ChairId": "NebulaChair", "DoorId": "NebulaDoor",
+                    "ChestId": "NebulaChest", "SinkId": "NebulaSink",
+                    "CandleId": "NebulaCandle", "CandelabraId": "NebulaCandelabra", "LampId": "NebulaLamp", "LanternId": "NebulaLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "NebulaChandelier",
+                    "BathtubId": "NebulaBathtub", "BedId": "NebulaBed", "BookcaseId": "NebulaBookcase", "ClockId": "NebulaClock",
+                    "DresserId": "NebulaDresser", "PianoId": "NebulaPiano", "SofaId": "NebulaSofa", "ToiletId": "NebulaToilet"
+                },
+                {
+                    "Name": "Stardust",
+                    "Material": "StardustBrick",
+                    "TileId": "WorkBenches",
+                    "PlatformId": "StardustPlatform", "WorkbenchId": "StardustWorkbench",
+
+                    "TableId": "StardustTable", "ChairId": "StardustChair", "DoorId": "StardustDoor",
+                    "ChestId": "StardustChest", "SinkId": "StardustSink",
+                    "CandleId": "StardustCandle", "CandelabraId": "StardustCandelabra", "LampId": "StardustLamp", "LanternId": "StardustLantern",
+
+                    "TileId2": "Sawmill",
+                    "ChandelierId": "StardustChandelier",
+                    "BathtubId": "StardustBathtub", "BedId": "StardustBed", "BookcaseId": "StardustBookcase", "ClockId": "StardustClock",
+                    "DresserId": "StardustDresser", "PianoId": "StardustPiano", "SofaId": "StardustSofa", "ToiletId": "StardustToilet"
                 }
             ]
         }

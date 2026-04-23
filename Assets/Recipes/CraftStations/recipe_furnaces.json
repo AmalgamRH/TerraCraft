@@ -23,7 +23,7 @@
       [
         [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}],
         [{"RecipeGroup": "IronBar"},"Furnace",{"RecipeGroup": "IronBar"}],
-        [{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"},{"RecipeGroup": "IronBar"}]
+        ["GrayBrick","GrayBrick","GrayBrick"]
       ],
       "Outputs": [
         { "ItemId": "GlassKiln", "Amount": 1 }

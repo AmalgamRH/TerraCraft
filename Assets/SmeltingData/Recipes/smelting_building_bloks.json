@@ -1,0 +1,20 @@
+﻿{
+    "Smelting": [
+        {
+            "Id": "smoothsandstone",
+            "RequiredTiles": [],
+            "Label": "Stone",
+            "Ingredients": [{"ItemId":"Sandstone", "Amount":1}],
+            "Outputs": [{ "ItemId": "SmoothSandstone", "Amount": 1 }],
+            "BaseSmeltTime": 600
+        },
+        {
+            "Id": "graybrick",
+            "RequiredTiles": [],
+            "Label": "Stone",
+            "Ingredients": [{"ItemId":"StoneBlock", "Amount":2}],
+            "Outputs": [{ "ItemId": "GrayBrick", "Amount": 1 }],
+            "BaseSmeltTime": 600
+        }
+    ]
+}

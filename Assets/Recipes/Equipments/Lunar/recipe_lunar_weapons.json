@@ -1,0 +1,42 @@
+﻿{
+  "Recipes": [
+    {
+      "Id": "solareruption",
+      "Shaped": true,
+      "RequiredTiles": ["LunarCraftingStation"],
+      "Pattern": 
+      [
+        ["","","","","","","",""],
+        ["","","FragmentSolar","","","","",""],
+        ["","FragmentSolar","","FragmentSolar","FragmentSolar","","",""],
+        ["","FragmentSolar","","FragmentSolar","FragmentSolar","FragmentSolar","",""],
+        ["","FragmentSolar","","","FragmentSolar","FragmentSolar","FragmentSolar",""],
+        ["FragmentSolar","FragmentSolar","FragmentSolar","","","FragmentSolar","FragmentSolar",""],
+        ["","FragmentSolar","","","","","",""],
+        ["","FragmentSolar","","","","","",""]
+      ],
+      "Outputs": [
+        { "ItemId": "SolarEruption", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "daybreak",
+      "Shaped": true,
+      "RequiredTiles": ["LunarCraftingStation"],
+      "Pattern": 
+      [
+        ["","","","","","","","FragmentSolar"],
+        ["","","","","FragmentSolar","","FragmentSolar",""],
+        ["","","","","FragmentSolar","FragmentSolar","",""],
+        ["","","","FragmentSolar","FragmentSolar","FragmentSolar","FragmentSolar",""],
+        ["","FragmentSolar","FragmentSolar","FragmentSolar","FragmentSolar","","",""],
+        ["","","FragmentSolar","FragmentSolar","","","",""],
+        ["","FragmentSolar","","FragmentSolar","","","",""],
+        ["FragmentSolar","","","","","",""]
+      ],
+      "Outputs": [
+        { "ItemId": "DayBreak", "Amount": 1 }
+      ]
+    }
+  ]
+}

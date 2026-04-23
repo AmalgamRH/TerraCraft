@@ -211,7 +211,6 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                 int totalCells = recipe.GridWidth * recipe.GridHeight;
                 Item[] inputs = new Item[totalCells];
                 string[] nameOverrides = new string[totalCells];
-
                 if (recipe.Ingredients != null)
                 {
                     foreach (var ing in recipe.Ingredients)

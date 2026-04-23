@@ -48,18 +48,6 @@
         ]
     },
     {
-        "Id": "empty_bucket",
-        "Shaped": true,
-        "RequiredTiles": ["HeavyWorkBench"],
-        "Pattern": [
-            [{"RecipeGroup": "IronBar"},"",{"RecipeGroup": "IronBar"}],
-            ["",{"RecipeGroup": "IronBar"},""]
-        ],
-        "Outputs": [
-            {"ItemId": "EmptyBucket", "Amount": 2}
-        ]
-    },
-    {
         "Id": "silk",
         "Shaped": true,
         "RequiredTiles": ["Loom"],

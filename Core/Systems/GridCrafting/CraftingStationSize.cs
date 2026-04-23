@@ -16,6 +16,14 @@ namespace TerraCraft.Core.Systems.GridCrafting
             { TileID.Sawmill,        (5, 3) },
             { TileID.Loom,           (3, 3) },
             { TileID.LivingLoom,     (5, 3) },
+            { TileID.SkyMill,        (5, 3) },
+            { TileID.IceMachine,     (5, 3) },
+            { TileID.Solidifier,     (5, 3) },
+            { TileID.HoneyDispenser, (5, 3) },
+            { TileID.BoneWelder,     (5, 3) },
+            { TileID.FleshCloningVat,(5, 3) },
+            { TileID.LesionStation,  (5, 3) },
+            { TileID.LunarCraftingStation,  (8, 8) }
         };
 
         public static bool IsSupported(int tileType)
