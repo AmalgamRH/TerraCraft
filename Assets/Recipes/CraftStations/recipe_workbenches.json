@@ -1,7 +1,7 @@
 {
   "Recipes": [
     {
-      "Id": "heavyworkbench",
+      "Id": "heavy_workbench",
       "Shaped": true,
       "RequiredTiles": ["WorkBenches"],
       "Pattern": 
@@ -12,8 +12,61 @@
       ],
       "Outputs": [
         { "ItemId": "HeavyWorkBench", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "demonite_workbench",
+      "Shaped": true,
+      "RequiredTiles": ["HeavyWorkBench"],
+      "Pattern": 
+      [
+        ["DemoniteBar","DemoniteBar","DemoniteBar"],
+        ["DemoniteBar","ShadowScale","DemoniteBar"]
       ],
-      "Replacements": []
+      "Outputs": [
+        { "ItemId": "TerraCraft:DemoniteWorkBench", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "crimtane_workbench",
+      "Shaped": true,
+      "RequiredTiles": ["HeavyWorkBench"],
+      "Pattern": 
+      [
+        ["CrimtaneBar","CrimtaneBar","CrimtaneBar"],
+        ["CrimtaneBar","TissueSample","CrimtaneBar"]
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:CrimtaneWorkBench", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "mythril_workbench",
+      "Shaped": true,
+      "RequiredTiles": ["TerraCraft:EvilWorkBenches"],
+      "Pattern": 
+      [
+        ["MythrilBar","MythrilBar","MythrilBar","MythrilBar"],
+        ["MythrilBar","MythrilBar","MythrilBar","MythrilBar"],
+        ["MythrilBar","","","MythrilBar"]
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:MythrilWorkBench", "Amount": 1 }
+      ]
+    },
+    {
+      "Id": "orichalcum_workbench",
+      "Shaped": true,
+      "RequiredTiles": ["TerraCraft:EvilWorkBenches"],
+      "Pattern": 
+      [
+        ["OrichalcumBar","OrichalcumBar","OrichalcumBar","OrichalcumBar"],
+        ["OrichalcumBar","OrichalcumBar","OrichalcumBar","OrichalcumBar"],
+        ["OrichalcumBar","","","OrichalcumBar"]
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:OrichalcumWorkBench", "Amount": 1 }
+      ]
     }
   ]
 }

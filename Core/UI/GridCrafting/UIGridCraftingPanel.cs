@@ -473,8 +473,10 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         private void CraftAll()
         {
+            if (!_currentRecipe.HasValue || _currentRecipe.Value.Outputs?.Count == 0) return;
+            int outputAmount = _currentRecipe.Value.Outputs[0].Amount;
             while (_currentRecipe.HasValue && CanConsumeInputs())
-                if (!TryCraftAndGiveToMouse(_currentRecipe.Value.Outputs[0].Amount, noSound: true)) break;
+                if (!TryCraftAndGiveToMouse(outputAmount, noSound: true)) break;
             SoundEngine.PlaySound(SoundID.Grab);
             RefreshMatching();
         }
@@ -504,10 +506,9 @@ namespace TerraCraft.Core.UI.GridCrafting
                 Main.mouseItem = craftedItem.Clone();
             else if (mouseItem.type == craftedItem.type && mouseItem.stack < mouseItem.maxStack)
             {
-                int canAdd = Math.Min(craftedItem.stack, mouseItem.maxStack - mouseItem.stack);
-                mouseItem.stack += canAdd;
-                craftedItem.stack -= canAdd;
-                if (craftedItem.stack > 0) return false;
+                // 必须能装下完整一份产出，否则不合成、不消耗材料
+                if (mouseItem.maxStack - mouseItem.stack < craftedItem.stack) return false;
+                mouseItem.stack += craftedItem.stack;
             }
             else return false;
             PerformConsumption();
