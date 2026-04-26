@@ -16,18 +16,31 @@ namespace TerraCraft.Core.Loaders
     {
         public const string AssetPath = "Assets/Recipes/";
         public static string FilePath = Path.Combine(Path.GetDirectoryName(ModLoader.ModPath), "TerraCraft", "Recipes");
+        private static readonly string BlacklistPath = Path.Combine(Path.GetDirectoryName(ModLoader.ModPath), "TerraCraft", "CraftingBlacklist.json");
+        private const string BlacklistTemplateAsset = "Assets/Templates/CraftingBlacklist.json.template";
+        private const string RecipeTemplateAsset = "Assets/Templates/CraftingRecipes.json.template";
         public static RecipeDatabase RecipeDB { get; private set; }
 
-        // ÔÚPostAddRecipes()¼ÓÔØ£¬µÈ´ıÆäËûÄ£×éÎïÆ·idÈ«²¿¼ÓÔØÍê±Ï
+        private RecipeBlacklistDTO _blacklist;
+
+        // ï¿½ï¿½PostAddRecipes()ï¿½ï¿½ï¿½Ø£ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Æ·idÈ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         public override void PostAddRecipes()
         {
             LoadGridRecipes();
         }
         public void LoadGridRecipes()
         {
+            // åŠ è½½é»‘åå•
+            _blacklist = RecipeBlacklistDTO.LoadFrom(BlacklistPath);
+            if (_blacklist.HasAny)
+                Mod.Logger.Info($"[GridRecipeLoader] Loaded blacklist: {_blacklist.DisabledRecipeIds.Count} recipe IDs, {_blacklist.DisabledGroupIds.Count} group IDs");
+
+            // è‹¥é»‘åå•æ–‡ä»¶å°šä¸å­˜åœ¨ï¼Œå°†å†…åµŒæ¨¡æ¿è¾“å‡ºåˆ°æ–‡ä»¶ç³»ç»Ÿä¾›å‚è€ƒ
+            EnsureBlacklistTemplate();
+
             var allRecipes = new List<GriddedRecipe>();
 
-            // ¼ÓÔØÇ¶ÈëÊ½×ÊÔ´
+            // åŠ è½½åµŒå…¥èµ„æº
             foreach (string assetPath in Mod.GetFileNames()
                          .Where(p => p.StartsWith(AssetPath) && p.EndsWith(".json")))
             {
@@ -40,44 +53,108 @@ namespace TerraCraft.Core.Loaders
                 }
                 catch (Exception e)
                 {
-                    Mod.Logger.Warn($"[TerraCraft] ¼ÓÔØÇ¶ÈëÊ½Åä·½Ê§°Ü: {assetPath}\n{e.Message}");
+                    Mod.Logger.Warn($"[GridRecipeLoader] Failed to load embedded recipe: {assetPath}\n{e.Message}");
                 }
             }
 
-            // ¼ÓÔØÍâ²¿Ä¿Â¼
-            if (Directory.Exists(FilePath))
+            if (!Directory.Exists(FilePath))
             {
-                foreach (string filePath in Directory.GetFiles(FilePath, "*.json", SearchOption.AllDirectories))
+                Directory.CreateDirectory(FilePath);
+            }
+
+            // è®°å½•å¤–éƒ¨ç›®å½•ä¸­æ˜¯å¦å­˜åœ¨ä»»ä½• .json æ–‡ä»¶ï¼ˆç”¨äºåç»­åˆ¤æ–­æ˜¯å¦ç”Ÿæˆæ¨¡æ¿ï¼‰
+            bool hasExternalJson = false;
+
+            // åŠ è½½å¤–éƒ¨ç›®å½•ä¸­çš„ JSON é…æ–¹æ–‡ä»¶
+            foreach (string filePath in Directory.GetFiles(FilePath, "*.json", SearchOption.AllDirectories))
+            {
+                hasExternalJson = true;
+                try
                 {
-                    try
-                    {
-                        string json = File.ReadAllText(filePath);
-                        ProcessJsonContent(json, filePath, allRecipes);
-                    }
-                    catch (Exception e)
-                    {
-                        Mod.Logger.Warn($"[TerraCraft] ¼ÓÔØÍâ²¿Åä·½Ê§°Ü: {filePath}\n{e.Message}");
-                    }
+                    string json = File.ReadAllText(filePath);
+                    ProcessJsonContent(json, filePath, allRecipes);
+                }
+                catch (Exception e)
+                {
+                    Mod.Logger.Warn($"[GridRecipeLoader] Failed to load external recipe: {filePath}\n{e.Message}");
                 }
             }
+
+            // å¦‚æœå¤–éƒ¨ç›®å½•æ²¡æœ‰ä»»ä½• .json æ–‡ä»¶ï¼Œåˆ™ç”Ÿæˆç¤ºä¾‹æ¨¡æ¿ï¼ˆé¿å…ç”¨æˆ·ç©ºç›®å½•ï¼‰
+            EnsureRecipeTemplateIfEmpty(hasExternalJson);
 
             RecipeDB = new RecipeDatabase { Recipes = allRecipes };
-            // ³õÊ¼»¯»º´æ
             RecipeDB.InitializeCache();
-
             CustomItemDataCache.LoadGridMaterialItem(allRecipes);
-
             Mod.Logger.Info($"[GridRecipeLoader] Successfully loaded {allRecipes.Count} grid recipes");
         }
+
+        /// <summary>
+        /// è‹¥å¤–éƒ¨é»‘åå•æ–‡ä»¶å°šä¸å­˜åœ¨ï¼Œå°†å†…åµŒæ¨¡æ¿å†™å‡ºåˆ°åŒç›®å½•ä¾›ç”¨æˆ·å‚è€ƒã€‚
+        /// ç”¨æˆ·å¯å‚è€ƒæ¨¡æ¿åˆ›å»ºçœŸæ­£çš„é»‘åå• JSONï¼ˆéœ€åˆ é™¤æ³¨é‡Šï¼‰ã€‚
+        /// </summary>
+        private void EnsureBlacklistTemplate()
+        {
+            try
+            {
+                string templateOutput = BlacklistPath + ".template";
+                if (File.Exists(BlacklistPath) || File.Exists(templateOutput))
+                    return;
+
+                string dir = Path.GetDirectoryName(BlacklistPath);
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                using Stream stream = Mod.GetFileStream(BlacklistTemplateAsset);
+                using StreamReader reader = new StreamReader(stream);
+                string content = reader.ReadToEnd();
+                File.WriteAllText(templateOutput, content);
+                Mod.Logger.Info($"[GridRecipeLoader] Blacklist template written to {templateOutput}");
+            }
+            catch (Exception e)
+            {
+                Mod.Logger.Warn($"[GridRecipeLoader] Failed to output blacklist template: {e.Message}");
+            }
+        }
+        /// <summary>
+        /// å¦‚æœå¤–éƒ¨ç›®å½•æ²¡æœ‰ä»»ä½• .json æ–‡ä»¶ï¼Œåˆ™å°†å†…åµŒé…æ–¹æ¨¡æ¿å†™å‡ºåˆ°è¯¥ç›®å½•ä¾›ç”¨æˆ·å‚è€ƒã€‚
+        /// </summary>
+        private void EnsureRecipeTemplateIfEmpty(bool hasExternalJson)
+        {
+            if (hasExternalJson)
+                return;
+
+            string templateOutput = Path.Combine(FilePath, "CraftingRecipes.json.template");
+            if (File.Exists(templateOutput))
+                return;
+
+            try
+            {
+                string dir = Path.GetDirectoryName(templateOutput);
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                using Stream stream = Mod.GetFileStream(RecipeTemplateAsset);
+                using StreamReader reader = new StreamReader(stream);
+                string content = reader.ReadToEnd();
+                File.WriteAllText(templateOutput, content);
+                Mod.Logger.Info($"[GridRecipeLoader] Recipe template written to {templateOutput}");
+            }
+            catch (Exception e)
+            {
+                Mod.Logger.Warn($"[GridRecipeLoader] Failed to output recipe template: {e.Message}");
+            }
+        }
+
         public override void Unload()
         {
             CustomItemDataCache.UnloadGridMaterialItem();
             RecipeDB = null;
         }
-        // ´¦ÀíJSONÄÚÈİ£¬×Ô¶¯¼ì²â¸ñÊ½
+        // ï¿½ï¿½ï¿½ï¿½JSONï¿½ï¿½ï¿½İ£ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
         private void ProcessJsonContent(string jsonContent, string sourcePath, List<GriddedRecipe> allRecipes)
         {
-            try // ³¢ÊÔ½âÎöÎªĞÂ¸ñÊ½
+            try // ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Îªï¿½Â¸ï¿½Ê½
             {
                 var dbDTO = JsonConvert.DeserializeObject<RecipeDatabaseDTO>(jsonContent);
                 if (dbDTO != null)
@@ -86,9 +163,9 @@ namespace TerraCraft.Core.Loaders
                     return;
                 }
             }
-            catch { } // ĞÂ¸ñÊ½½âÎöÊ§°Ü£¬³¢ÊÔ¾É¸ñÊ½
+            catch { } // ï¿½Â¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ô¾É¸ï¿½Ê½
 
-            try // ³¢ÊÔ½âÎöÎª¾É¸ñÊ½
+            try // ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Îªï¿½É¸ï¿½Ê½
             {
                 var legacyDbDTO = JsonConvert.DeserializeObject<LegacyRecipeDatabaseDTO>(jsonContent);
                 if (legacyDbDTO != null)
@@ -99,7 +176,7 @@ namespace TerraCraft.Core.Loaders
             }
             catch (Exception e)
             {
-                Mod.Logger.Warn($"[TerraCraft] ÎŞ·¨½âÎöJSONÎÄ¼ş: {sourcePath}\n{e.Message}");
+                Mod.Logger.Warn($"[GridRecipeLoader] Failed to parse JSON: {sourcePath}\n{e.Message}");
             }
         }
 
@@ -107,28 +184,39 @@ namespace TerraCraft.Core.Loaders
         {
             if (dbDTO == null) return;
 
-            // ´¦ÀíÆÕÍ¨Åä·½
+            // å¤„ç†æ™®é€šé…æ–¹
             if (dbDTO.Recipes != null)
             {
                 foreach (var recipeDTO in dbDTO.Recipes)
                 {
+                    // æ£€æŸ¥é…æ–¹é»‘åå•
+                    if (_blacklist.DisabledRecipeIds?.Contains(recipeDTO.Id) == true)
+                        continue;
+
                     var converted = ConvertToStruct(recipeDTO);
                     if (converted.HasValue)
                         allRecipes.Add(converted.Value);
                 }
             }
 
-            // ´¦ÀíÄ£°åÅä·½£¨ĞÂ¸ñÊ½£©
+            // å¤„ç†æ¨¡æ¿é…æ–¹
             if (dbDTO.MaterialDefinitions != null && dbDTO.RecipeGroups != null)
             {
-                // ¹¹½¨²ÄÁÏÓ³Éä
+                // æ„å»ºææ–™æ˜ å°„
                 var materialDefs = dbDTO.MaterialDefinitions.ToDictionary(md => md.Id, md => md);
                 
                 foreach (var group in dbDTO.RecipeGroups)
                 {
+                    // æ£€æŸ¥æ¨¡æ¿ç»„é»‘åå•
+                    if (_blacklist.DisabledGroupIds?.Contains(group.Id) == true)
+                    {
+                        Mod.Logger.Info($"[GridRecipeLoader] Skipping blacklisted template group: {group.Id}");
+                        continue;
+                    }
+
                     if (string.IsNullOrEmpty(group.MaterialSource) || !materialDefs.ContainsKey(group.MaterialSource))
                     {
-                        Mod.Logger.Warn($"[TerraCraft] Åä·½×é {group.Id} ÒıÓÃÁË²»´æÔÚµÄ²ÄÁÏÔ´: {group.MaterialSource}");
+                        Mod.Logger.Warn($"[GridRecipeLoader] Recipe template group {group.Id} references a non-existent material source: {group.MaterialSource}");
                         continue;
                     }
 
@@ -143,29 +231,40 @@ namespace TerraCraft.Core.Loaders
         {
             if (dbDTO == null) return;
 
-            // ´¦ÀíÆÕÍ¨Åä·½
+            // å¤„ç†æ™®é€šé…æ–¹
             if (dbDTO.Recipes != null)
             {
                 foreach (var recipeDTO in dbDTO.Recipes)
                 {
+                    // æ£€æŸ¥é…æ–¹é»‘åå•
+                    if (_blacklist.DisabledRecipeIds?.Contains(recipeDTO.Id) == true)
+                        continue;
+
                     var converted = ConvertToStruct(recipeDTO);
                     if (converted.HasValue)
                         allRecipes.Add(converted.Value);
                 }
             }
 
-            // ´¦ÀíÄ£°åÅä·½£¨¾É¸ñÊ½£©
+            // å¤„ç†æ¨¡æ¿é…æ–¹ï¼ˆæ—§æ ¼å¼ï¼‰
             if (dbDTO.RecipeGroups != null)
             {
                 foreach (var group in dbDTO.RecipeGroups)
                 {
+                    // æ£€æŸ¥æ¨¡æ¿ç»„é»‘åå•
+                    if (_blacklist.DisabledGroupIds?.Contains(group.Id) == true)
+                    {
+                        Mod.Logger.Info($"[GridRecipeLoader] Skipping blacklisted legacy template group: {group.Id}");
+                        continue;
+                    }
+
                     var generated = GenerateRecipesFromLegacyTemplate(group);
                     allRecipes.AddRange(generated);
                 }
             }
         }
 
-        #region ĞÂ¸ñÊ½Ä£°åÉú³ÉÂß¼­
+        #region ï¿½Â¸ï¿½Ê½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
         private List<GriddedRecipe> GenerateRecipesFromMaterialGroup(TemplateGroupDTO group, MaterialDefinitionDTO materialDef)
         {
             var results = new List<GriddedRecipe>();
@@ -176,16 +275,21 @@ namespace TerraCraft.Core.Loaders
                 var replacements = BuildReplacementsFromMaterial(material, group.PlaceholderMappings);
                 var recipeDTO = CloneTemplateWithReplacements(group.Template, replacements);
 
-                // ¼ì²éÊÇ·ñÓĞ¿ÕµÄ²ú³öÎïÆ·ID
+                // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ğ¿ÕµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ID
                 if (recipeDTO.Outputs != null && recipeDTO.Outputs.Any(o => string.IsNullOrWhiteSpace(o.ItemId)))
                 {
-                    // Èç¹ûÁô¿Õ£¬¾²Ä¬Ìø¹ı
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ£ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½
                     continue;
                 }
 
                 var converted = ConvertToStruct(recipeDTO);
                 if (converted.HasValue)
+                {
+                    // æ£€æŸ¥ç”Ÿæˆåçš„é…æ–¹ ID æ˜¯å¦åœ¨é»‘åå•ä¸­
+                    if (_blacklist.DisabledRecipeIds?.Contains(converted.Value.Id) == true)
+                        continue;
                     results.Add(converted.Value);
+                }
             }
             return results;
         }
@@ -207,8 +311,8 @@ namespace TerraCraft.Core.Loaders
                     }
                     else
                     {
-                        // Èç¹ûMaterialÊôĞÔ²»´æÔÚ£¬¼ÇÂ¼¾¯¸æ
-                        Mod.Logger.Warn($"[TerraCraft] ²ÄÁÏÈ±ÉÙÊôĞÔ: {materialProperty}");
+                        // ï¿½ï¿½ï¿½Materialï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
+                        Mod.Logger.Warn($"[GridRecipeLoader] Missing replacement material property: {materialProperty}");
                     }
                 }
             }
@@ -217,7 +321,7 @@ namespace TerraCraft.Core.Loaders
         }
         #endregion
 
-        #region ¾É¸ñÊ½Ä£°åÉú³ÉÂß¼­£¨Ïòºó¼æÈİ£©
+        #region ï¿½É¸ï¿½Ê½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½
         private List<GriddedRecipe> GenerateRecipesFromLegacyTemplate(LegacyTemplateGroupDTO group)
         {
             var results = new List<GriddedRecipe>();
@@ -227,7 +331,7 @@ namespace TerraCraft.Core.Loaders
             {
                 var recipeDTO = CloneTemplateWithReplacements(group.Template, variant);
 
-                // ¼ì²éÊÇ·ñÓĞ¿ÕµÄ²ú³öÎïÆ·ID
+                // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ğ¿ÕµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ID
                 if (recipeDTO.Outputs != null && recipeDTO.Outputs.Any(o => string.IsNullOrWhiteSpace(o.ItemId)))
                 {
                     continue;
@@ -235,13 +339,18 @@ namespace TerraCraft.Core.Loaders
 
                 var converted = ConvertToStruct(recipeDTO);
                 if (converted.HasValue)
+                {
+                    // æ£€æŸ¥ç”Ÿæˆåçš„é…æ–¹ ID æ˜¯å¦åœ¨é»‘åå•ä¸­
+                    if (_blacklist.DisabledRecipeIds?.Contains(converted.Value.Id) == true)
+                        continue;
                     results.Add(converted.Value);
+                }
             }
             return results;
         }
         #endregion
 
-        #region ¹²ÏíÄ£°åÂß¼­
+        #region æ ¸å¿ƒæ¨¡æ¿é€»è¾‘
         private GriddedRecipeDTO CloneTemplateWithReplacements(TemplateDTO template, Dictionary<string, string> replacements)
         {
             var dto = new GriddedRecipeDTO
@@ -254,7 +363,7 @@ namespace TerraCraft.Core.Loaders
                 Replacements = new List<ReplacementDTO>()
             };
 
-            // Ìæ»»Ô­ÁÏ
+            // ï¿½æ»»Ô­ï¿½ï¿½
             if (template.Ingredients != null)
             {
                 foreach (var ing in template.Ingredients)
@@ -270,7 +379,7 @@ namespace TerraCraft.Core.Loaders
                 }
             }
 
-            // Ìæ»»²ú³ö
+            // ï¿½æ»»ï¿½ï¿½ï¿½ï¿½
             foreach (var outDTO in template.Outputs)
             {
                 dto.Outputs.Add(new OutputDTO
@@ -283,7 +392,7 @@ namespace TerraCraft.Core.Loaders
                 });
             }
 
-            // Ìæ»»Ìæ»»¹æÔò
+            // ï¿½æ»»ï¿½æ»»ï¿½ï¿½ï¿½ï¿½
             foreach (var rep in template.Replacements)
             {
                 dto.Replacements.Add(new ReplacementDTO
@@ -296,7 +405,7 @@ namespace TerraCraft.Core.Loaders
                 });
             }
 
-            // Ìæ»»Îï¿é
+            // ï¿½æ»»ï¿½ï¿½ï¿½
             if (template.RequiredTiles != null)
             {
                 dto.RequiredTiles = new List<string>();
@@ -308,7 +417,7 @@ namespace TerraCraft.Core.Loaders
                 }
             }
 
-            // Ìæ»»Condition
+            // ï¿½æ»»Condition
             if (template.Conditions != null)
             {
                 dto.Conditions = new List<string>();
@@ -318,7 +427,7 @@ namespace TerraCraft.Core.Loaders
                 }
             }
 
-            // ¸´ÖÆPattern
+            // ï¿½ï¿½ï¿½ï¿½Pattern
             if (template.Pattern != null && template.Pattern.Any())
             {
                 dto.Pattern = new List<List<PatternCellDTO>>();
@@ -333,7 +442,7 @@ namespace TerraCraft.Core.Loaders
                             continue;
                         }
 
-                        // ÏÈ½øĞĞÕ¼Î»·ûÌæ»»
+                        // ï¿½È½ï¿½ï¿½ï¿½Õ¼Î»ï¿½ï¿½ï¿½æ»»
                         var newCell = new PatternCellDTO
                         {
                             ItemId = ReplacePlaceholders(cell.ItemId, replacements),
@@ -341,7 +450,7 @@ namespace TerraCraft.Core.Loaders
                             Amount = cell.Amount
                         };
 
-                        // ÖÇÄÜ½âÎö£ºÈç¹ûÇ°Ãæ´øÓĞRecipeGroupÇ°×ºÔò½âÎöÎªÅä·½×é
+                        // ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½RecipeGroupÇ°×ºï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ä·½ï¿½ï¿½
                         if (string.IsNullOrEmpty(newCell.RecipeGroup) && !string.IsNullOrEmpty(newCell.ItemId))
                         {
                             string raw = newCell.ItemId;
@@ -352,15 +461,15 @@ namespace TerraCraft.Core.Loaders
                             }
                             else
                             {
-                                //·ñÔò£¬³¢ÊÔ½âÎöÎªÎïÆ·ID
+                                //ï¿½ï¿½ï¿½ò£¬³ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Îªï¿½ï¿½Æ·ID
                                 int id = ItemIDResolver.ParseItemType(raw);
                                 if (id == 0)
                                 {
-                                    // ½âÎöÊ§°Ü£¬µ±×÷RecipeGroup
+                                    // ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½RecipeGroup
                                     newCell.RecipeGroup = raw;
                                     newCell.ItemId = null;
                                 }
-                                // ½âÎö³É¹¦£¬±£ÁôItemId
+                                // ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ItemId
                             }
                         }
                         newRow.Add(newCell);
@@ -383,12 +492,12 @@ namespace TerraCraft.Core.Loaders
         }
         #endregion
 
-        #region DTO×ª»»Âß¼­
+        #region DTO×ªï¿½ï¿½ï¿½ß¼ï¿½
         private GriddedRecipe? ConvertToStruct(GriddedRecipeDTO dto)
         {
             try
             {
-                // ×ª»»RequiredTiles£¬ÔÊĞíÎª¿Õ
+                // ×ªï¿½ï¿½RequiredTilesï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
                 List<int> tileIds = null;
                 if (dto.RequiredTiles != null)
                 {
@@ -396,30 +505,30 @@ namespace TerraCraft.Core.Loaders
                     foreach (string tileStr in dto.RequiredTiles)
                     {
                         if (string.IsNullOrWhiteSpace(tileStr))
-                            continue; // ºöÂÔ¿Õ×Ö·û´®
+                            continue; // ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
                         int id = TileIDResolver.ParseTileType(tileStr);
                         if (id != 0)
                             tileIds.Add(id);
                         }
                 }
 
-                // Èç¹û½âÎöºóÈÔÎª¿Õ£¬ÔòÊÓÎªÍ¨ÓÃ£¬¸³ÖµÎª null¡£
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÍ¨ï¿½Ã£ï¿½ï¿½ï¿½ÖµÎª nullï¿½ï¿½
                 if (tileIds.Count == 0)
                     tileIds = null;
 
-                // ×ª»»Ingredients£¨´ÓPattern»òIngredients£©
+                // ×ªï¿½ï¿½Ingredientsï¿½ï¿½ï¿½ï¿½Patternï¿½ï¿½Ingredientsï¿½ï¿½
                 List<RecipeIngredient> ingredients = new List<RecipeIngredient>();
-                int gridWidth = 1;   // Ä¬ÈÏ³ß´ç£¬½öµ±Shaped = trueÇÒÎŞPatternÊ±¿ÉÄÜ±»AutoComputeDimensions¸²¸Ç
+                int gridWidth = 1;   // Ä¬ï¿½Ï³ß´ç£¬ï¿½ï¿½ï¿½ï¿½Shaped = trueï¿½ï¿½ï¿½ï¿½PatternÊ±ï¿½ï¿½ï¿½Ü±ï¿½AutoComputeDimensionsï¿½ï¿½ï¿½ï¿½
                 int gridHeight = 1;
 
-                // ÓÅÏÈÊ¹ÓÃPattern£¨ÊÊÓÃÓÚShapedÅä·½£©
+                // ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Patternï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Shapedï¿½ä·½ï¿½ï¿½
                 if (dto.Shaped && dto.Pattern != null && dto.Pattern.Count > 0)
                 {
                     ingredients = ParsePattern(dto.Pattern, out gridWidth, out gridHeight);
                 }
                 else if (dto.Ingredients != null)
                 {
-                    // ¼æÈİ¾ÉµÄ×ø±êÊ½£¨Shaped£©»òÎŞĞòÅä·½£¨Shaped = false£©
+                    // ï¿½ï¿½ï¿½İ¾Éµï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Shapedï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä·½ï¿½ï¿½Shaped = falseï¿½ï¿½
                     foreach (var ingDTO in dto.Ingredients)
                     {
                         int itemType = 0;
@@ -437,7 +546,7 @@ namespace TerraCraft.Core.Loaders
                     }
                 }
 
-                // ×ª»»Outputs
+                // ×ªï¿½ï¿½Outputs
                 List<RecipeOutput> outputs = new List<RecipeOutput>();
                 if (dto.Outputs != null)
                 {
@@ -455,7 +564,7 @@ namespace TerraCraft.Core.Loaders
                     }
                 }
 
-                // ×ª»»Replacements
+                // ×ªï¿½ï¿½Replacements
                 List<RecipeReplacement> replacements = new List<RecipeReplacement>();
                 if (dto.Replacements != null)
                 {
@@ -480,7 +589,7 @@ namespace TerraCraft.Core.Loaders
                     }
                 }
 
-                // Èç¹ûÊÇÓĞĞÎ×´Åä·½µ«Î´Ê¹ÓÃPattern£¬ÇÒIngredientsÖĞÓĞ×ø±ê£¬×Ô¶¯¼ÆËã³ß´ç
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ä·½ï¿½ï¿½Î´Ê¹ï¿½ï¿½Patternï¿½ï¿½ï¿½ï¿½Ingredientsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½
                 if (dto.Shaped && (dto.Pattern == null || dto.Pattern.Count == 0))
                 {
                     var tempRecipe = new GriddedRecipe
@@ -518,15 +627,15 @@ namespace TerraCraft.Core.Loaders
                 string tileInfo = tileIds == null ? "None" : string.Join(", ", tileIds.Select(id => $"{id}"));
                 string ingredientsInfo = ingredients.Count == 0 ? "None" : string.Join(", ", ingredients.Select(ing => {
                     string itemInfo = ing.ItemType != 0 ? $"ItemID:{ing.ItemType}" : ing.RecipeGroup;
-                    return $"({ing.X},{ing.Y}):{itemInfo}¡Á{ing.Amount}";
+                    return $"({ing.X},{ing.Y}):{itemInfo}ï¿½ï¿½{ing.Amount}";
                 }));
-                string outputsInfo = outputs.Count == 0 ? "None" : string.Join(", ", outputs.Select(output => $"ItemID:{output.ItemType}¡Á{output.Amount}"));
+                string outputsInfo = outputs.Count == 0 ? "None" : string.Join(", ", outputs.Select(output => $"ItemID:{output.ItemType}ï¿½ï¿½{output.Amount}"));
                 // Mod.Logger.Debug($"[Recipe] ID: {dto.Id} | Type: {(dto.Shaped ? "Shaped" : "Shapeless")} | Size: {gridWidth}x{gridHeight} | Tiles: {tileInfo} | Ingredients: {ingredientsInfo} | Outputs: {outputsInfo}");
                 return recipe;
             }
             catch (Exception e)
             {
-                Mod.Logger.Warn($"[TerraCraft] ×ª»»Åä·½Ê§°Ü: {dto.Id}\n{e.Message}");
+                Mod.Logger.Warn($"[GridRecipeLoader] Failed to convert recipe to struct: {dto.Id}\n{e.Message}");
                 return null;
             }
         }
@@ -537,7 +646,7 @@ namespace TerraCraft.Core.Loaders
             height = pattern.Count;
             width = 0;
 
-            // È·±£ËùÓĞĞĞ³¤¶ÈÒ»ÖÂ£¨È¡×î´ó¿í¶È£©
+            // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½ï¿½Ò»ï¿½Â£ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½
             foreach (var row in pattern)
             {
                 if (row.Count > width) width = row.Count;

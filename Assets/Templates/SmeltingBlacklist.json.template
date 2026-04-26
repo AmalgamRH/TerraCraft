@@ -1,0 +1,30 @@
+//============================================================================
+// Smelting Blacklist Template (SmeltingBlacklist.json.template)
+//============================================================================
+// Copy this file to SmeltingBlacklist.json and delete all // comments before use.
+// Path: .../TerraCraft/SmeltingBlacklist.json
+// JSON standard does not support comments, so all comment lines must be removed when actually using.
+//============================================================================
+
+{
+  // List of disabled recipe IDs
+  // For built-in smelting recipe IDs, please visit the GitHub repository https://github.com/AmalgamRH/Terracrafted. 
+  // - Smelting Recipe IDs can be found in JSON files under Assets/SmeltingData/.
+  // Recipes whose Id field matches these will be completely skipped and not loaded into the game.
+  "DisabledRecipeIds": [
+    // "glass",          // Example: Disable glass smelting recipe
+  ],
+
+  // List of disabled template group IDs
+  // All recipes generated under this template group will be skipped (no need to disable individually).
+  // Template group IDs can be found in the "Id" field under SmeltingGroups.
+  "DisabledTemplateIds": [
+    // "template_coal",  // Example: Disable the entire coal smelting group
+  ],
+
+  // List of disabled labels
+  // All smelting recipes whose Label field matches these values will be skipped.
+  "DisabledLabels": [
+    // "Ore",            // Example: Disable all recipes with the "Ore" label
+  ]
+}

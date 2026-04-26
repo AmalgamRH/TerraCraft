@@ -1,0 +1,23 @@
+//============================================================================
+// Crafting Blacklist Template (CraftingBlacklist.json.template)
+//============================================================================
+// Copy this file to CraftingBlacklist.json and delete all // comments before use.
+// Path: .../TerraCraft/CraftingBlacklist.json
+// JSON standard does not support comments, so all comment lines must be removed when actually using.
+//============================================================================
+
+{
+  // List of disabled recipe IDs
+  // For built-in grid-crafting recipe IDs, please visit the GitHub repository https://github.com/AmalgamRH/Terracrafted.
+  // - Grid-crafting recipe IDs can be found in JSON files under Assets/Recipes/.
+  // Recipes whose Id field matches these will be completely skipped and not loaded into the game.
+  "DisabledRecipeIds": [
+    // "heavy_workbench",               // Example: Disable heavy workbench crafting
+  ],
+
+  // List of disabled template group IDs
+  // All recipes generated under this template group will be skipped (no need to disable individually).
+  "DisabledTemplateIds": [
+    // "anvil_template_group",          // Example: Disable the entire anvil template group
+  ],
+}

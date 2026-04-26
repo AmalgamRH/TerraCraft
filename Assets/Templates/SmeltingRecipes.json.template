@@ -1,0 +1,189 @@
+//============================================================================
+// Smelting Recipes Example File (SmeltingRecipes.example.json)
+//============================================================================
+// Copy this file to external directory: .../TerraCraft/SmeltingData/Recipes/ (remove .example suffix)
+// and delete all // comments before use (JSON standard does not support comments).
+//
+// The system will automatically scan and load all *.json files (including subdirectories)
+// under Assets/SmeltingData/ (built-in) and TerraCraft/SmeltingData/ (external),
+// no manual registration required.
+//
+// Note: All comment lines must be removed before actual use.
+//============================================================================
+
+{
+  //======================================================================
+  // I. Smelting Recipe Definitions
+  //======================================================================
+  "Smelting": [
+    // 1.1 Basic smelting recipe - object format ingredients
+    {
+      "Id": "example_glass",             // Recipe unique ID (used for blacklist)
+      "RequiredTiles": [],               // Required furnace (empty = any furnace)
+      "Label": "Example",                // Label (used for label-specific speed boost or batch disable)
+      "Ingredients": ["SandBlock"],
+      "Outputs": [
+        { "ItemId": "Glass", "Amount": 1 }
+      ],
+      "BaseSmeltTime": 180               // Base smelting time (unit: tick, 1 second = 60 ticks)
+    },
+
+    // 1.2 Simplified format - Outputs using string shorthand (Amount defaults to 1)
+    {
+      "Id": "example_glass_simple",
+      "RequiredTiles": [],
+      "Label": "Example",
+      "Ingredients": [
+        { "ItemId": "SandBlock", "Amount": 2 }
+      ],
+      "Outputs": ["Glass"],              // String shorthand = { "ItemId": "Glass", "Amount": 1 }
+      "BaseSmeltTime": 180
+    },
+
+    // 1.3 Recipe with multiple ingredients
+    // Note: The first ingredient is treated as the primary material. Under the same smelting environment, one primary material corresponds to only one output.
+    {
+      "Id": "example_multi_input",
+      "RequiredTiles": [],
+      "Label": "Ore",
+      "Ingredients": [
+        { "ItemId": "Hellstone", "Amount": 8 },
+        { "ItemId": "Obsidian", "Amount": 1 }
+      ],
+      "Outputs": [
+        { "ItemId": "HellstoneBar", "Amount": 1 }
+      ],
+      "BaseSmeltTime": 600
+    },
+
+    // 1.4 Recipe with replacement rules - replaces with other items (similar to empty bucket)
+    {
+      "Id": "example_lava_proof",
+      "RequiredTiles": ["Hellforge"],
+      "Label": "Refine",
+      "Ingredients": [
+        { "ItemId": "LavaBucket", "Amount": 1 }
+      ],
+      "Outputs": [
+        { "ItemId": "Obsidian", "Amount": 3 }
+      ],
+      "BaseSmeltTime": 600,
+      "Replacements": [
+        {
+          "OriginalItemId": "LavaBucket",
+          "ReplaceWith": "EmptyBucket",
+          "ReplaceAmount": 1
+        }
+      ]
+    },
+
+    // 1.5 Recipe with more extensions
+    {
+      "Id": "example_hellstone_bar",
+      "RequiredTiles": ["Furnace", "Hellforge"],      // Specific furnace(s); if multiple, any works
+      "Label": "Ore",
+      "Ingredients": [
+        { "ItemId": "Hellstone", "Amount": 8 },
+        { "ItemId": "Obsidian", "Amount": 1 }
+      ],
+      "Outputs": [
+        { "ItemId": "HellstoneBar", "Amount": 1 }
+      ],
+      "SpecificFuels": ["Coal", "LavaBucket"],        // Only allow specific fuels
+      "MinFuelLevel": 0,                              // Minimum fuel level (default 0)
+      "BaseSmeltTime": 600
+    }
+  ],
+
+  //======================================================================
+  // II. Smelting Template Groups (SmeltingGroups + MaterialDefinitions)
+  //     Similar to crafting template groups, batch-generate similar smelting recipes (e.g., smelting various woods into charcoal)
+  //======================================================================
+  "SmeltingGroups": [
+    {
+      "Id": "example_smelting_group",         // Template group ID (usable in blacklist)
+      "MaterialSource": "example_smelt_materials",  // Referenced material definition
+      "Template": {
+        "Id": "smelt_{Name}",                 // Placeholders automatically replaced
+        "RequiredTiles": [],
+        "Label": "Conversion",
+        "Ingredients": [
+          { "ItemId": "{Input}", "Amount": 1 }
+        ],
+        "Outputs": [
+          { "ItemId": "{Output}", "Amount": 1 }
+        ],
+        "BaseSmeltTime": 600,
+        "MinFuelLevel": 0
+      },
+      "PlaceholderMappings": {
+        "Name": "Name",
+        "Input": "Input",
+        "Output": "Output"
+      }
+    }
+  ],
+
+  "MaterialDefinitions": [
+    {
+      "Id": "example_smelt_materials",
+      "Description": "Example smelting material variants",
+      "Materials": [
+        {
+          "Name": "wood_to_coal",
+          "Input": "Wood",
+          "Output": "Coal"
+        },
+        {
+          "Name": "ebonwood_to_coal",
+          "Input": "Ebonwood",
+          "Output": "Coal"
+        },
+        {
+          "Name": "gel_to_torch",
+          "Input": "Gel",
+          "Output": "Torch"
+        }
+      ]
+    }
+  ],
+  //======================================================================
+  // III. Fuel Definitions
+  //======================================================================
+  "Fuels": [
+    // 2.1 Basic fuel - single item type
+    {
+      "ItemTypes": ["Wood", "Ebonwood"],
+      "Level": 0,                   // Fuel level (used for MinFuelLevel restriction)
+      "Speed": 1.0,                 // Smelting speed multiplier (default 1.0)
+      "BurnTime": 900               // Burn time (ticks)
+    },
+
+    // 2.2 Batch definition - multiple items share same fuel properties
+    {
+      "ItemTypes": ["WoodPlatform", "EbonwoodPlatform",
+        "BorealWoodPlatform", "PalmWoodPlatform"],
+      "BurnTime": 900
+    },
+
+    // 2.3 High-efficiency fuel
+    {
+      "ItemTypes": ["Coal"],
+      "Level": 1,                  // Higher fuel level
+      "Speed": 1.5,                // 1.5x smelting speed
+      "BurnTime": 4800             // 80 seconds burn time
+    },
+
+    // 2.4 Fuel with replacement rule (produces byproduct after burning)
+    {
+      "ItemTypes": ["LavaBucket"],
+      "Level": 2,
+      "Speed": 2.0,
+      "BurnTime": 60000,           // 1000 seconds (lava bucket)
+      "Replacement": {
+        "ReplaceWith": "EmptyBucket",
+        "ReplaceAmount": 1         // Returns 1 empty bucket after burning
+      }
+    }
+  ]
+}

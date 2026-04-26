@@ -15,8 +15,12 @@ namespace TerraCraft.Core.Loaders
     {
         public const string AssetPath = "Assets/SmeltingData";
         public static string ExternalPath = Path.Combine(Path.GetDirectoryName(ModLoader.ModPath), "TerraCraft", "SmeltingData");
-
+        private static readonly string BlacklistPath = Path.Combine(Path.GetDirectoryName(ModLoader.ModPath), "TerraCraft", "SmeltingBlacklist.json");
+        private const string BlacklistTemplateAsset = "Assets/Templates/SmeltingBlacklist.json.template";
+        private const string SmeltingTemplateAsset = "Assets/Templates/SmeltingRecipes.json.template";
         public static SmeltingDatabase Database { get; private set; }
+
+        private RecipeBlacklistDTO _blacklist;
 
         public override void PostAddRecipes()
         {
@@ -25,6 +29,14 @@ namespace TerraCraft.Core.Loaders
 
         private void LoadSmeltingRecipes()
         {
+            // 加载黑名单
+            _blacklist = RecipeBlacklistDTO.LoadFrom(BlacklistPath);
+            if (_blacklist.HasAny)
+                Mod.Logger.Info($"[SmeltingLoader] Loaded blacklist: {_blacklist.DisabledRecipeIds.Count} recipe IDs, {_blacklist.DisabledGroupIds.Count} group IDs, {_blacklist.DisabledLabels.Count} labels");
+
+            // 若黑名单文件尚不存在，将内嵌模板输出到文件系统供参考
+            EnsureBlacklistTemplate();
+
             var allSmeltingRecipes = new List<SmeltingRecipe>();
             var allFuels = new List<SmeltingFuel>();
 
@@ -41,26 +53,35 @@ namespace TerraCraft.Core.Loaders
                 }
                 catch (Exception e)
                 {
-                    Mod.Logger.Warn($"[SmeltingLoader] 加载嵌入资源失败: {assetPath}\n{e.Message}");
+                    Mod.Logger.Warn($"[SmeltingLoader] Failed to load embedded resource: {assetPath}\n{e.Message}");
                 }
             }
 
-            // 加载外部目录
-            if (Directory.Exists(ExternalPath))
+            // 确保外部目录存在，若不存在则创建
+            if (!Directory.Exists(ExternalPath))
             {
-                foreach (string filePath in Directory.GetFiles(ExternalPath, "*.json", SearchOption.AllDirectories))
+                Directory.CreateDirectory(ExternalPath);
+            }
+
+            bool hasExternalJson = false;
+
+            // 加载外部目录中的 JSON 文件
+            foreach (string filePath in Directory.GetFiles(ExternalPath, "*.json", SearchOption.AllDirectories))
+            {
+                hasExternalJson = true;
+                try
                 {
-                    try
-                    {
-                        string json = File.ReadAllText(filePath);
-                        ProcessJson(json, filePath, allSmeltingRecipes, allFuels);
-                    }
-                    catch (Exception e)
-                    {
-                        Mod.Logger.Warn($"[SmeltingLoader] 加载外部文件失败: {filePath}\n{e.Message}");
-                    }
+                    string json = File.ReadAllText(filePath);
+                    ProcessJson(json, filePath, allSmeltingRecipes, allFuels);
+                }
+                catch (Exception e)
+                {
+                    Mod.Logger.Warn($"[SmeltingLoader] Failed to load external file: {filePath}\n{e.Message}");
                 }
             }
+
+            // 如果外部没有找到任何 .json 文件，则写出内嵌模板供用户参考
+            EnsureSmeltingTemplateIfEmpty(hasExternalJson);
 
             // 应用唯一性约束：同一主材料 + 同一熔炉类型只能保留一个配方
             allSmeltingRecipes = ApplyUniquenessConstraint(allSmeltingRecipes);
@@ -77,6 +98,36 @@ namespace TerraCraft.Core.Loaders
             Mod.Logger.Info($"[SmeltingLoader] Successfully loaded {allSmeltingRecipes.Count} smelting recipes, {allFuels.Count} fuels");
         }
 
+        /// <summary>
+        /// 如果外部目录没有任何 .json 文件，则将内嵌熔炼配方模板写出到该目录供用户参考。
+        /// </summary>
+        private void EnsureSmeltingTemplateIfEmpty(bool hasExternalJson)
+        {
+            if (hasExternalJson)
+                return;
+
+            string templateOutput = Path.Combine(ExternalPath, "SmeltingRecipes.json.template");
+            if (File.Exists(templateOutput))
+                return;
+
+            try
+            {
+                string dir = Path.GetDirectoryName(templateOutput);
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                using Stream stream = Mod.GetFileStream(SmeltingTemplateAsset);
+                using StreamReader reader = new StreamReader(stream);
+                string content = reader.ReadToEnd();
+                File.WriteAllText(templateOutput, content);
+                Mod.Logger.Info($"[SmeltingLoader] Recipe template written to {templateOutput}");
+            }
+            catch (Exception e)
+            {
+                Mod.Logger.Warn($"[SmeltingLoader] Failed to output recipe template: {e.Message}");
+            }
+        }
+
         private void ProcessJson(string json, string sourcePath, List<SmeltingRecipe> allRecipes, List<SmeltingFuel> allFuels)
         {
             try
@@ -89,6 +140,12 @@ namespace TerraCraft.Core.Loaders
                     {
                         foreach (var recipeDto in dbDto.Smelting)
                         {
+                            // 检查配方黑名单
+                            if (_blacklist.DisabledRecipeIds?.Contains(recipeDto.Id) == true)
+                                continue;
+                            if (!string.IsNullOrEmpty(recipeDto.Label) && _blacklist.DisabledLabels?.Contains(recipeDto.Label) == true)
+                                continue;
+
                             var recipe = ConvertToRecipe(recipeDto);
                             if (recipe.HasValue)
                                 allRecipes.Add(recipe.Value);
@@ -110,7 +167,7 @@ namespace TerraCraft.Core.Loaders
                                 replaceWithType = ItemIDResolver.ParseItemType(fuelDto.Replacement.ReplaceWith);
                                 replaceAmount = fuelDto.Replacement.ReplaceAmount;
                                 if (replaceWithType == 0)
-                                    Mod.Logger.Warn($"[SmeltingLoader] 燃料替换物品无效: {fuelDto.Replacement.ReplaceWith}");
+                                    Mod.Logger.Warn($"[SmeltingLoader] Fuel replacement item invalid: {fuelDto.Replacement.ReplaceWith}");
                             }
 
                             foreach (string itemId in fuelDto.ItemTypes)
@@ -130,7 +187,7 @@ namespace TerraCraft.Core.Loaders
                                 }
                                 else
                                 {
-                                    Mod.Logger.Warn($"[SmeltingLoader] 未知物品ID: {itemId}，燃料跳过");
+                                    Mod.Logger.Warn($"[SmeltingLoader] Unknown item ID: {itemId}, fuel skipped");
                                 }
                             }
                         }
@@ -142,9 +199,16 @@ namespace TerraCraft.Core.Loaders
                         var materialDefs = dbDto.MaterialDefinitions.ToDictionary(md => md.Id, md => md);
                         foreach (var group in dbDto.SmeltingGroups)
                         {
+                            // 检查模板组黑名单
+                            if (_blacklist.DisabledGroupIds?.Contains(group.Id) == true)
+                            {
+                                Mod.Logger.Info($"[SmeltingLoader] Skipping blacklisted template group: {group.Id}");
+                                continue;
+                            }
+
                             if (!materialDefs.TryGetValue(group.MaterialSource, out var materialDef))
                             {
-                                Mod.Logger.Warn($"[SmeltingLoader] 模板组 {group.Id} 引用了不存在的材料源: {group.MaterialSource}");
+                                Mod.Logger.Warn($"[SmeltingLoader] Template group {group.Id} referenced non-existent material source: {group.MaterialSource}");
                                 continue;
                             }
 
@@ -156,7 +220,7 @@ namespace TerraCraft.Core.Loaders
             }
             catch (Exception e)
             {
-                Mod.Logger.Warn($"[SmeltingLoader] 解析 JSON 失败: {sourcePath}\n{e.Message}");
+                Mod.Logger.Warn($"[SmeltingLoader] Failed to parse JSON: {sourcePath}\n{e.Message}");
             }
         }
 
@@ -177,7 +241,12 @@ namespace TerraCraft.Core.Loaders
 
                 var recipe = ConvertToRecipe(recipeDto);
                 if (recipe.HasValue)
+                {
+                    // 检查生成后的配方 ID 是否在黑名单中
+                    if (_blacklist.DisabledRecipeIds?.Contains(recipe.Value.Id) == true)
+                        continue;
                     results.Add(recipe.Value);
+                }
             }
             return results;
         }
@@ -194,7 +263,7 @@ namespace TerraCraft.Core.Loaders
                 if (material.TryGetValue(property, out string value))
                     result[placeholder] = value;
                 else
-                    Mod.Logger.Warn($"[SmeltingLoader] 材料缺少属性 '{property}'，占位符 '{placeholder}' 将不会被替换");
+                    Mod.Logger.Warn($"[SmeltingLoader] Material missing property '{property}', placeholder '{placeholder}' will not be replaced");
             }
             return result;
         }
@@ -298,7 +367,7 @@ namespace TerraCraft.Core.Loaders
 
                 if (ingredients.Count == 0)
                 {
-                    Mod.Logger.Warn($"[SmeltingLoader] 配方 {dto.Id} 没有有效原料，跳过");
+                    Mod.Logger.Warn($"[SmeltingLoader] Recipe {dto.Id} has no valid ingredients, skipping");
                     return null;
                 }
 
@@ -320,7 +389,7 @@ namespace TerraCraft.Core.Loaders
 
                 if (outputs.Count == 0)
                 {
-                    Mod.Logger.Warn($"[SmeltingLoader] 配方 {dto.Id} 没有有效产出，跳过");
+                    Mod.Logger.Warn($"[SmeltingLoader] Recipe {dto.Id} has no valid outputs, skipping");
                     return null;
                 }
 
@@ -370,7 +439,7 @@ namespace TerraCraft.Core.Loaders
             }
             catch (Exception e)
             {
-                Mod.Logger.Warn($"[SmeltingLoader] 转换配方失败: {dto.Id}\n{e.Message}");
+                Mod.Logger.Warn($"[SmeltingLoader] Failed to convert recipe: {dto.Id}\n{e.Message}");
                 return null;
             }
         }
@@ -398,7 +467,7 @@ namespace TerraCraft.Core.Loaders
                     var key = (mainMaterial, tileId == 0 ? (int?)null : tileId);
                     if (uniqueMap.TryGetValue(key, out var existing))
                     {
-                        Mod.Logger.Warn($"[SmeltingLoader] 主材料 {mainMaterial} 与熔炉 {tileId} 的配方冲突！保留后加载的配方：{recipe.Id} 覆盖 {existing.Id}");
+                        Mod.Logger.Warn($"[SmeltingLoader] Recipe conflict for main material {mainMaterial} with furnace {tileId}! Keeping later-loaded recipe: {recipe.Id} overwrites {existing.Id}");
                     }
                     uniqueMap[key] = recipe;
                 }
@@ -416,6 +485,34 @@ namespace TerraCraft.Core.Loaders
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// 若外部黑名单文件尚不存在，将内嵌模板写出到同目录供用户参考。
+        /// 用户可参考模板创建真正的黑名单 JSON（需删除注释）。
+        /// </summary>
+        private void EnsureBlacklistTemplate()
+        {
+            try
+            {
+                string templateOutput = BlacklistPath + ".template";
+                if (File.Exists(BlacklistPath) || File.Exists(templateOutput))
+                    return;
+
+                string dir = Path.GetDirectoryName(BlacklistPath);
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+
+                using Stream stream = Mod.GetFileStream(BlacklistTemplateAsset);
+                using StreamReader reader = new StreamReader(stream);
+                string content = reader.ReadToEnd();
+                File.WriteAllText(templateOutput, content);
+                Mod.Logger.Info($"[SmeltingLoader] Blacklist template written to {templateOutput}");
+            }
+            catch (Exception e)
+            {
+                Mod.Logger.Warn($"[SmeltingLoader] Failed to output blacklist template: {e.Message}");
+            }
         }
 
         public override void Unload()

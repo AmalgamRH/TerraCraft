@@ -1,0 +1,230 @@
+//============================================================================
+// 合成配方示例文件 (CraftingRecipes.json.template)
+//============================================================================
+// 将此文件复制到外部目录: .../TerraCraft/Recipes/ (去掉 .template 后缀)
+// 并删除所有 // 注释后方可使用（JSON标准不支持注释）。
+// 系统会自动扫描并加载外部目录下的所有 *.json 文件（包括子目录），无需手动注册。
+//
+// 注意：实际使用前必须删除所有注释行。
+//============================================================================
+
+{
+  "Recipes": [
+    //======================================================================
+    // 一、有形状配方 (Shaped = true) - 使用 Pattern 二维网格
+    //======================================================================
+
+    // 1.1 基础有形状配方
+    //     - 字符串简写: 单元格直接写物品ID字符串
+    //     - 空字符串 "" 表示该位置不放材料
+    {
+      "Id": "example_sword",           // 配方唯一ID
+      "Shaped": true,                  // true=有形状(默认), false=无序
+      "RequiredTiles": [],             // 所需合成站（TileID名称，支持Mod前缀，留空表示不需要特定物块）
+      "Pattern": [                     // 二维合成网格 (行->列)
+        ["IronBar"],                   // 第1行: 1列
+        ["Wood"]                       // 第2行: 1列
+      ],
+      "Outputs": [
+        { "ItemId": "IronBroadsword", "Amount": 1 }
+      ]
+    },
+
+    // 1.2 完整3x3有形状配方 - 对象格式单元格
+    {
+      "Id": "example_heavy_workbench",
+      "Shaped": true,
+      "RequiredTiles": ["WorkBenches"],
+      "Pattern": [
+        // 单元格支持混合格式
+        [ {"RecipeGroup": "IronBar"},  "SilverBar",                 {"RecipeGroup": "IronBar", Amount: 2} ],
+        [ {"RecipeGroup": "Wood"},     {"RecipeGroup": "Wood"},     {"ItemId": "Wood"} ],
+        [ {"RecipeGroup": "Wood"},     "",                          {"ItemId": "Wood", Amount: 2} ]
+        // 注意: "" 表示空物品，不能省略
+      ],
+      "Outputs": [
+        { "ItemId": "HeavyWorkBench", "Amount": 1 }
+      ]
+    },
+
+    // 1.3 更多写法
+    {
+      "Id": "example_recipe_group_cell",
+      "Shaped": true,
+      "RequiredTiles": ["WorkBenches", "Sawmill"], // 写入多个需要物块时，表示只要满足其一就可以
+      "Pattern": [
+        [ "MythrilBar", "MythrilBar", "MythrilBar", "MythrilBar" ],
+        [ "MythrilBar", "MythrilBar", "MythrilBar", "MythrilBar" ],
+        [ "MythrilBar", "MythrilBar", "MythrilBar", "MythrilBar" ], // 这里展示了4x3的大配方
+      ],
+      "Outputs": [
+        { "ItemId": "TerraCraft:MythrilWorkBench", "Amount": 1 }
+      ]
+    },
+
+    // 1.4 带替换规则 (Replacements) 的配方
+    //     合成时，被替换的原料会变成另一种物品返还
+    {
+      "Id": "example_with_replacements",
+      "Shaped": true,
+      "RequiredTiles": ["WorkBenches"],
+      "Pattern": [
+        ["DirtBlock", "WaterBucket"],
+        ["DirtBlock", "WaterBucket"]
+      ],
+      "Outputs": [
+        { "ItemId": "MudBlock", "Amount": 4 }
+      ],
+      "Replacements": [
+        {
+          "X": 1,                    // 被替换原料的X坐标（0-indexed）
+          "Y": 0,                    // 被替换原料的Y坐标（0-indexed）
+          "OriginalItemId": "WaterBucket",
+          "ReplaceWith": "EmptyBucket",  // 替换成空桶
+          "ReplaceAmount": 1
+        },
+        {
+          "X": 1,
+          "Y": 1,
+          "OriginalItemId": "WaterBucket",
+          "ReplaceWith": "EmptyBucket",
+          "ReplaceAmount": 1
+        }
+      ]
+      // 效果：合成消耗 WaterBucket，但返回 EmptyBucket
+    },
+
+    // 1.5 带耐久度输出的配方（目前耐久度未完成，不建议使用）
+    {
+      "Id": "example_durability_output",
+      "Shaped": true,
+      "RequiredTiles": ["IronAnvil"],
+      "Pattern": [
+        ["IronBar", "IronBar"],
+        ["IronBar", "Wood"]
+      ],
+      "Outputs": [
+        {
+          "ItemId": "TerraCraft:ExampleTool",  // Mod物品：ModName:ItemName
+          "Amount": 1,
+          "UseDurability": true,               // 启用耐久度
+          "MaxDurability": 250,                 // 最大耐久
+          "InitialDurability": 250              // 初始耐久（可选，默认=MaxDurability）
+        }
+      ]
+    },
+
+    // 1.6 带 Condition 条件的配方
+    {
+      "Id": "example_condition",
+      "Shaped": true,
+      "RequiredTiles": ["WorkBenches"],
+      "Pattern": [
+        ["IronBar", "IronBar"]
+      ],
+      "Outputs": [
+        { "ItemId": "IronBar", "Amount": 2 }
+      ],
+      "Conditions": [
+        "BloodMoon"  // 条件字符串（由游戏逻辑解释）
+      ]
+    },
+
+    //======================================================================
+    // 二、无序配方 (Shaped = false) - 不要求固定排列
+    //======================================================================
+
+    // 2.1 纯无序配方 - 使用 Ingredients 列表
+    {
+      "Id": "example_shapeless",
+      "Shaped": false,
+      "RequiredTiles": ["WorkBenches"],
+      "Ingredients": [
+        { "ItemId": "Gel", "Amount": 1 },
+        { "ItemId": "Wood", "Amount": 2 }
+      ],
+      "Outputs": [
+        { "ItemId": "Torch", "Amount": 3 }
+      ]
+    },
+
+    // 2.2 无序配方 + 使用 RecipeGroup
+    {
+      "Id": "example_shapeless_recipe_group",
+      "Shaped": false,
+      "RequiredTiles": ["WorkBenches"],
+      "Ingredients": [
+        { "RecipeGroup": "Wood", "Amount": 3 },
+        { "RecipeGroup": "IronBar", "Amount": 2 }
+      ],
+      "Outputs": [
+        { "ItemId": "IronBar", "Amount": 5 }
+      ]
+    },
+  ],
+
+  //======================================================================
+  // 三、配方模板组 (RecipeGroups + MaterialDefinitions)
+  //     通过定义模板和材料，批量生成多个相似配方
+  //======================================================================
+  "RecipeGroups": [
+    // 4.1 新版模板组 - 使用 MaterialSource 引用 MaterialDefinitions
+    {
+      "Id": "example_tool_template_group",   // 模板组ID，可用于黑名单
+      "MaterialSource": "example_tool_materials",  // 指向 MaterialDefinitions 的 Id
+      "Template": {
+        "Id": "{Material}_example_tool",     // 占位符 {XXX} 会被替换为材料属性的值
+        "Shaped": true,
+        "RequiredTiles": ["{CraftStation}"],
+        "Pattern": [
+          ["{Bar}"],
+          ["{Bar}"],
+          ["{Stick}"]
+        ],
+        "Outputs": [
+          { "ItemId": "{ToolId}", "Amount": 1 }
+        ]
+      },
+      "PlaceholderMappings": {
+        // 模板占位符 -> 材料定义中的属性名
+        "Material": "Name",
+        "Bar": "Bar",
+        "Stick": "Stick",
+        "ToolId": "ToolId",
+        "CraftStation": "CraftStationId"
+      }
+    }
+  ],
+
+  "MaterialDefinitions": [
+    {
+      "Id": "example_tool_materials",
+      "Description": "Example tool material variants",
+      "Materials": [
+        {
+          // 每一条材料会生成一个独立的配方
+          "Name": "iron",
+          "Bar": "RecipeGroup:IronBar", // 由于配方模板组不支持可变属性名，可以通过这种方式使用配方组
+          "Stick": "TerraCraft:WoodenStick",
+          "ToolId": "IronBroadsword",
+          "CraftStationId": "IronAnvil"
+        },
+        {
+          "Name": "silver",
+          "Bar": "SilverBar",
+          "Stick": "TerraCraft:WoodenStick",
+          "ToolId": "SilverBroadsword",
+          "CraftStationId": "IronAnvil"
+        },
+        {
+          "Name": "gold",
+          "Bar": "GoldBar",
+          "Stick": "TerraCraft:WoodenStick",
+          "ToolId": "GoldBroadsword",
+          "CraftStationId": "IronAnvil"
+        }
+        // 添加更多材料即可自动生成更多配方
+      ]
+    }
+  ]
+}
