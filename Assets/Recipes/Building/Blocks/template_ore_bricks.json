@@ -28,31 +28,31 @@
             "Id": "orebrick_materials",
             "Description": "orebrick_materials",
             "Materials": [
-                { "Name": "Copper", "Ore": "CopperOre", "BrickId": "CopperBrick" },
-                { "Name": "Tin", "Ore": "TinOre", "BrickId": "TinBrick" },
-                { "Name": "Iron", "Ore": "IronOre", "BrickId": "IronBrick" },
-                { "Name": "Lead", "Ore": "LeadOre", "BrickId": "LeadBrick" },
-                { "Name": "Silver", "Ore": "SilverOre", "BrickId": "SilverBrick" },
-                { "Name": "Tungsten", "Ore": "TungstenOre", "BrickId": "TungstenBrick" },
-                { "Name": "Gold", "Ore": "GoldOre", "BrickId": "GoldBrick" },
-                { "Name": "Platinum", "Ore": "PlatinumOre", "BrickId": "PlatinumBrick" },
-                { "Name": "Meteorite", "Ore": "Meteorite", "BrickId": "MeteoriteBrick" },
-                { "Name": "Obsidian", "Ore": "Obsidian", "BrickId": "ObsidianBrick" },
-                { "Name": "Hellstone", "Ore": "Hellstone", "BrickId": "HellstoneBrick" },
-                { "Name": "Cobalt", "Ore": "CobaltOre", "BrickId": "CobaltBrick" },
-                { "Name": "Palladium", "Ore": "PalladiumOre", "BrickId": "PalladiumColumn" },
-                { "Name": "Mythril", "Ore": "MythrilOre", "BrickId": "MythrilBrick" },
-                { "Name": "Orichalcum", "Ore": "OrichalcumOre", "BrickId": "BubblegumBlock" },
-                { "Name": "Titanium", "Ore": "TitaniumOre", "BrickId": "TitanstoneBlock" },
-                { "Name": "Adamantite", "Ore": "AdamantiteOre", "BrickId": "AdamantiteBeam" },
-                { "Name": "Chlorophyte", "Ore": "ChlorophyteOre", "BrickId": "ChlorophyteBrick" },
-                { "Name": "Luminite", "Ore": "LunarOre", "BrickId": "LunarBrick" }
+                { "Name": "copper", "Ore": "CopperOre", "BrickId": "CopperBrick" },
+                { "Name": "tin", "Ore": "TinOre", "BrickId": "TinBrick" },
+                { "Name": "iron", "Ore": "IronOre", "BrickId": "IronBrick" },
+                { "Name": "lead", "Ore": "LeadOre", "BrickId": "LeadBrick" },
+                { "Name": "silver", "Ore": "SilverOre", "BrickId": "SilverBrick" },
+                { "Name": "tungsten", "Ore": "TungstenOre", "BrickId": "TungstenBrick" },
+                { "Name": "gold", "Ore": "GoldOre", "BrickId": "GoldBrick" },
+                { "Name": "platinum", "Ore": "PlatinumOre", "BrickId": "PlatinumBrick" },
+                { "Name": "meteorite", "Ore": "Meteorite", "BrickId": "MeteoriteBrick" },
+                { "Name": "obsidian", "Ore": "Obsidian", "BrickId": "ObsidianBrick" },
+                { "Name": "hellstone", "Ore": "Hellstone", "BrickId": "HellstoneBrick" },
+                { "Name": "cobalt", "Ore": "CobaltOre", "BrickId": "CobaltBrick" },
+                { "Name": "palladium", "Ore": "PalladiumOre", "BrickId": "PalladiumColumn" },
+                { "Name": "mythril", "Ore": "MythrilOre", "BrickId": "MythrilBrick" },
+                { "Name": "orichalcum", "Ore": "OrichalcumOre", "BrickId": "BubblegumBlock" },
+                { "Name": "titanium", "Ore": "TitaniumOre", "BrickId": "TitanstoneBlock" },
+                { "Name": "adamantite", "Ore": "AdamantiteOre", "BrickId": "AdamantiteBeam" },
+                { "Name": "chlorophyte", "Ore": "ChlorophyteOre", "BrickId": "ChlorophyteBrick" },
+                { "Name": "luminite", "Ore": "LunarOre", "BrickId": "LunarBrick" }
             ]
         }
     ],
     "Recipes": [
         {
-            "Id": "Demonite_brick",
+            "Id": "demonite_brick",
             "Shaped": true,
             "RequiredTiles": ["HeavyWorkBench"],
             "Pattern": [
@@ -66,7 +66,7 @@
             "Replacements": []
         },
         {
-            "Id": "Crimtane_brick",
+            "Id": "crimtane_brick",
             "Shaped": true,
             "RequiredTiles": ["HeavyWorkBench"],
             "Pattern": [

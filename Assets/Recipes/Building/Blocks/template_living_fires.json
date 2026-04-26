@@ -1,0 +1,41 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "living_fires_template_group",
+            "MaterialSource": "living_fires_materials",
+            "Template": {
+                "Id": "living_fire_{Name}",
+                "Shaped": true,
+                "RequiredTiles": ["TerraCraft:MythrilWorkBenches"],
+                "Pattern": [
+                    ["","LivingFireBlock","LivingFireBlock","LivingFireBlock",""],
+                    ["LivingFireBlock","LivingFireBlock","LivingFireBlock","LivingFireBlock","LivingFireBlock"],
+                    ["LivingFireBlock","LivingFireBlock","{Fire}","LivingFireBlock","LivingFireBlock"],
+                    ["LivingFireBlock","LivingFireBlock","LivingFireBlock","LivingFireBlock","LivingFireBlock"],
+                    ["","LivingFireBlock","LivingFireBlock","LivingFireBlock",""]
+                ],
+                "Outputs": [
+                    {"ItemId": "{LivingFireBlock}", "Amount": 20}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Fire": "Fire",
+                "LivingFireBlock": "LivingFireBlock"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "living_fires_materials",
+            "Description": "living_fires_materials",
+            "Materials": [
+                { "Name": "cursed", "Fire": "CursedFlame", "LivingFireBlock": "LivingCursedFireBlock" },
+                { "Name": "demon", "Fire": "DemonTorch", "LivingFireBlock": "LivingDemonFireBlock" },
+                { "Name": "frost", "Fire": "IceBlock", "LivingFireBlock": "LivingFrostFireBlock" },
+                { "Name": "ichor", "Fire": "Ichor", "LivingFireBlock": "LivingIchorBlock" },
+                { "Name": "ultrabright", "Fire": "UltrabrightTorch", "LivingFireBlock": "LivingUltrabrightFireBlock" }
+            ]
+        }
+    ]
+}

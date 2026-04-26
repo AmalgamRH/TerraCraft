@@ -1,0 +1,30 @@
+﻿{
+  "Recipes": [
+    {
+        "Id": "boulder",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+            ["StoneBlock","StoneBlock","StoneBlock"],
+            ["StoneBlock","StoneBlock","StoneBlock"],
+            ["StoneBlock","StoneBlock","StoneBlock"]
+        ],
+        "Outputs": [
+            {"ItemId": "Boulder", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "bouncy_boulder",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+            ["PinkGel","PinkGel","PinkGel"],
+            ["PinkGel","Boulder","PinkGel"],
+            ["PinkGel","PinkGel","PinkGel"]
+        ],
+        "Outputs": [
+            {"ItemId": "BouncyBoulder", "Amount": 1}
+        ]
+    }
+  ]
+}

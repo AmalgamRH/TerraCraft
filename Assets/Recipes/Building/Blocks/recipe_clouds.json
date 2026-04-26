@@ -1,0 +1,20 @@
+﻿{
+    "Recipes": [
+        {
+            "Id": "rain_cloud",
+            "Shaped": false,
+            "RequiredTiles": ["SkyMill"],
+            "Ingredients": [{"ItemId": "Cloud", "Amount": 1}],
+            "Conditions": ["NearWater"],
+            "Outputs": [{"ItemId": "RainCloud", "Amount": 1}]
+        },
+        {
+            "Id": "snow_cloud",
+            "Shaped": false,
+            "RequiredTiles": ["SkyMill"],
+            "Ingredients": [{"ItemId": "Cloud", "Amount": 1}],
+            "Conditions": ["InSnow"],
+            "Outputs": [{"ItemId": "SnowCloudBlock", "Amount": 1}]
+        }
+    ]
+}

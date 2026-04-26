@@ -1,0 +1,64 @@
+﻿{
+    "RecipeGroups": [
+        {
+            "Id": "gem_blocks_template_group",
+            "MaterialSource": "gems",
+            "Template": {
+                "Id": "{Name}_stone_block",
+                "Shaped": false,
+                "RequiredTiles": ["HeavyWorkBench"],
+                "Ingredients": [
+                    {"ItemId": "{Gem}", "Amount": 1},
+                    {"ItemId": "StoneBlock", "Amount": 1}],
+                "Outputs": [
+                    {"ItemId": "{GemBlockId}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Gem": "Gem",
+                "GemBlockId": "GemBlockId"
+            }
+        },
+        {
+            "Id": "gemspark_template_group",
+            "MaterialSource": "gems",
+            "Template": {
+                "Id": "{Name}_gemspark_block",
+                "Shaped": true,
+                "RequiredTiles": ["WorkBenches"],
+                "Pattern": [
+                    ["Glass","Glass","Glass"],
+                    ["Glass","{Gem}","Glass"],
+                    ["Glass","Glass","Glass"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{GemsparkId}", "Amount": 16}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Gem": "Gem",
+                "GemsparkId": "GemsparkId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "gems",
+            "Description": "gems",
+            "Materials": [
+                { "Name": "amethyst", "Gem": "Amethyst", "GemBlockId": "AmethystStoneBlock", "GemsparkId": "AmethystGemsparkBlock" },
+                { "Name": "topaz", "Gem": "Topaz", "GemBlockId": "TopazStoneBlock", "GemsparkId": "TopazGemsparkBlock" },
+
+                { "Name": "sapphire", "Gem": "Sapphire", "GemBlockId": "SapphireStoneBlock", "GemsparkId": "SapphireGemsparkBlock" },
+                { "Name": "emerald", "Gem": "Emerald", "GemBlockId": "EmeraldStoneBlock", "GemsparkId": "EmeraldGemsparkBlock" },
+
+                { "Name": "ruby", "Gem": "Ruby", "GemBlockId": "RubyStoneBlock", "GemsparkId": "RubyGemsparkBlock" },
+                { "Name": "amber", "Gem": "Amber", "GemBlockId": "AmberStoneBlock", "GemsparkId": "AmberGemsparkBlock" },
+                
+                { "Name": "diamond", "Gem": "Diamond", "GemBlockId": "DiamondStoneBlock", "GemsparkId": "DiamondGemsparkBlock" }
+            ]
+        }
+    ]
+}

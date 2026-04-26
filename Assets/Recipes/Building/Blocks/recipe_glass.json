@@ -1,0 +1,164 @@
+﻿{
+  "Recipes": [
+    {
+        "Id": "confetti_block",
+        "Shaped": false,
+        "RequiredTiles": ["TerraCraft:MythrilWorkBenches"],
+        "Ingredients": [
+            {"ItemId": "Confetti", "Amount": 1},
+            {"ItemId": "Glass", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "ConfettiBlock", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "confetti_block_black",
+        "Shaped": false,
+        "RequiredTiles": ["TerraCraft:MythrilWorkBenches"],
+        "Ingredients": [
+            {"ItemId": "Confetti", "Amount": 1},
+            {"ItemId": "Glass", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "ConfettiBlockBlack", "Amount": 1}
+        ]
+    },
+
+
+    {
+        "Id": "blue_starry_glass_block",
+        "Shaped": true,
+        "RequiredTiles": ["WorkBenches"],
+        "Pattern": 
+        [
+            ["Glass","Glass","Glass"],
+            ["Glass","FallenStar","Glass"],
+            ["Glass","Glass","Glass"]
+        ],
+        "Outputs": [
+            {"ItemId": "BlueStarryGlassBlock", "Amount": 8}
+        ]
+    },
+    {
+        "Id": "gold_starry_glass_block",
+        "Shaped": true,
+        "RequiredTiles": ["WorkBenches"],
+        "Pattern": 
+        [
+            ["Glass","Glass","Glass"],
+            ["Glass","FallenStar","Glass"],
+            ["Glass","Glass","Glass"]
+        ],
+        "Outputs": [
+            {"ItemId": "GoldStarryGlassBlock", "Amount": 8}
+        ]
+    },
+
+
+    {
+        "Id": "honeyfall_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [{"ItemId": "Glass", "Amount": 1}],
+        "Conditions": ["NearHoney"],
+        "Outputs": [{"ItemId": "HoneyfallBlock", "Amount": 1}]
+    },
+    {
+        "Id": "lavafall_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [{"ItemId": "Glass", "Amount": 1}],
+        "Conditions": ["NearLava"],
+        "Outputs": [{"ItemId": "LavafallBlock", "Amount": 1}]
+    },
+    {
+        "Id": "waterfall_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [{"ItemId": "Glass", "Amount": 1}],
+        "Conditions": ["NearWater"],
+        "Outputs": [{"ItemId": "WaterfallBlock", "Amount": 1}]
+    },
+    {
+        "Id": "sandfall_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "Glass", "Amount": 1},
+            {"ItemId": "SandBlock", "Amount": 1}
+        ],
+        "Outputs": [{"ItemId": "SandFallBlock", "Amount": 1}]
+    },
+    {
+        "Id": "snowfall_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "Glass", "Amount": 1},
+            {"ItemId": "SnowBlock", "Amount": 1}
+        ],
+        "Outputs": [{"ItemId": "SnowFallBlock", "Amount": 1}]
+    },
+    {
+        "Id": "honeyfall_block_2",
+        "Shaped": true,
+        "RequiredTiles": ["WorkBenches"],
+        "Pattern": 
+        [
+            ["Glass","Glass","Glass"],
+            ["Glass","HoneyBucket","Glass"],
+            ["Glass","Glass","Glass"]
+        ],
+        "Replacements": [
+            {
+                "X":1,"Y":1,
+                "OriginalItemId": "HoneyBucket",
+                "ReplaceWith": "EmptyBucket",
+                "ReplaceAmount": 1
+            }
+        ],
+        "Outputs": [{"ItemId": "HoneyfallBlock", "Amount": 8}]
+    },
+    {
+        "Id": "lavafall_block_2",
+        "Shaped": true,
+        "RequiredTiles": ["WorkBenches"],
+        "Pattern": 
+        [
+            ["Glass","Glass","Glass"],
+            ["Glass","LavaBucket","Glass"],
+            ["Glass","Glass","Glass"]
+        ],
+        "Replacements": [
+            {
+                "X":1,"Y":1,
+                "OriginalItemId": "LavaBucket",
+                "ReplaceWith": "EmptyBucket",
+                "ReplaceAmount": 1
+            }
+        ],
+        "Outputs": [{"ItemId": "LavafallBlock", "Amount": 8}]
+    },
+    {
+        "Id": "waterfall_block_2",
+        "Shaped": true,
+        "RequiredTiles": ["WorkBenches"],
+        "Pattern": 
+        [
+            ["Glass","Glass","Glass"],
+            ["Glass","WaterBucket","Glass"],
+            ["Glass","Glass","Glass"]
+        ],
+        "Replacements": [
+            {
+                "X":1,"Y":1,
+                "OriginalItemId": "WaterBucket",
+                "ReplaceWith": "EmptyBucket",
+                "ReplaceAmount": 1
+            }
+        ],
+        "Outputs": [{"ItemId": "WaterfallBlock", "Amount": 8}]
+    }
+]
+}

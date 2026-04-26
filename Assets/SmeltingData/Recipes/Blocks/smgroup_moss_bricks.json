@@ -1,0 +1,35 @@
+﻿{
+    "SmeltingGroups": [
+        {
+            "Id": "template_moss_bricks",
+            "MaterialSource": "all_moss",
+            "Template": {
+                "Id": "{Name}_moss_brick",
+                "RequiredTiles": [],
+                "Label": "",
+                "Ingredients": [{"ItemId":"{MossId}", "Amount":1}, {"ItemId":"ClayBlock", "Amount":10}],
+                "Outputs": [{"ItemId":"{MossBrickId}", "Amount":10}],
+                "BaseSmeltTime": 480
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "MossId": "MossId",
+                "MossBrickId": "MossBrickId"
+            }
+        }
+    ],
+    "MaterialDefinitions": [
+        {
+            "Id": "all_moss",
+            "Description": "all_moss",
+            "Materials": [
+                {"Name": "lava", "MossId": "LavaMoss", "MossBrickId": "LavaMossBlock"},
+                {"Name": "argon", "MossId": "ArgonMoss", "MossBrickId": "ArgonMossBlock"},
+                {"Name": "krypton", "MossId": "KryptonMoss", "MossBrickId": "KryptonMossBlock"},
+                {"Name": "neon", "MossId": "VioletMoss", "MossBrickId": "VioletMossBlock"},
+                {"Name": "xenon", "MossId": "XenonMoss", "MossBrickId": "XenonMossBlock"},
+                {"Name": "helium", "MossId": "RainbowMoss", "MossBrickId": "RainbowMossBlock"}
+            ]
+        }
+    ]
+}

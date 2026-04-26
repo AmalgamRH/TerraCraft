@@ -116,7 +116,9 @@ namespace TerraCraft.Core.UI.GridCrafting.Preview
                 Item workstationItem = new Item(stationItemIcon);
                 string stationText = TerraCraft.GetLocalizedText("UI.CraftStation") ?? "";
                 string stationName = Lang.GetItemNameValue(stationItemIcon) ?? "";
-                string fullTooltip = $"{stationText}{stationName}\n{conditionsText}";
+                string fullTooltip = String.IsNullOrEmpty(conditionsText) ?
+                    $"{stationText}{stationName}" :
+                    $"{stationText}{stationName}\n{conditionsText}";
                 workstationItem.SetNameOverride(fullTooltip);
                 workstation.Item = workstationItem;
                 workstation.Context = ItemSlot.Context.ChatItem;

@@ -21,6 +21,26 @@
             }
         },
         {
+            "Id": "platform_reverse_template_group",
+            "MaterialSource": "furniture_materials",
+            "Template": {
+                "Id": "{Name}_platform_reverse",
+                "Shaped": true,
+                "RequiredTiles": [],
+                "Pattern": [
+                    ["{PlatformId}","{PlatformId}"]
+                ],
+                "Outputs": [
+                    {"ItemId": "{Material}", "Amount": 1}
+                ]
+            },
+            "PlaceholderMappings": {
+                "Name": "Name",
+                "Material": "MaterialReverse",
+                "PlatformId": "PlatformReverse"
+            }
+        },
+        {
             "Id": "workbench_template_group",
             "MaterialSource": "furniture_materials",
             "Template": {
@@ -476,10 +496,12 @@
             "Description": "furniture_materials",
             "Materials": [
                 {
-                    "Name": "Generic_1_Wood",
+                    "Name": "generic_1",
                     "Material": "Wood",
+                    "MaterialReverse": "Wood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "WoodPlatform", "WorkbenchId": "WorkBench",
+                    "PlatformId": "WoodPlatform", 
+                    "PlatformReverse": "WoodPlatform", "WorkbenchId": "WorkBench",
 
                     "TableId": "WoodenTable", "ChairId": "WoodenChair", "DoorId": "WoodenDoor", 
                     "ChestId": "Chest", "SinkId": "",
@@ -491,10 +513,12 @@
                     "DresserId": "", "PianoId": "", "SofaId": "", "ToiletId": ""
                 },
                 {
-                    "Name": "BorealWood",
+                    "Name": "borealwood",
                     "Material": "BorealWood",
+                    "MaterialReverse": "BorealWood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "BorealWoodPlatform", "WorkbenchId": "BorealWoodWorkBench",
+                    "PlatformId": "BorealWoodPlatform", 
+                    "PlatformReverse": "BorealWoodPlatform", "WorkbenchId": "BorealWoodWorkBench",
 
                     "TableId": "BorealWoodTable", "ChairId": "BorealWoodChair", "DoorId": "BorealWoodDoor", 
                     "ChestId": "BorealWoodChest", "SinkId": "BorealWoodSink",
@@ -506,10 +530,12 @@
                     "DresserId": "BorealWoodDresser", "PianoId": "BorealWoodPiano", "SofaId": "BorealWoodSofa", "ToiletId": "ToiletBoreal"
                 },
                 {
-                    "Name": "RichMahogany",
+                    "Name": "richmahogany",
                     "Material": "RichMahogany",
+                    "MaterialReverse": "RichMahogany",
                     "TileId": "WorkBenches",
-                    "PlatformId": "RichMahoganyPlatform", "WorkbenchId": "RichMahoganyWorkBench",
+                    "PlatformId": "RichMahoganyPlatform", 
+                    "PlatformReverse": "RichMahoganyPlatform", "WorkbenchId": "RichMahoganyWorkBench",
 
                     "TableId": "RichMahoganyTable", "ChairId": "RichMahoganyChair", "DoorId": "RichMahoganyDoor", 
                     "ChestId": "RichMahoganyChest", "SinkId": "RichMahoganySink",
@@ -521,10 +547,12 @@
                     "DresserId": "RichMahoganyDresser", "PianoId": "RichMahoganyPiano", "SofaId": "RichMahoganySofa", "ToiletId": "ToiletRichMahogany"
                 },
                 {
-                    "Name": "PalmWood",
+                    "Name": "palmwood",
                     "Material": "PalmWood",
+                    "MaterialReverse": "PalmWood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "PalmWoodPlatform", "WorkbenchId": "PalmWoodWorkBench",
+                    "PlatformId": "PalmWoodPlatform", 
+                    "PlatformReverse": "PalmWoodPlatform", "WorkbenchId": "PalmWoodWorkBench",
 
                     "TableId": "PalmWoodTable", "ChairId": "PalmWoodChair", "DoorId": "PalmWoodDoor", 
                     "ChestId": "PalmWoodChest", "SinkId": "PalmWoodSink",
@@ -536,10 +564,12 @@
                     "DresserId": "PalmWoodDresser", "PianoId": "PalmWoodPiano", "SofaId": "PalmWoodSofa", "ToiletId": "ToiletPalm"
                 },
                 {
-                    "Name": "Ebonwood",
+                    "Name": "ebonwood",
                     "Material": "Ebonwood",
+                    "MaterialReverse": "Ebonwood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "EbonwoodPlatform", "WorkbenchId": "EbonwoodWorkBench",
+                    "PlatformId": "EbonwoodPlatform", 
+                    "PlatformReverse": "EbonwoodPlatform", "WorkbenchId": "EbonwoodWorkBench",
 
                     "TableId": "EbonwoodTable", "ChairId": "EbonwoodChair", "DoorId": "EbonwoodDoor", 
                     "ChestId": "EbonwoodChest", "SinkId": "EbonwoodSink",
@@ -551,10 +581,12 @@
                     "DresserId": "EbonwoodDresser", "PianoId": "EbonwoodPiano", "SofaId": "EbonwoodSofa", "ToiletId": "ToiletEbonyWood"
                 },
                 {
-                    "Name": "Shadewood",
+                    "Name": "shadewood",
                     "Material": "Shadewood",
+                    "MaterialReverse": "Shadewood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "ShadewoodPlatform", "WorkbenchId": "ShadewoodWorkBench",
+                    "PlatformId": "ShadewoodPlatform", 
+                    "PlatformReverse": "ShadewoodPlatform", "WorkbenchId": "ShadewoodWorkBench",
 
                     "TableId": "ShadewoodTable", "ChairId": "ShadewoodChair", "DoorId": "ShadewoodDoor", 
                     "ChestId": "ShadewoodChest", "SinkId": "ShadewoodSink",
@@ -566,10 +598,12 @@
                     "DresserId": "ShadewoodDresser", "PianoId": "ShadewoodPiano", "SofaId": "ShadewoodSofa", "ToiletId": "ToiletShadewood"
                 },
                 {
-                    "Name": "AshWood",
+                    "Name": "ashwood",
                     "Material": "AshWood",
+                    "MaterialReverse": "AshWood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "AshWoodPlatform", "WorkbenchId": "AshWoodWorkbench",
+                    "PlatformId": "AshWoodPlatform", 
+                    "PlatformReverse": "AshWoodPlatform", "WorkbenchId": "AshWoodWorkbench",
 
                     "TableId": "AshWoodTable", "ChairId": "AshWoodChair", "DoorId": "AshWoodDoor", 
                     "ChestId": "AshWoodChest", "SinkId": "AshWoodSink",
@@ -581,10 +615,12 @@
                     "DresserId": "AshWoodDresser", "PianoId": "AshWoodPiano", "SofaId": "AshWoodSofa", "ToiletId": "AshWoodToilet"
                 },
                 {
-                    "Name": "Pearlwood",
+                    "Name": "pearlwood",
                     "Material": "Pearlwood",
+                    "MaterialReverse": "Pearlwood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "PearlwoodPlatform", "WorkbenchId": "PearlwoodWorkBench",
+                    "PlatformId": "PearlwoodPlatform", 
+                    "PlatformReverse": "PearlwoodPlatform", "WorkbenchId": "PearlwoodWorkBench",
 
                     "TableId": "PearlwoodTable", "ChairId": "PearlwoodChair", "DoorId": "PearlwoodDoor", 
                     "ChestId": "PearlwoodChest", "SinkId": "PearlwoodSink",
@@ -596,10 +632,12 @@
                     "DresserId": "PearlwoodDresser", "PianoId": "PearlwoodPiano", "SofaId": "PearlwoodSofa", "ToiletId": "ToiletPearlwood"
                 },
                 {
-                    "Name": "DynastyWood",
+                    "Name": "dynastywood",
                     "Material": "DynastyWood",
+                    "MaterialReverse": "DynastyWood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "DynastyPlatform", "WorkbenchId": "DynastyWorkBench",
+                    "PlatformId": "DynastyPlatform", 
+                    "PlatformReverse": "DynastyPlatform", "WorkbenchId": "DynastyWorkBench",
 
                     "TableId": "DynastyTable", "ChairId": "DynastyChair", "DoorId": "DynastyDoor", 
                     "ChestId": "DynastyChest", "SinkId": "DynastySink",
@@ -611,10 +649,12 @@
                     "DresserId": "DynastyDresser", "PianoId": "DynastyPiano", "SofaId": "DynastySofa", "ToiletId": "ToiletDynasty"
                 },
                 {
-                    "Name": "SpookyWood",
+                    "Name": "spookywood",
                     "Material": "SpookyWood",
+                    "MaterialReverse": "SpookyWood",
                     "TileId": "WorkBenches",
-                    "PlatformId": "SpookyPlatform", "WorkbenchId": "SpookyWorkBench",
+                    "PlatformId": "SpookyPlatform", 
+                    "PlatformReverse": "SpookyPlatform", "WorkbenchId": "SpookyWorkBench",
 
                     "TableId": "SpookyTable", "ChairId": "SpookyChair", "DoorId": "SpookyDoor", 
                     "ChestId": "SpookyChest", "SinkId": "SpookySink",
@@ -627,10 +667,12 @@
                 },
 
                 {
-                    "Name": "LivingWood",
+                    "Name": "livingwood",
                     "Material": "Wood",
+                    "MaterialReverse": "",
                     "TileId": "LivingLoom",
-                    "PlatformId": "", "WorkbenchId": "",
+                    "PlatformId": "", 
+                    "PlatformReverse": "", "WorkbenchId": "",
 
                     "TableId": "LivingWoodTable", "ChairId": "LivingWoodChair", "DoorId": "LivingWoodDoor",
                     "ChestId": "LivingWoodChest", "SinkId": "LivingWoodSink",
@@ -642,10 +684,12 @@
                     "DresserId": "LivingWoodDresser", "PianoId": "LivingWoodPiano", "SofaId": "LivingWoodSofa", "ToiletId": "ToiletLivingWood"
                 },
                 {
-                    "Name": "Bamboo",
+                    "Name": "bamboo",
                     "Material": "BambooBlock",
+                    "MaterialReverse": "BambooBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "BambooPlatform", "WorkbenchId": "BambooWorkbench",
+                    "PlatformId": "BambooPlatform", 
+                    "PlatformReverse": "BambooPlatform", "WorkbenchId": "BambooWorkbench",
 
                     "TableId": "BambooTable", "ChairId": "BambooChair", "DoorId": "BambooDoor",
                     "ChestId": "BambooChest", "SinkId": "BambooSink",
@@ -657,10 +701,12 @@
                     "DresserId": "BambooDresser", "PianoId": "BambooPiano", "SofaId": "BambooSofa", "ToiletId": "BambooToilet"
                 },
                 {
-                    "Name": "Cactus",
+                    "Name": "cactus",
                     "Material": "Cactus",
+                    "MaterialReverse": "Cactus",
                     "TileId": "WorkBenches",
-                    "PlatformId": "CactusPlatform", "WorkbenchId": "CactusWorkBench",
+                    "PlatformId": "CactusPlatform", 
+                    "PlatformReverse": "CactusPlatform", "WorkbenchId": "CactusWorkBench",
 
                     "TableId": "CactusTable", "ChairId": "CactusChair", "DoorId": "CactusDoor",
                     "ChestId": "CactusChest", "SinkId": "CactusSink",
@@ -672,10 +718,12 @@
                     "DresserId": "CactusDresser", "PianoId": "CactusPiano", "SofaId": "CactusSofa", "ToiletId": "ToiletCactus"
                 },
                 {
-                    "Name": "Pumpkin",
+                    "Name": "pumpkin",
                     "Material": "Pumpkin",
+                    "MaterialReverse": "Pumpkin",
                     "TileId": "WorkBenches",
-                    "PlatformId": "PumpkinPlatform", "WorkbenchId": "PumpkinWorkBench",
+                    "PlatformId": "PumpkinPlatform", 
+                    "PlatformReverse": "PumpkinPlatform", "WorkbenchId": "PumpkinWorkBench",
 
                     "TableId": "PumpkinTable", "ChairId": "PumpkinChair", "DoorId": "PumpkinDoor",
                     "ChestId": "PumpkinChest", "SinkId": "PumpkinSink",
@@ -687,10 +735,12 @@
                     "DresserId": "PumpkinDresser", "PianoId": "PumpkinPiano", "SofaId": "PumpkinSofa", "ToiletId": "ToiletPumpkin"
                 },
                 {
-                    "Name": "Mushroom",
+                    "Name": "mushroom",
                     "Material": "GlowingMushroom",
+                    "MaterialReverse": "GlowingMushroom",
                     "TileId": "WorkBenches",
-                    "PlatformId": "MushroomPlatform", "WorkbenchId": "MushroomWorkBench",
+                    "PlatformId": "MushroomPlatform", 
+                    "PlatformReverse": "MushroomPlatform", "WorkbenchId": "MushroomWorkBench",
 
                     "TableId": "MushroomTable", "ChairId": "MushroomChair", "DoorId": "MushroomDoor",
                     "ChestId": "MushroomChest", "SinkId": "MushroomSink",
@@ -702,10 +752,12 @@
                     "DresserId": "MushroomDresser", "PianoId": "MushroomPiano", "SofaId": "MushroomSofa", "ToiletId": "ToiletMushroom"
                 },
                 {
-                    "Name": "Granite",
+                    "Name": "granite",
                     "Material": "GraniteBlock",
+                    "MaterialReverse": "GraniteBlock",
                     "TileId": "HeavyWorkBench",
-                    "PlatformId": "GranitePlatform", "WorkbenchId": "GraniteWorkBench",
+                    "PlatformId": "GranitePlatform", 
+                    "PlatformReverse": "GranitePlatform", "WorkbenchId": "GraniteWorkBench",
 
                     "TableId": "GraniteTable", "ChairId": "GraniteChair", "DoorId": "GraniteDoor",
                     "ChestId": "GraniteChest", "SinkId": "GraniteSink",
@@ -717,10 +769,12 @@
                     "DresserId": "GraniteDresser", "PianoId": "GranitePiano", "SofaId": "GraniteSofa", "ToiletId": "ToiletGranite"
                 },
                 {
-                    "Name": "Marble",
+                    "Name": "marble",
                     "Material": "MarbleBlock",
+                    "MaterialReverse": "MarbleBlock",
                     "TileId": "HeavyWorkBench",
-                    "PlatformId": "MarblePlatform", "WorkbenchId": "MarbleWorkBench",
+                    "PlatformId": "MarblePlatform", 
+                    "PlatformReverse": "MarblePlatform", "WorkbenchId": "MarbleWorkBench",
 
                     "TableId": "MarbleTable", "ChairId": "MarbleChair", "DoorId": "MarbleDoor",
                     "ChestId": "MarbleChest", "SinkId": "MarbleSink",
@@ -732,10 +786,12 @@
                     "DresserId": "MarbleDresser", "PianoId": "MarblePiano", "SofaId": "MarbleSofa", "ToiletId": "ToiletMarble"
                 },
                 {
-                    "Name": "Sandstone",
+                    "Name": "sandstone",
                     "Material": "SmoothSandstone",
+                    "MaterialReverse": "SmoothSandstone",
                     "TileId": "HeavyWorkBench",
-                    "PlatformId": "SandstonePlatform", "WorkbenchId": "SandstoneWorkbench",
+                    "PlatformId": "SandstonePlatform", 
+                    "PlatformReverse": "SandstonePlatform", "WorkbenchId": "SandstoneWorkbench",
 
                     "TableId": "SandstoneTable", "ChairId": "SandstoneChair", "DoorId": "SandstoneDoor",
                     "ChestId": "DesertChest", "SinkId": "SandstoneSink",
@@ -747,10 +803,12 @@
                     "DresserId": "SandstoneDresser", "PianoId": "SandstonePiano", "SofaId": "SandstoneSofa", "ToiletId": "SandstoneToilet"
                 },
                 {
-                    "Name": "Stone",
+                    "Name": "stone",
                     "Material": "GrayBrick",
+                    "MaterialReverse": "GrayBrick",
                     "TileId": "HeavyWorkBench",
-                    "PlatformId": "StonePlatform", "WorkbenchId": "",
+                    "PlatformId": "StonePlatform", 
+                    "PlatformReverse": "StonePlatform", "WorkbenchId": "",
 
                     "TableId": "", "ChairId": "", "DoorId": "StoneDoor",
                     "ChestId": "", "SinkId": "",
@@ -762,10 +820,12 @@
                     "DresserId": "", "PianoId": "", "SofaId": "", "ToiletId": ""
                 },
                 {
-                    "Name": "Frozen",
+                    "Name": "frozen",
                     "Material": "IceBlock",
+                    "MaterialReverse": "IceBlock",
                     "TileId": "IceMachine",
-                    "PlatformId": "FrozenPlatform", "WorkbenchId": "FrozenWorkBench",
+                    "PlatformId": "FrozenPlatform", 
+                    "PlatformReverse": "FrozenPlatform", "WorkbenchId": "FrozenWorkBench",
 
                     "TableId": "FrozenTable", "ChairId": "FrozenChair", "DoorId": "FrozenDoor",
                     "ChestId": "IceChest", "SinkId": "FrozenSink",
@@ -777,10 +837,12 @@
                     "DresserId": "FrozenDresser", "PianoId": "FrozenPiano", "SofaId": "FrozenSofa", "ToiletId": "ToiletFrozen"
                 },
                 {
-                    "Name": "Coral",
+                    "Name": "coral",
                     "Material": "ReefBlock",
+                    "MaterialReverse": "ReefBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "CoralPlatform", "WorkbenchId": "CoralWorkbench",
+                    "PlatformId": "CoralPlatform", 
+                    "PlatformReverse": "CoralPlatform", "WorkbenchId": "CoralWorkbench",
 
                     "TableId": "CoralTable", "ChairId": "CoralChair", "DoorId": "CoralDoor",
                     "ChestId": "CoralChest", "SinkId": "CoralSink",
@@ -792,10 +854,12 @@
                     "DresserId": "CoralDresser", "PianoId": "CoralPiano", "SofaId": "CoralSofa", "ToiletId": "CoralToilet"
                 },
                 {
-                    "Name": "Skyware",
+                    "Name": "skyware",
                     "Material": "SunplateBlock",
+                    "MaterialReverse": "SunplateBlock",
                     "TileId": "SkyMill",
-                    "PlatformId": "SkywarePlatform", "WorkbenchId": "SkywareWorkbench",
+                    "PlatformId": "SkywarePlatform", 
+                    "PlatformReverse": "SkywarePlatform", "WorkbenchId": "SkywareWorkbench",
 
                     "TableId": "SkywareTable", "ChairId": "SkywareChair", "DoorId": "SkywareDoor",
                     "ChestId": "SkywareChest", "SinkId": "SkywareSink",
@@ -807,10 +871,12 @@
                     "DresserId": "SkywareDresser", "PianoId": "SkywarePiano", "SofaId": "SkywareSofa", "ToiletId": "ToiletSunplate"
                 },
                 {
-                    "Name": "Meteorite",
+                    "Name": "meteorite",
                     "Material": "MeteoriteBrick",
+                    "MaterialReverse": "MeteoriteBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "MeteoritePlatform", "WorkbenchId": "MeteoriteWorkBench",
+                    "PlatformId": "MeteoritePlatform", 
+                    "PlatformReverse": "MeteoritePlatform", "WorkbenchId": "MeteoriteWorkBench",
 
                     "TableId": "MeteoriteTable", "ChairId": "MeteoriteChair", "DoorId": "MeteoriteDoor",
                     "ChestId": "MeteoriteChest", "SinkId": "MeteoriteSink",
@@ -822,10 +888,12 @@
                     "DresserId": "MeteoriteDresser", "PianoId": "MeteoritePiano", "SofaId": "MeteoriteSofa", "ToiletId": "ToiletMeteor"
                 },
                 {
-                    "Name": "Lesion",
+                    "Name": "lesion",
                     "Material": "LesionBlock",
+                    "MaterialReverse": "LesionBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "LesionPlatform", "WorkbenchId": "LesionWorkbench",
+                    "PlatformId": "LesionPlatform", 
+                    "PlatformReverse": "LesionPlatform", "WorkbenchId": "LesionWorkbench",
 
                     "TableId": "LesionTable", "ChairId": "LesionChair", "DoorId": "LesionDoor",
                     "ChestId": "LesionChest", "SinkId": "LesionSink",
@@ -837,10 +905,12 @@
                     "DresserId": "LesionDresser", "PianoId": "LesionPiano", "SofaId": "LesionSofa", "ToiletId": "ToiletLesion"
                 },
                 {
-                    "Name": "Flesh",
+                    "Name": "flesh",
                     "Material": "FleshBlock",
+                    "MaterialReverse": "FleshBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "FleshPlatform", "WorkbenchId": "FleshWorkBench",
+                    "PlatformId": "FleshPlatform", 
+                    "PlatformReverse": "FleshPlatform", "WorkbenchId": "FleshWorkBench",
 
                     "TableId": "FleshTable", "ChairId": "FleshChair", "DoorId": "FleshDoor",
                     "ChestId": "FleshChest", "SinkId": "FleshSink",
@@ -852,10 +922,12 @@
                     "DresserId": "FleshDresser", "PianoId": "FleshPiano", "SofaId": "FleshSofa", "ToiletId": "ToiletFlesh"
                 },
                 {
-                    "Name": "Crystal",
+                    "Name": "crystal",
                     "Material": "CrystalBlock",
+                    "MaterialReverse": "CrystalBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "CrystalPlatform", "WorkbenchId": "CrystalWorkbench",
+                    "PlatformId": "CrystalPlatform", 
+                    "PlatformReverse": "CrystalPlatform", "WorkbenchId": "CrystalWorkbench",
 
                     "TableId": "CrystalTable", "ChairId": "CrystalChair", "DoorId": "CrystalDoor",
                     "ChestId": "CrystalChest", "SinkId": "CrystalSink",
@@ -867,10 +939,12 @@
                     "DresserId": "CrystalDresser", "PianoId": "CrystalPiano", "SofaId": "CrystalSofaHowDoesThatEvenWork", "ToiletId": "ToiletCrystal"
                 },
                 {
-                    "Name": "Bone",
+                    "Name": "bone",
                     "Material": "Bone",
+                    "MaterialReverse": "Bone",
                     "TileId": "WorkBenches",
-                    "PlatformId": "BonePlatform", "WorkbenchId": "BoneWorkBench",
+                    "PlatformId": "BonePlatform", 
+                    "PlatformReverse": "BonePlatform", "WorkbenchId": "BoneWorkBench",
 
                     "TableId": "BoneTable", "ChairId": "BoneChair", "DoorId": "BoneDoor",
                     "ChestId": "BoneChest", "SinkId": "BoneSink",
@@ -882,10 +956,12 @@
                     "DresserId": "BoneDresser", "PianoId": "BonePiano", "SofaId": "BoneSofa", "ToiletId": "ToiletBone"
                 },
                 {
-                    "Name": "Glass",
+                    "Name": "glass",
                     "Material": "Glass",
+                    "MaterialReverse": "Glass",
                     "TileId": "WorkBenches",
-                    "PlatformId": "GlassPlatform", "WorkbenchId": "GlassWorkBench",
+                    "PlatformId": "GlassPlatform", 
+                    "PlatformReverse": "GlassPlatform", "WorkbenchId": "GlassWorkBench",
 
                     "TableId": "GlassTable", "ChairId": "GlassChair", "DoorId": "GlassDoor",
                     "ChestId": "GlassChest", "SinkId": "GlassSink",
@@ -897,10 +973,12 @@
                     "DresserId": "GlassDresser", "PianoId": "GlassPiano", "SofaId": "GlassSofa", "ToiletId": "ToiletGlass"
                 },
                 {
-                    "Name": "Balloon",
+                    "Name": "balloon",
                     "Material": "RecipeGroup:Balloons",
+                    "MaterialReverse": "SillyBalloonGreen",
                     "TileId": "WorkBenches",
-                    "PlatformId": "BalloonPlatform", "WorkbenchId": "BalloonWorkbench",
+                    "PlatformId": "BalloonPlatform", 
+                    "PlatformReverse": "BalloonPlatform", "WorkbenchId": "BalloonWorkbench",
 
                     "TableId": "BalloonTable", "ChairId": "BalloonChair", "DoorId": "BalloonDoor",
                     "ChestId": "BalloonChest", "SinkId": "BalloonSink",
@@ -912,10 +990,12 @@
                     "DresserId": "BalloonDresser", "PianoId": "BalloonPiano", "SofaId": "BalloonSofa", "ToiletId": "BalloonToilet"
                 },
                 {
-                    "Name": "Slime",
+                    "Name": "slime",
                     "Material": "SlimeBlock",
+                    "MaterialReverse": "SlimeBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "SlimePlatform", "WorkbenchId": "SlimeWorkBench",
+                    "PlatformId": "SlimePlatform", 
+                    "PlatformReverse": "SlimePlatform", "WorkbenchId": "SlimeWorkBench",
 
                     "TableId": "SlimeTable", "ChairId": "SlimeChair", "DoorId": "SlimeDoor",
                     "ChestId": "SlimeChest", "SinkId": "SlimeSink",
@@ -927,10 +1007,12 @@
                     "DresserId": "SlimeDresser", "PianoId": "SlimePiano", "SofaId": "SlimeSofa", "ToiletId": "ToiletSlime"
                 },
                 {
-                    "Name": "Honey",
+                    "Name": "honey",
                     "Material": "HoneyBlock",
+                    "MaterialReverse": "HoneyBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "HoneyPlatform", "WorkbenchId": "HoneyWorkBench",
+                    "PlatformId": "HoneyPlatform", 
+                    "PlatformReverse": "HoneyPlatform", "WorkbenchId": "HoneyWorkBench",
 
                     "TableId": "HoneyTable", "ChairId": "HoneyChair", "DoorId": "HoneyDoor",
                     "ChestId": "HoneyChest", "SinkId": "HoneySink",
@@ -942,10 +1024,12 @@
                     "DresserId": "HoneyDresser", "PianoId": "HoneyPiano", "SofaId": "HoneySofa", "ToiletId": "ToiletHoney"
                 },
                 {
-                    "Name": "Spider",
+                    "Name": "spider",
                     "Material": "SpiderBlock",
+                    "MaterialReverse": "SpiderBlock",
                     "TileId": "WorkBenches",
-                    "PlatformId": "SpiderPlatform", "WorkbenchId": "SpiderWorkbench",
+                    "PlatformId": "SpiderPlatform", 
+                    "PlatformReverse": "SpiderPlatform", "WorkbenchId": "SpiderWorkbench",
 
                     "TableId": "SpiderTable", "ChairId": "SpiderChair", "DoorId": "SpiderDoor",
                     "ChestId": "SpiderChest", "SinkId": "SpiderSinkSpiderSinkDoesWhateverASpiderSinkDoes",
@@ -957,10 +1041,12 @@
                     "DresserId": "SpiderDresser", "PianoId": "SpiderPiano", "SofaId": "SpiderSofa", "ToiletId": "ToiletSpider"
                 },
                 {
-                    "Name": "Steampunk",
+                    "Name": "steampunk",
                     "Material": "Cog",
+                    "MaterialReverse": "Cog",
                     "TileId": "WorkBenches",
-                    "PlatformId": "SteampunkPlatform", "WorkbenchId": "SteampunkWorkBench",
+                    "PlatformId": "SteampunkPlatform", 
+                    "PlatformReverse": "SteampunkPlatform", "WorkbenchId": "SteampunkWorkBench",
 
                     "TableId": "SteampunkTable", "ChairId": "SteampunkChair", "DoorId": "SteampunkDoor",
                     "ChestId": "SteampunkChest", "SinkId": "SteampunkSink",
@@ -972,10 +1058,12 @@
                     "DresserId": "SteampunkDresser", "PianoId": "SteampunkPiano", "SofaId": "SteampunkSofa", "ToiletId": "ToiletSteampunk"
                 },
                 {
-                    "Name": "Lihzahrd",
+                    "Name": "lihzahrd",
                     "Material": "LihzahrdBrick",
+                    "MaterialReverse": "LihzahrdBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "LihzahrdPlatform", "WorkbenchId": "LihzahrdWorkBench",
+                    "PlatformId": "LihzahrdPlatform", 
+                    "PlatformReverse": "LihzahrdPlatform", "WorkbenchId": "LihzahrdWorkBench",
 
                     "TableId": "LihzahrdTable", "ChairId": "LihzahrdChair", "DoorId": "LihzahrdDoor",
                     "ChestId": "LihzahrdChest", "SinkId": "LihzahrdSink",
@@ -987,10 +1075,12 @@
                     "DresserId": "LihzahrdDresser", "PianoId": "LihzahrdPiano", "SofaId": "LihzahrdSofa", "ToiletId": "ToiletLihzhard"
                 },
                 {
-                    "Name": "Martian",
+                    "Name": "martian",
                     "Material": "MartianConduitPlating",
+                    "MaterialReverse": "MartianConduitPlating",
                     "TileId": "WorkBenches",
-                    "PlatformId": "MartianPlatform", "WorkbenchId": "MartianWorkBench",
+                    "PlatformId": "MartianPlatform", 
+                    "PlatformReverse": "MartianPlatform", "WorkbenchId": "MartianWorkBench",
 
                     "TableId": "MartianTable", "ChairId": "MartianHoverChair", "DoorId": "MartianDoor",
                     "ChestId": "MartianChest", "SinkId": "MartianSink",
@@ -1002,10 +1092,12 @@
                     "DresserId": "MartianDresser", "PianoId": "MartianPiano", "SofaId": "MartianSofa", "ToiletId": "ToiletMartian"
                 },
                 {
-                    "Name": "Solar",
+                    "Name": "solar",
                     "Material": "SolarBrick",
+                    "MaterialReverse": "SolarBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "SolarPlatform", "WorkbenchId": "SolarWorkbench",
+                    "PlatformId": "SolarPlatform", 
+                    "PlatformReverse": "SolarPlatform", "WorkbenchId": "SolarWorkbench",
 
                     "TableId": "SolarTable", "ChairId": "SolarChair", "DoorId": "SolarDoor",
                     "ChestId": "SolarChest", "SinkId": "SolarSink",
@@ -1017,10 +1109,12 @@
                     "DresserId": "SolarDresser", "PianoId": "SolarPiano", "SofaId": "SolarSofa", "ToiletId": "SolarToilet"
                 },
                 {
-                    "Name": "Vortex",
+                    "Name": "vortex",
                     "Material": "VortexBrick",
+                    "MaterialReverse": "VortexBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "VortexPlatform", "WorkbenchId": "VortexWorkbench",
+                    "PlatformId": "VortexPlatform", 
+                    "PlatformReverse": "VortexPlatform", "WorkbenchId": "VortexWorkbench",
 
                     "TableId": "VortexTable", "ChairId": "VortexChair", "DoorId": "VortexDoor",
                     "ChestId": "VortexChest", "SinkId": "VortexSink",
@@ -1032,10 +1126,12 @@
                     "DresserId": "VortexDresser", "PianoId": "VortexPiano", "SofaId": "VortexSofa", "ToiletId": "VortexToilet"
                 },
                 {
-                    "Name": "Nebula",
+                    "Name": "nebula",
                     "Material": "NebulaBrick",
+                    "MaterialReverse": "NebulaBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "NebulaPlatform", "WorkbenchId": "NebulaWorkbench",
+                    "PlatformId": "NebulaPlatform", 
+                    "PlatformReverse": "NebulaPlatform", "WorkbenchId": "NebulaWorkbench",
 
                     "TableId": "NebulaTable", "ChairId": "NebulaChair", "DoorId": "NebulaDoor",
                     "ChestId": "NebulaChest", "SinkId": "NebulaSink",
@@ -1047,10 +1143,12 @@
                     "DresserId": "NebulaDresser", "PianoId": "NebulaPiano", "SofaId": "NebulaSofa", "ToiletId": "NebulaToilet"
                 },
                 {
-                    "Name": "Stardust",
+                    "Name": "stardust",
                     "Material": "StardustBrick",
+                    "MaterialReverse": "StardustBrick",
                     "TileId": "WorkBenches",
-                    "PlatformId": "StardustPlatform", "WorkbenchId": "StardustWorkbench",
+                    "PlatformId": "StardustPlatform", 
+                    "PlatformReverse": "StardustPlatform", "WorkbenchId": "StardustWorkbench",
 
                     "TableId": "StardustTable", "ChairId": "StardustChair", "DoorId": "StardustDoor",
                     "ChestId": "StardustChest", "SinkId": "StardustSink",

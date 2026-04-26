@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ReLogic.Content;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TerraCraft.Core.DataStructures.GridCrafting;
@@ -36,15 +37,20 @@ namespace TerraCraft.Core.UI.GridCrafting
         private int _currentMatchIndex;
         private string _previousRecipeId;
 
-        private GriddedRecipe? _currentRecipe => _allMatches != null && _allMatches.Count > 0 && _currentMatchIndex < _allMatches.Count ? _allMatches[_currentMatchIndex].Recipe : null;
-        private Dictionary<int, int> _currentConsumptions => _allMatches != null && _allMatches.Count > 0 && _currentMatchIndex < _allMatches.Count ? _allMatches[_currentMatchIndex].Consumptions : null;
-        private List<GridCraftingMatcher.ReplacementAction> _currentReplacements => _allMatches != null && _allMatches.Count > 0 && _currentMatchIndex < _allMatches.Count ? _allMatches[_currentMatchIndex].Replacements : null;
+        private GriddedRecipe? _currentRecipe => MatchAt(_currentMatchIndex)?.Recipe;
+        private Dictionary<int, int> _currentConsumptions => MatchAt(_currentMatchIndex)?.Consumptions;
+        private List<GridCraftingMatcher.ReplacementAction> _currentReplacements => MatchAt(_currentMatchIndex)?.Replacements;
 
-        // 导航箭头
-        private UIImageNeo _leftArrow;
-        private UIImageNeo _rightArrow;
+        private (GriddedRecipe Recipe, Dictionary<int, int> Consumptions, List<GridCraftingMatcher.ReplacementAction> Replacements)?
+            MatchAt(int i) => (_allMatches != null && _allMatches.Count > 0 && i < _allMatches.Count)
+                ? _allMatches[i]
+                : null;
 
-        // 动态面板尺寸
+        // 导航按钮
+        private UIButtonNeo _leftArrow;
+        private UIButtonNeo _rightArrow;
+
+        // 面板尺寸
         private float _originalPanelWidth;
         private float _originalPanelHeight;
         private float _expandedPanelWidth;
@@ -52,53 +58,82 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         // 鼠标交互
         private bool _wasMouseLeftPressed;
-        private bool _wasMouseRightPressed;
         private bool _wasMouseOverOutputLastFrame;
-        private int _craftRepeatTimer;
-        private const int CraftRepeatDelay = 30;
 
-        // 输入槽交互处理器（与预览分离）
+        private int _craftStackDelay = 7;      // 当前延迟帧数 (7 → 6 → 5 → 4 → 3 → 2)
+        private int _craftStackCounter = 0;    // 当前已执行次数（用于判断是否触发加速）
+        private int _craftTimesTried = 0;      // 已触发加速的次数（原版用于限制 superFastStack，此处仅保留结构）
+        private int _craftWaitFrames = 0;      // 剩余等待帧数，0 表示可以立即执行下一次
+        private const int FIRST_DELAY_FRAMES = 30;   // 第一次操作后的额外等待帧数
+
         private CustomItemSlotInputHandler _inputHandler;
-
         private Item[] _lastGridItems;
 
+        // ══════════════════════════════════════════════════
+        //  初始化入口
+        // ══════════════════════════════════════════════════
         public void InitializeGrid(int tileId, int itemiconid)
         {
             BackgroundColor = new Color(63, 82, 151) * 0.8f;
             TileId = tileId;
             ItemIcon = itemiconid;
             (GridWidth, GridHeight) = CraftingStationSize.GetGridSize(tileId);
-            RecreateSlots();
+
+            BuildInputSlots();
+            BuildOutputSlot();
+            BuildDecoArrow();
+            BuildNavArrows();
+            BuildIcon();
+            ComputePanelSizes();
+
+            this.SetSize(_originalPanelWidth, _originalPanelHeight);
+            UpdateArrowVisibility();
 
             _inputHandler = new CustomItemSlotInputHandler(inputSlots, RefreshMatching);
         }
 
-        private void RecreateSlots()
+        // ══════════════════════════════════════════════════
+        //  分段构建
+        // ══════════════════════════════════════════════════
+
+        // ── 布局常量（所有 Build* 方法共享） ──
+        private const float Spacing = 8f;
+        private const float Padding = 16f;
+        private const float OutputSpacing = 48f;
+        private const float IconSpacing = 16f;
+        private const float NavSpacing = 4f;
+
+        // 由 BuildInputSlots 填充，后续方法都用这两个值
+        private Vector2 _slotSize;
+        private float _actualSpacing;
+        private float _outputLeft;
+        private float _outputTop;
+        private float _outputSlotW;
+        private float _outputSlotH;
+        private float _iconTop;
+        private float _navArrowW;
+        private float _navArrowH;
+
+        private void ClearChildren()
         {
-            SetPadding(0);
+            foreach (var slot in inputSlots) RemoveChild(slot);
+            if (outputSlot != null) RemoveChild(outputSlot);
+            if (_leftArrow != null) RemoveChild(_leftArrow);
+            if (_rightArrow != null) RemoveChild(_rightArrow);
+            inputSlots.Clear();
 
             _previousRecipeId = null;
             _allMatches = null;
             _currentMatchIndex = 0;
+        }
 
-            foreach (var slot in inputSlots)
-                RemoveChild(slot);
-            if (outputSlot != null)
-                RemoveChild(outputSlot);
-            if (_leftArrow != null)
-                RemoveChild(_leftArrow);
-            if (_rightArrow != null)
-                RemoveChild(_rightArrow);
-            inputSlots.Clear();
+        private void BuildInputSlots()
+        {
+            SetPadding(0);
+            ClearChildren();
 
-            const float spacing = 8f;
-            const float padding = 16;
-            const float outputSpacing = 48f;
-            const float iconSpacing = 16f;
-            const float navSpacing = 4f;
-
-            Vector2 slotSize = new Vector2(44.2f);
-            float actualSpacing = spacing;
+            _slotSize = new Vector2(44.2f);
+            _actualSpacing = Spacing;
 
             for (int y = 0; y < GridHeight; y++)
             {
@@ -107,25 +142,38 @@ namespace TerraCraft.Core.UI.GridCrafting
                     var slot = new UICustomItemSlot(ItemSlot.Context.BankItem, 0.85f);
                     if (x == 0 && y == 0)
                     {
-                        slotSize = slot.GetSize(true);
-                        actualSpacing = slotSize.X + spacing;
+                        _slotSize = slot.GetSize(true);   // GetSize 内部调 Recalculate
+                        _actualSpacing = _slotSize.X + Spacing;
                     }
-                    slot.Left.Set(padding + x * actualSpacing, 0f);
-                    slot.Top.Set(padding + y * actualSpacing, 0f);
+                    slot.Left.Set(Padding + x * _actualSpacing, 0f);
+                    slot.Top.Set(Padding + y * _actualSpacing, 0f);
                     inputSlots.Add(slot);
                     Append(slot);
                 }
             }
+        }
+
+        private void BuildOutputSlot()
+        {
 
             outputSlot = new UICustomItemSlot(4, 0.85f);
-            float outputSlotHeight = outputSlot.Height.Pixels;
-            float gridActualHeight = (GridHeight - 1) * actualSpacing + slotSize.Y;
-            float outputLeft = padding + GridWidth * actualSpacing + outputSpacing;
-            float outputTop = padding + (gridActualHeight - outputSlotHeight) / 2f;
-            outputSlot.Left.Set(outputLeft, 0f);
-            outputSlot.Top.Set(outputTop, 0f);
-            Append(outputSlot);
 
+            // GetSize(true) 强制 Recalculate，拿到真实像素尺寸
+            Vector2 outSize = outputSlot.GetSize(true);
+            _outputSlotW = outSize.X;
+            _outputSlotH = outSize.Y;
+
+            float gridActualHeight = (GridHeight - 1) * _actualSpacing + _slotSize.Y;
+            _outputLeft = Padding + GridWidth * _actualSpacing + OutputSpacing;
+            _outputTop = Padding + (gridActualHeight - _outputSlotH) / 2f;
+
+            outputSlot.Left.Set(_outputLeft, 0f);
+            outputSlot.Top.Set(_outputTop, 0f);
+            Append(outputSlot);
+        }
+
+        private void BuildDecoArrow()
+        {
             var arrowTex = TextureAssets.GolfBallArrow;
             var arrowRect = new Rectangle(0, 0, arrowTex.Width() / 2 - 2, arrowTex.Height());
             var arrow = new UIImageNeo(arrowTex)
@@ -137,125 +185,78 @@ namespace TerraCraft.Core.UI.GridCrafting
                 Rectangle = arrowRect,
                 ImageScale = 1f
             };
-            float arrowLeft = outputLeft - outputSpacing;
-            float arrowTop = outputTop + (arrowRect.Height - outputSlot.Height.Pixels) / 2;
-            arrow.SetSize(slotSize);
-            arrow.Left.Set(arrowLeft, 0f);
-            arrow.Top.Set(arrowTop, 0f);
+            float left = _outputLeft - OutputSpacing;
+            float top = _outputTop + (arrowRect.Height - _outputSlotH) / 2f;
+            arrow.SetSize(_slotSize);
+            arrow.Left.Set(left, 0f);
+            arrow.Top.Set(top, 0f);
             Append(arrow);
+        }
 
-            var arrowSmallTex = TerraCraft.GetTexture("TerraCraft/Assets/UI/GridCrafting/ArrowSmall");
-            var arrowSmallHoveringTex = TerraCraft.GetTexture("TerraCraft/Assets/UI/GridCrafting/ArrowSmall_Glow");
-            _leftArrow = new UIImageNeo(arrowSmallTex)
-            {
-                NormalizedOrigin = new Vector2(0.5f),
-                IgnoresMouseInteraction = false,
-                Rotation = MathHelper.PiOver2,
-                AllowResizingDimensions = false
-            };
-            _leftArrow.OnLeftClick += (evt, elem) => NavigateMatch(-1);
-            _leftArrow.SetSize(arrowSmallTex.Width, arrowSmallTex.Height);
-            var leftArrowGlow = new UIImageNeo(arrowSmallHoveringTex)
-            {
-                NormalizedOrigin = new Vector2(0.5f),
-                IgnoresMouseInteraction = true,
-                Color = Color.Transparent,
-                Rotation = MathHelper.PiOver2,
-                AllowResizingDimensions = false
-            };
-            leftArrowGlow.SetSize(arrowSmallTex.Width, arrowSmallTex.Height);
-            _leftArrow.OnMouseOver += (evt, elem) =>
-            {
-                leftArrowGlow.Color = Color.White * 0.9f; 
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            };
-            _leftArrow.OnMouseOut += (evt, elem) => leftArrowGlow.Color = Color.Transparent;
-            _leftArrow.Append(leftArrowGlow);
+        private void BuildNavArrows()
+        {
+            var normalTex = TerraCraft.GetAsset2D("TerraCraft/Assets/UI/GridCrafting/ArrowSmall", AssetRequestMode.ImmediateLoad);
+            var glowTex = TerraCraft.GetAsset2D("TerraCraft/Assets/UI/GridCrafting/ArrowSmall_Glow", AssetRequestMode.ImmediateLoad);
+
+            float offset = TileId == -1 ? 8 : 0;
+            // 纹理直接给出像素尺寸，不依赖任何 Recalculate
+            _navArrowW = normalTex.Value.Width;
+            _navArrowH = normalTex.Value.Height;
+            _iconTop = _outputTop + _outputSlotH + (TileId == -1 ? offset : IconSpacing);
+
+            _leftArrow = new UIButtonNeo(normalTex, glowTex, spriteEffects: SpriteEffects.FlipHorizontally);
+            _leftArrow.Left.Set(_outputLeft - _navArrowW - NavSpacing + offset, 0f);
+            _leftArrow.Top.Set(_iconTop, 0f);
+            _leftArrow.OnLeftClick += (_, __) => NavigateMatch(-1);
             Append(_leftArrow);
 
-            _rightArrow = new UIImageNeo(arrowSmallTex)
-            {
-                NormalizedOrigin = new Vector2(0.5f),
-                IgnoresMouseInteraction = false,
-                Rotation = -MathHelper.PiOver2,
-                AllowResizingDimensions = false
-            };
-            _rightArrow.OnLeftClick += (evt, elem) => NavigateMatch(1);
-            _rightArrow.SetSize(arrowSmallTex.Width, arrowSmallTex.Height);
-
-
-            var rightArrowGlow = new UIImageNeo(arrowSmallHoveringTex)
-            {
-                NormalizedOrigin = new Vector2(0.5f),
-                IgnoresMouseInteraction = true,
-                Color = Color.Transparent,
-                Rotation = -MathHelper.PiOver2,
-                AllowResizingDimensions = false
-            };
-            rightArrowGlow.SetSize(arrowSmallTex.Width, arrowSmallTex.Height);
-            _rightArrow.OnMouseOver += (evt, elem) =>
-            {
-                rightArrowGlow.Color = Color.White * 0.9f;
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            };
-
-
-            _rightArrow.OnMouseOut += (evt, elem) => rightArrowGlow.Color = Color.Transparent;
-            _rightArrow.Append(rightArrowGlow);
+            _rightArrow = new UIButtonNeo(normalTex, glowTex, spriteEffects: SpriteEffects.None);
+            _rightArrow.Left.Set(_outputLeft + _outputSlotW + NavSpacing - offset, 0f);
+            _rightArrow.Top.Set(_iconTop, 0f);
+            _rightArrow.OnLeftClick += (_, __) => NavigateMatch(1);
             Append(_rightArrow);
+        }
 
-            float navArrowW = _leftArrow.Width.Pixels;
-            float navArrowH = _leftArrow.Height.Pixels;
+        private void BuildIcon()
+        {
+            if (ItemIcon <= ItemID.None || TextureAssets.Item[ItemIcon] == null) return;
 
-            float iconTop = outputTop + outputSlot.Height.Pixels + iconSpacing;
-
-            _leftArrow.Left.Set(outputLeft - navArrowW - navSpacing, 0f);
-            _leftArrow.Top.Set(iconTop, 0f);
-
-            _rightArrow.Left.Set(outputLeft + outputSlot.Width.Pixels + navSpacing, 0f);
-            _rightArrow.Top.Set(iconTop, 0f);
-
-            if (TextureAssets.Item[ItemIcon] != null)
+            var iconTex = TextureAssets.Item[ItemIcon];
+            var icon = new UIImageNeo(iconTex)
             {
-                var iconTexture = TextureAssets.Item[ItemIcon];
-                var craftstationIcon = new UIImageNeo(iconTexture)
-                {
-                    IgnoresMouseInteraction = true,
-                    Color = Color.White * 0.8f
-                };
-                float iconLeft = outputLeft + Math.Abs(iconTexture.Width() - outputSlot.Width.Pixels) / 2;
-                craftstationIcon.SetSize(slotSize);
-                craftstationIcon.Left.Set(iconLeft, 0f);
-                craftstationIcon.Top.Set(iconTop, 0f);
-                Append(craftstationIcon);
-            }
+                IgnoresMouseInteraction = true,
+                Color = Color.White * 0.8f
+            };
+            float left = _outputLeft + Math.Abs(iconTex.Width() - _outputSlotW) / 2f;
+            icon.SetSize(_slotSize);
+            icon.Left.Set(left, 0f);
+            icon.Top.Set(_iconTop, 0f);
+            Append(icon);
+        }
 
-            _originalPanelWidth = outputLeft + outputSlot.Width.Pixels + padding + 4f;
-            _originalPanelHeight = padding + gridActualHeight + padding + 4f;
+        private void ComputePanelSizes()
+        {
+            float gridActualHeight = (GridHeight - 1) * _actualSpacing + _slotSize.Y;
 
-            float navRightEdge = outputLeft + outputSlot.Width.Pixels + navSpacing + navArrowW + padding + 4f;
-            float contentBottom = _originalPanelHeight;
-            float iconHeight = ItemIcon > ItemID.None ? slotSize.Y : 0f;
-            float iconArrowBottom = iconTop + Math.Max(iconHeight, navArrowH) + padding + 4f;
-            if (iconArrowBottom > contentBottom)
-                contentBottom = iconArrowBottom;
+            _originalPanelWidth = _outputLeft + _outputSlotW + Padding + 4f;
+            _originalPanelHeight = Padding + gridActualHeight + Padding + 4f;
+            float offset = TileId == -1 ? 8 : 0;
+            float navRightEdge = _outputLeft + _outputSlotW + NavSpacing + _navArrowW + Padding + 4f - offset;
+            float iconHeight = ItemIcon > ItemID.None ? _slotSize.Y : 0f;
+            float iconArrowBottom = _iconTop + iconHeight + Padding + 4f;
+            float contentBottom = Math.Max(_originalPanelHeight, iconArrowBottom);
 
             _expandedPanelWidth = Math.Max(_originalPanelWidth, navRightEdge);
             _expandedPanelHeight = contentBottom;
-
-            this.SetSize(_originalPanelWidth, _originalPanelHeight);
-
-            UpdateArrowVisibility();
         }
 
+        // ══════════════════════════════════════════════════
+        //  导航 & 可见性
+        // ══════════════════════════════════════════════════
         private void NavigateMatch(int direction)
         {
             if (_allMatches == null || _allMatches.Count <= 1) return;
-
-            _currentMatchIndex += direction;
-            if (_currentMatchIndex < 0) _currentMatchIndex = _allMatches.Count - 1;
-            if (_currentMatchIndex >= _allMatches.Count) _currentMatchIndex = 0;
-
+            _currentMatchIndex = (_currentMatchIndex + direction + _allMatches.Count) % _allMatches.Count;
             UpdateOutputFromMatch();
             _previousRecipeId = _allMatches[_currentMatchIndex].Recipe.Id;
             SoundEngine.PlaySound(SoundID.MenuTick);
@@ -263,11 +264,11 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         private void UpdateOutputFromMatch()
         {
-            if (_allMatches != null && _allMatches.Count > 0 && _currentMatchIndex < _allMatches.Count)
+            var match = MatchAt(_currentMatchIndex);
+            if (match.HasValue)
             {
-                var output = _allMatches[_currentMatchIndex].Recipe.Outputs[0];
-                outputSlot.Item.SetDefaults(output.ItemType);
-                outputSlot.Item.stack = output.Amount;
+                outputSlot.Item.SetDefaults(match.Value.Recipe.Outputs[0].ItemType);
+                outputSlot.Item.stack = match.Value.Recipe.Outputs[0].Amount;
             }
             else
             {
@@ -277,50 +278,25 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         private void UpdateArrowVisibility()
         {
-            bool showArrows = _allMatches != null && _allMatches.Count > 1;
-            if (_leftArrow != null)
-            {
-                if (showArrows)
-                {
-                    _leftArrow.Color = Color.White * 0.9f;
-                    _leftArrow.IgnoresMouseInteraction = false;
-                }
-                else
-                {
-                    _leftArrow.Color = Color.Transparent;
-                    _leftArrow.IgnoresMouseInteraction = true;
-                }
-            }
-            if (_rightArrow != null)
-            {
-                if (showArrows)
-                {
-                    _rightArrow.Color = Color.White * 0.9f;
-                    _rightArrow.IgnoresMouseInteraction = false;
-                }
-                else
-                {
-                    _rightArrow.Color = Color.Transparent;
-                    _rightArrow.IgnoresMouseInteraction = true;
-                }
-            }
+            bool show = _allMatches != null && _allMatches.Count > 1;
+            if (_leftArrow != null) _leftArrow.IgnoresMouseInteraction = !show;
+            if (_rightArrow != null) _rightArrow.IgnoresMouseInteraction = !show;
 
-            if (showArrows)
-                this.SetSize(_expandedPanelWidth, _expandedPanelHeight);
-            else
-                this.SetSize(_originalPanelWidth, _originalPanelHeight);
+            // Active = false 让元素完全跳过 Draw 和 Update
+            if (_leftArrow != null) _leftArrow.Active = show;
+            if (_rightArrow != null) _rightArrow.Active = show;
+
+            this.SetSize(show ? _expandedPanelWidth : _originalPanelWidth, _originalPanelHeight);
         }
 
+        // ══════════════════════════════════════════════════
+        //  Update & Matching
+        // ══════════════════════════════════════════════════
         public override void Update(GameTime gameTime)
         {
-            // ���� InputHandler ��������۽�������ֹԭ���Ԥ
             _inputHandler?.Update();
-            // �ٴ��������
             HandleOutputSlotInteraction();
-            // ���� base��ԭ�� UI ϵͳ��ʱ mouseLeftRelease �ѱ����Ǵ�������
             base.Update(gameTime);
-
-            if (GridWidth == 0) return;
             RefreshMatching();
         }
 
@@ -328,53 +304,45 @@ namespace TerraCraft.Core.UI.GridCrafting
         {
             if (_lastGridItems == null || _lastGridItems.Length != currentGrid.Length)
             {
-                _lastGridItems = currentGrid.Select(item => item?.Clone()).ToArray();
+                _lastGridItems = currentGrid.Select(i => i?.Clone()).ToArray();
                 return true;
             }
-
             for (int i = 0; i < currentGrid.Length; i++)
             {
                 var cur = currentGrid[i];
                 var last = _lastGridItems[i];
-                if (cur == null && last != null) return SetAndReturnTrue(currentGrid);
-                if (cur != null && last == null) return SetAndReturnTrue(currentGrid);
-                if (cur != null && last != null && (cur.type != last.type || cur.stack != last.stack))
-                    return SetAndReturnTrue(currentGrid);
+                if ((cur == null) != (last == null)) { Snapshot(currentGrid); return true; }
+                if (cur != null && (cur.type != last.type || cur.stack != last.stack)) { Snapshot(currentGrid); return true; }
             }
             return false;
 
-            bool SetAndReturnTrue(Item[] items)
-            {
-                _lastGridItems = items.Select(item => item?.Clone()).ToArray();
-                return true;
-            }
+            void Snapshot(Item[] items) => _lastGridItems = items.Select(i => i?.Clone()).ToArray();
         }
 
         private void RefreshMatching()
         {
+            if (inputSlots.Count == 0) { UpdateArrowVisibility(); return; }
+
             Item[] gridItems = inputSlots.Select(s => s.Item).ToArray();
 
-            bool hasDynamicCondition = _allMatches != null && _allMatches.Count > 0 &&
-                               _allMatches.Any(m => m.Recipe.Conditions != null &&
-                                                    m.Recipe.Conditions.Count > 0);
+            bool hasDynamic = _allMatches != null && _allMatches.Count > 0 &&
+                              _allMatches.Any(m => m.Recipe.Conditions?.Count > 0);
 
-            if (!hasDynamicCondition && !HasGridChanged(gridItems)) return;
+            if (!hasDynamic && !HasGridChanged(gridItems)) { UpdateArrowVisibility(); return; }
 
-            string prevRecipeId = _previousRecipeId;
+            string prevId = _previousRecipeId;
 
             _currentMatcher = new GridCraftingMatcher(TileId, GridWidth, GridHeight, gridItems);
-            _allMatches = _currentMatcher.MatchAll();
-            _allMatches = _allMatches.Where(m => AreConditionsMet(m.Recipe)).ToList();
+            _allMatches = _currentMatcher.MatchAll()
+                                             .Where(m => AreConditionsMet(m.Recipe))
+                                             .ToList();
 
-            if (prevRecipeId != null)
+            if (prevId != null)
             {
-                int foundIndex = _allMatches.FindIndex(m => m.Recipe.Id == prevRecipeId);
-                _currentMatchIndex = foundIndex >= 0 ? foundIndex : 0;
+                int idx = _allMatches.FindIndex(m => m.Recipe.Id == prevId);
+                _currentMatchIndex = idx >= 0 ? idx : 0;
             }
-            else
-            {
-                _currentMatchIndex = 0;
-            }
+            else _currentMatchIndex = 0;
 
             if (_allMatches.Count > 0)
             {
@@ -390,37 +358,33 @@ namespace TerraCraft.Core.UI.GridCrafting
             }
 
             UpdateArrowVisibility();
-
-            _lastGridItems = gridItems.Select(item => item?.Clone()).ToArray();
+            _lastGridItems = gridItems.Select(i => i?.Clone()).ToArray();
         }
 
         private bool AreConditionsMet(GriddedRecipe recipe)
         {
-            if (recipe.Conditions == null || recipe.Conditions.Count == 0)
-                return true;
-
-            foreach (string condStr in recipe.Conditions)
+            if (recipe.Conditions == null || recipe.Conditions.Count == 0) return true;
+            foreach (string c in recipe.Conditions)
             {
-                Condition condition = ConditionResolver.Parse(condStr);
-                if (condition == null || !condition.Predicate())
-                    return false;
+                Condition cond = ConditionResolver.Parse(c);
+                if (cond == null || !cond.Predicate()) return false;
             }
             return true;
         }
 
-        // ================= ����۽��� =================
+        // ══════════════════════════════════════════════════
+        //  输出槽交互
+        // ══════════════════════════════════════════════════
         private void HandleOutputSlotInteraction()
         {
             bool leftDown = Main.mouseLeft;
-
             Rectangle outputRect = outputSlot.GetInnerDimensions().ToRectangle();
             bool mouseOverOutput = outputRect.Contains(Main.MouseScreen.ToPoint());
 
             if (!mouseOverOutput || PlayerInput.IgnoreMouseInterface)
             {
-                _craftRepeatTimer = 0;
                 _wasMouseOverOutputLastFrame = false;
-                _wasMouseLeftPressed = leftDown; // �ؼ����뿪ʱҲҪ����
+                _wasMouseLeftPressed = leftDown;
                 return;
             }
 
@@ -435,49 +399,89 @@ namespace TerraCraft.Core.UI.GridCrafting
             }
             else if (leftJustPressed && !shiftHeld && _currentRecipe.HasValue && _currentRecipe.Value.Outputs?.Count > 0)
             {
-                int amount = _currentRecipe.Value.Outputs[0].Amount;
-                if (TryCraftAndGiveToMouse(amount))
+                if (TryCraftAndGiveToMouse(_currentRecipe.Value.Outputs[0].Amount))
                 {
                     RefreshMatching();
                     Main.mouseLeftRelease = false;
                 }
             }
 
-            if (rightHeld && _currentRecipe.HasValue)
+            if (rightHeld && _currentRecipe.HasValue && _currentRecipe.Value.Outputs?.Count > 0)
             {
-                if (_craftRepeatTimer <= 0)
+                _craftStackCounter++;
+
+                if (_craftWaitFrames <= 1)
                 {
-                    if (TryCraftAndGiveToMouse(1))
+                    int outputAmount = _currentRecipe.Value.Outputs[0].Amount;
+                    if (TryCraftAndGiveToMouse(outputAmount))
                     {
                         RefreshMatching();
-                        _craftRepeatTimer = CraftRepeatDelay;
+
+                        if (_craftWaitFrames == 0)
+                            _craftWaitFrames = FIRST_DELAY_FRAMES;
+                        else
+                            _craftWaitFrames = _craftStackDelay;
+
+                        int num;
+                        switch (_craftStackDelay)
+                        {
+                            case 7: num = 30; break;
+                            case 6: num = 25; break;
+                            case 5: num = 20; break;
+                            case 4: num = 15; break;
+                            case 3: num = 10; break;
+                            default: num = 4; break;
+                        }
+                        if (_craftStackCounter >= num)
+                        {
+                            _craftStackDelay--;
+                            if (_craftStackDelay < 2)
+                                _craftStackDelay = 2;
+
+                            _craftTimesTried++;
+                            _craftStackCounter = 0;
+                        }
+                    }
+                    else
+                    {
+                        ResetCraftAcceleration();
                     }
                 }
                 else
-                    _craftRepeatTimer--;
+                {
+                    _craftWaitFrames--;
+                }
+
                 Main.mouseRightRelease = false;
             }
             else
             {
-                _craftRepeatTimer = 0;
+                // 松开右键时完全重置加速状态
+                ResetCraftAcceleration();
             }
 
-            _wasMouseLeftPressed = leftDown; // ͳһ���������
+            _wasMouseLeftPressed = leftDown;
             _wasMouseOverOutputLastFrame = true;
+        }
+        private void ResetCraftAcceleration()
+        {
+            _craftStackDelay = 7;
+            _craftStackCounter = 0;
+            _craftTimesTried = 0;
+            _craftWaitFrames = 0;
         }
 
         private void CraftAll()
         {
             while (_currentRecipe.HasValue && CanConsumeInputs())
-            {
-                if (!TryCraftAndGiveToMouse(_currentRecipe.Value.Outputs[0].Amount, noSound: true))
-                    break;
-            }
+                if (!TryCraftAndGiveToMouse(_currentRecipe.Value.Outputs[0].Amount, noSound: true)) break;
             SoundEngine.PlaySound(SoundID.Grab);
             RefreshMatching();
         }
 
-        // ================= �ϳɺ����߼� =================
+        // ══════════════════════════════════════════════════
+        //  合成核心
+        // ══════════════════════════════════════════════════
         private bool TryCraftAndGiveToMouse(int takeAmount, bool noSound = false)
         {
             if (!_currentRecipe.HasValue || _currentConsumptions == null) return false;
@@ -492,15 +496,12 @@ namespace TerraCraft.Core.UI.GridCrafting
             {
                 int max = output.MaxDurability ?? 100;
                 int initial = output.InitialDurability ?? max;
-                if (max > 0)
-                    craftedItem.durability().EnableDurability(initial, max);
+                if (max > 0) craftedItem.durability().EnableDurability(initial, max);
             }
 
             Item mouseItem = Main.mouseItem;
             if (mouseItem.IsAir)
-            {
                 Main.mouseItem = craftedItem.Clone();
-            }
             else if (mouseItem.type == craftedItem.type && mouseItem.stack < mouseItem.maxStack)
             {
                 int canAdd = Math.Min(craftedItem.stack, mouseItem.maxStack - mouseItem.stack);
@@ -509,12 +510,8 @@ namespace TerraCraft.Core.UI.GridCrafting
                 if (craftedItem.stack > 0) return false;
             }
             else return false;
-
             PerformConsumption();
-            if (!noSound)
-            {
-                SoundEngine.PlaySound(SoundID.Grab);
-            }
+            if (!noSound) SoundEngine.PlaySound(SoundID.Grab);
             return true;
         }
 
@@ -530,47 +527,38 @@ namespace TerraCraft.Core.UI.GridCrafting
 
         private void PerformConsumption()
         {
-            // ��ִ�����ģ����ٶѵ�����������գ�
             foreach (var kv in _currentConsumptions)
             {
                 Item slotItem = inputSlots[kv.Key].Item;
                 slotItem.stack -= kv.Value;
-                if (slotItem.stack <= 0)
-                    slotItem.TurnToAir();
+                if (slotItem.stack <= 0) slotItem.TurnToAir();
             }
 
-            // �����滻�߼�
-            if (_currentReplacements != null)
+            if (_currentReplacements == null) return;
+            foreach (var rep in _currentReplacements)
             {
-                foreach (var rep in _currentReplacements)
+                Item cur = inputSlots[rep.SlotIndex].Item;
+                bool empty = cur.IsAir || cur.stack <= 0;
+                if (empty)
                 {
-                    Item currentItem = inputSlots[rep.SlotIndex].Item;
-                    bool slotIsEmpty = currentItem.IsAir || currentItem.stack <= 0;
-
-                    if (slotIsEmpty)
+                    if (rep.ReplaceWithItem.HasValue)
                     {
-                        // ��λΪ�գ�Ӧ���滻
-                        if (rep.ReplaceWithItem.HasValue)
-                        {
-                            inputSlots[rep.SlotIndex].Item.SetDefaults(rep.ReplaceWithItem.Value);
-                            inputSlots[rep.SlotIndex].Item.stack = rep.ReplaceAmount;
-                        }
-                        else
-                        {
-                            inputSlots[rep.SlotIndex].Item.TurnToAir();
-                        }
+                        inputSlots[rep.SlotIndex].Item.SetDefaults(rep.ReplaceWithItem.Value);
+                        inputSlots[rep.SlotIndex].Item.stack = rep.ReplaceAmount;
                     }
-                    else
-                    {
-                        if (rep.ReplaceWithItem.HasValue)
-                        {
-                            Player.QuickSpawnItem(Player.GetSource_FromThis(), rep.ReplaceWithItem.Value, rep.ReplaceAmount);
-                        }
-                    }
+                    else inputSlots[rep.SlotIndex].Item.TurnToAir();
+                }
+                else
+                {
+                    if (rep.ReplaceWithItem.HasValue)
+                        Player.QuickSpawnItem(Player.GetSource_FromThis(), rep.ReplaceWithItem.Value, rep.ReplaceAmount);
                 }
             }
         }
 
+        // ══════════════════════════════════════════════════
+        //  关闭时退还物品
+        // ══════════════════════════════════════════════════
         public override void OnDeactivate()
         {
             base.OnDeactivate();

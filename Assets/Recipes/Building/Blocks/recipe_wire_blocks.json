@@ -1,0 +1,73 @@
+﻿{
+  "Recipes": [
+    {
+        "Id": "active_stone_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "StoneBlock", "Amount": 1},
+            {"ItemId": "Wire", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "ActiveStoneBlock", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "inactive_stone_block",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "StoneWall", "Amount": 4},
+            {"ItemId": "Wire", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "InactiveStoneBlock", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "conveyor_belt_left",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "ConveyorBeltRight", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "ConveyorBeltLeft", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "conveyor_belt_right",
+        "Shaped": false,
+        "RequiredTiles": [],
+        "Ingredients": [
+            {"ItemId": "ConveyorBeltLeft", "Amount": 1}
+        ],
+        "Outputs": [
+            {"ItemId": "ConveyorBeltRight", "Amount": 1}
+        ]
+    },
+    {
+        "Id": "grate",
+        "Shaped": true,
+        "RequiredTiles": ["HeavyWorkBench"],
+        "Pattern": [
+           [{"RecipeGroup": "IronBar", "Amount": 1}]
+        ],
+        "Outputs": [
+            {"ItemId": "Grate", "Amount": 4}
+        ]
+    },
+    {
+        "Id": "venom_dart_trap",
+        "Shaped": true,
+        "RequiredTiles": ["TerraCraft:MythrilWorkBenches"],
+        "Pattern": 
+        [
+            ["SpiderFang","DartTrap","SpiderFang"]
+        ],
+        "Outputs": [
+            {"ItemId": "VenomDartTrap", "Amount": 4}
+        ]
+    }
+  ]
+}

@@ -27,7 +27,7 @@
             "Id": "oreblocks_reverse_template_group_3_3",
             "MaterialSource": "prehardmode_oreblock_materials",
             "Template": {
-                "Id": "{Name}_bar",
+                "Id": "{Name}_block_reverse",
                 "Shaped": false,
                 "RequiredTiles": [],
                 "Ingredients": [
@@ -50,31 +50,31 @@
             "Id": "prehardmode_oreblock_materials",
             "Materials": [
                 {
-                    "Name": "Copper",
+                    "Name": "copper",
                     "TileId": "HeavyWorkBench",
                     "Bar": "CopperBar",
                     "BlockId": "TerraCraft:CopperBlock"
                 },
                 {
-                    "Name": "Iron",
+                    "Name": "iron",
                     "TileId": "HeavyWorkBench",
                     "Bar": "IronBar",
                     "BlockId": "TerraCraft:IronBlock"
                 },
                 {
-                    "Name": "Gold",
+                    "Name": "gold",
                     "TileId": "HeavyWorkBench",
                     "Bar": "GoldBar",
                     "BlockId": "TerraCraft:GoldBlock"
                 },
                 {
-                    "Name": "Demonite",
+                    "Name": "demonite",
                     "TileId": "HeavyWorkBench",
                     "Bar": "DemoniteBar",
                     "BlockId": "TerraCraft:DemoniteBlock"
                 },
                 {
-                    "Name": "Crimtane",
+                    "Name": "crimtane",
                     "TileId": "HeavyWorkBench",
                     "Bar": "CrimtaneBar",
                     "BlockId": "TerraCraft:CrimtaneBlock"
